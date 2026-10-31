@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.9.0
+
+**Polish**
+- Menus, toasts and buttons animate in instead of snapping. The title flickers.
+- Taking a hit leaves a pale chip on the health bar that drains after it, and the screen edges flush red.
+- Cash counts up, and your kills, cash, level and skill points pop when they change.
+- Level-ups ring out from you with a LEVEL banner and how many skill points you have to spend.
+- Weapons in good condition and high-tier gear on the ground throw up a light beam in their quality colour, so you can spot them from across the screen.
+- Cash, scrap, ammo, meds and other small pickups drift to you when you're close.
+- Footstep dust, and the camera leans a little toward where you aim (further while sneaking).
+- Death fades the screen out.
+
+**Settings**
+- A new Settings screen (Pause, the title screen or the quick menu): sound and music volume, screen shake (off, low, full), damage numbers, flashes, reduce motion, camera lean, compact HUD and a frame-rate counter. Saved on your device.
+- Every keyboard key can be moved. Pick an action, press the new key. Taking a key that's in use swaps the two. Reset puts them all back.
+- The controller screen is linked from Settings.
+
+**Fixes and comfort**
+- A gentler start: a brand-new character takes reduced damage for the first few minutes while learning the ropes. Off in hardcore.
+- The status cards no longer overlap on small screens: they go compact on their own, showing only the essentials. Long text in them is cut off cleanly instead of spilling.
+- The threat line is shorter.
+- Special characters (dashes, symbols) display properly everywhere.
+- A rare explosion with a missing size could break a frame. Fixed.
+
 ## v1.8.1
 
 **Dementia can't run away from your level anymore**

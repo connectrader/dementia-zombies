@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.3
+
+**Controllers**
+- Fixed: on some controllers, holding a stick all the way in one direction for a couple of seconds could scramble the layout. Fire jumped between triggers, the sticks swapped and aiming stopped turning all the way around. Layouts now stay exactly as detected or as you set them.
+
 ## v1.2.2
 
 **Controllers**

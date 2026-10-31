@@ -294,7 +294,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.2</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.3</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -308,7 +308,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.2</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.3</span></p></div></div>
     <p class="fine" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -408,7 +408,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.2.2';
+const GAME_VERSION='1.2.3';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -4710,11 +4710,6 @@ function padPoll(){
   if(!gp){pad.on=false;pad.fire=false;pad.gp=null;return;}
   if(pad.info.id!==gp.id)padLearn(gp);
   pad.gp=gp;pad.idx=gp.index;
-  {const st0=pad.stab||(pad.stab={});const rest=pad.info.rest||[];let changed=false;
-    gp.axes.forEach((v,i)=>{const q=st0[i];if(!q||Math.abs(v-q.v)>.02){st0[i]={v,t:now};return;}
-      if(now-q.t>2000&&Math.abs(v)>.9&&Math.abs((rest[i]||0)-v)>.5){rest[i]=v;changed=true;}});
-    if(changed&&!pad.info.std){const fake={id:gp.id,mapping:gp.mapping,axes:rest};padLearn(fake);pad.info.rest=rest;}
-    else if(changed)pad.info.rest=rest;}
   if(pad.cap){padCapture(gp);return;}
   const S=padSticks(),L=stick(gp,S.lx,S.ly),R=stick(gp,S.rx,S.ry);
   const st={};for(const[a]of PAD_ACTIONS)st[a]=actOn(gp,a);const pv=pad.prevAct||(pad.prevAct={}),P=a=>st[a]&&!pv[a];

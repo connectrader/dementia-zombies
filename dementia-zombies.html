@@ -294,7 +294,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.1</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.2</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -308,7 +308,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.1</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.2</span></p></div></div>
     <p class="fine" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -408,7 +408,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.2.1';
+const GAME_VERSION='1.2.2';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -4634,7 +4634,7 @@ const PAD_ACTIONS=[
 const PAD_STD={fire:['b7'],melee:['b6','b5'],use:['b0'],meds:['b1'],kit:['b2'],swap:['b3'],throw:['b4'],skill:['b10'],unmed:['b11'],
   prevW:['b14'],nextW:['b15'],skills:['b12'],thrNext:['b13'],pause:['b9'],bag:['b8'],marker:[]};
 const PADCFG_KEY='dz-pad';
-let padCfg={assist:.5,vib:true,dz:.18,autofire:false,maps:{}};
+let padCfg={assist:.5,vib:true,dz:.18,autofire:false,reticle:false,maps:{}};
 try{const s=JSON.parse(localStorage.getItem(PADCFG_KEY)||'null');if(s&&typeof s==='object')padCfg=Object.assign(padCfg,s);if(!padCfg.maps||typeof padCfg.maps!=='object')padCfg.maps={};}catch(e){}
 const padSave=()=>{try{localStorage.setItem(PADCFG_KEY,JSON.stringify(padCfg));}catch(e){}};
 const pad={on:false,mx:0,my:0,m:0,aim:0,aimR:6,useAim:false,fire:false,prev:{},last:'kb',idx:-1,gp:null,info:{},rep:{},cap:null};
@@ -4750,7 +4750,7 @@ function padAim(p){
 
 // a sight line and reticle while you play on a controller, so you can see exactly where you're aiming
 function drawPadAim(){
-  if(!G||mode!=='play'||pad.last!=='pad'||!pad.on)return;const p=G.p;if(p.down||isInside(p.x,p.y))return;
+  if(!padCfg.reticle||!G||mode!=='play'||pad.last!=='pad'||!pad.on)return;const p=G.p;if(p.down||isInside(p.x,p.y))return;
   ctx.setTransform(DPR,0,0,DPR,0,0);const sx=p.x*T-camX,sy=p.y*T-camY,c=Math.cos(p.aim),s=Math.sin(p.aim),r=pad.aimR*T;
   ctx.strokeStyle='rgba(231,162,59,.55)';ctx.lineWidth=2;ctx.setLineDash([4,7]);ctx.beginPath();ctx.moveTo(sx+c*T*.8,sy+s*T*.8);ctx.lineTo(sx+c*(r-T*.35),sy+s*(r-T*.35));ctx.stroke();ctx.setLineDash([]);
   const rx=sx+c*r,ry=sy+s*r,k=T*.32;ctx.strokeStyle=pad.fire?'rgba(255,90,60,.95)':'rgba(231,162,59,.9)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(rx,ry,k,0,TAU);ctx.stroke();
@@ -4772,6 +4772,7 @@ function ensurePadPanel(){
     else if(a==='reset'){if(pad.info.id){delete padCfg.maps[pad.info.id];padSave();toast('Controller layout reset.','haze');}renderPadCfg();}
     else if(a.startsWith('as:')){padCfg.assist=+a.slice(3);padSave();renderPadCfg();}
     else if(a.startsWith('dz:')){padCfg.dz=+a.slice(3);padSave();renderPadCfg();}
+    else if(a==='ret'){padCfg.reticle=!padCfg.reticle;padSave();renderPadCfg();}
     else if(a==='af'){padCfg.autofire=!padCfg.autofire;padSave();renderPadCfg();}
     else if(a==='vib'){padCfg.vib=!padCfg.vib;padSave();if(padCfg.vib){const was=pad.last;pad.last='pad';rumble(.6,.6,250);pad.last=was;}renderPadCfg();}});
 }
@@ -4811,6 +4812,7 @@ function renderPadCfg(){
     <div class="item"><b>Aim assist</b><span class="bact">${opt(padCfg.assist,0,'Off','as')}${opt(padCfg.assist,.5,'Low','as')}${opt(padCfg.assist,1,'Normal','as')}${opt(padCfg.assist,1.5,'Strong','as')}</span></div>
     <div class="item"><b>Stick dead zone</b><span class="bact">${opt(padCfg.dz,.1,'Small','dz')}${opt(padCfg.dz,.18,'Normal','dz')}${opt(padCfg.dz,.28,'Large','dz')}</span></div>
     <div class="item"><b>Right stick fires</b><small>Off: aim freely, fire with ${esc(actName('fire'))}. On: pushing the stick most of the way fires, like a twin-stick shooter.</small><span class="bact"><button type="button" class="mini${padCfg.autofire?'':' alt'}" data-pc="af">${padCfg.autofire?'On':'Off'}</button></span></div>
+    <div class="item"><b>Aim reticle</b><small>Shows a sight line and target where you're aiming.</small><span class="bact"><button type="button" class="mini${padCfg.reticle?'':' alt'}" data-pc="ret">${padCfg.reticle?'On':'Off'}</button></span></div>
     <div class="item"><b>Vibration</b><span class="bact"><button type="button" class="mini${padCfg.vib?'':' alt'}" data-pc="vib">${padCfg.vib?'On':'Off'}</button></span></div></div>
   <div class="shopsec"><h3><span>Buttons</span></h3>${binds}<div class="btns"><button type="button" class="btn" data-pc="remap" ${gp?'':'disabled'}>Rebind everything</button><button type="button" class="btn alt" data-pc="reset" ${padMap()?'':'disabled'}>Back to default</button></div>
     <p class="fine">In menus: D-pad or left stick moves, ${esc(actName('use'))} presses, ${esc(actName('meds'))} goes back, ${k==='ps'?'L1 / R1':k==='nin'?'L / R':'LB / RB'} switch tabs at the house, right stick scrolls.</p></div>`;

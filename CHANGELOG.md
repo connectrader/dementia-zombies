@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.2
+
+**Controllers**
+- The aim line and reticle are now off by default. Turn them back on with "Aim reticle" under Pause → Controller.
+
 ## v1.2.1
 
 **Controllers**

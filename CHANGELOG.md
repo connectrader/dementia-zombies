@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.4.0
+
+**Menus on a controller**
+- Every menu is now a vertical list you roll through with up and down. The highlighted item stays centred as you go, and the list wraps around at the ends.
+- Something is always highlighted: menus open on their first item, come back to where you left off, and keep your place after you buy, sell or equip.
+- Up and down follow what's on screen: straight down a skill tree, straight down the shop shelf. Left and right move across a row.
+- The house tabs are on the bumpers (LB and RB on screen), and left or right at the edge of a list flips the tab. In skill trees the bumpers jump between trees.
+- Dropdown settings change with left and right (or A), no pop-up lists.
+- A controls strip along the bottom of every menu shows what each button does on your controller.
+- The Controller settings screen can now be navigated like everything else.
+- Long screens like Help scroll with the D-pad.
+- Mouse and keyboard are unchanged; the controller layout switches on when you pick up the controller and off when you move the mouse. Arrow keys now move through menus too.
+
 ## v1.3.0
 
 **Controllers**

@@ -1,5 +1,33 @@
 # Changelog
 
+## v1.8.0
+
+**The long game: about 80 hours to 100%**
+- Leveling is much slower and paced so a steady player reaches level 240 in about 80 hours. Experience per kill also eases when big crowds are coming at you.
+- Level 240 is the main climb. After that, every level of experience is a Forgotten level and a point on an endless board: Might, Vigor, Focus, Swiftness, Fortune, Greed, Shadow and Reach. Spend them on the Skills screen.
+- New Completion page (Pause or the quick menu): level 240, every difficulty, a dungeon cleared on each difficulty, every kind of dungeon, every stealth run (and each done unseen), every dimension, every named horror, the full bestiary and every class to level 40.
+
+**Difficulty**
+- Twenty tiers, from Normal through Hard, Expert, Master and Torment I to XVI, unlocking from level 1 to 235. Pick one in the new Difficulty tab at home and drop back any time.
+- Higher tiers: tougher dead (1.2× health and 1.12× damage per tier), loot two item levels higher per tier, +25% cash and +6% experience per tier, and more elites.
+- Each tier has a fixed range of weapon conditions and gear tiers, from Broken to Pristine on Normal up to Eldritch to Absolute on Torment XVI. Within a tier, drops lean toward the top of the range as you level.
+
+**Stealth**
+- Sneak: hold Shift, click the left stick, or use the quick menu. You move slower and quieter, and the dead notice you much later.
+- Sneak attacks: anything that hasn't noticed you takes a much harder hit, harder still while sneaking and up close with a melee weapon.
+- New gear stat Shadows (the dead notice you later), new weapon effect Assassin's (bigger sneak attacks) and the Forgotten Shadow stat. Quiet gear and the Scout class help too.
+- Controller: the class skill moves to the right bumper and the left stick click is sneak. The left trigger swings.
+
+**Stealth dungeons** (from level 8, mixed in with the other ways down)
+- Heist: reach the vault at the far end. Guards patrol with visible vision cones and a detection meter; being seen sounds an alarm that wakes every one of them. An unseen heist doubles the vault.
+- Ghost run: reach the far hatch without ever being seen. Spotted means thrown out.
+- Assassination: kill the crowned marks. Guards that see a body raise the alarm; every alarm cuts the pay, and a clean job pays half again.
+
+**Other**
+- Dying no longer ends the run. You drop 10% of your cash and wake up in the house after a few seconds. For one life, start a Hardcore run from the title screen.
+- Hordes start at level 8 and begin small.
+- Dungeons keep getting deeper every 40 levels up to level 200.
+
 ## v1.7.0
 
 **Power, crowds and readable numbers**

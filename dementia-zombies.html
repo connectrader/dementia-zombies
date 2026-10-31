@@ -304,11 +304,12 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.7.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.8.0</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
       <button class="btn" id="bStart" type="button">Step outside</button>
+      <button class="btn alt" id="bStartHC" type="button" title="One life. Dying ends the run.">Hardcore run</button>
       <button class="btn alt" id="bContinue" type="button" hidden>Continue</button>
       <button class="btn alt" id="bTSaves" type="button">Save files</button>
       <button class="btn alt" id="bTUpdate" type="button" hidden>Check for updates</button>
@@ -320,7 +321,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.7.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.8.0</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -329,6 +330,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
       <button class="btn alt" id="bPSaves" type="button">Save files</button>
       <button class="btn alt" id="bPCoop" type="button">Co-op</button>
       <button class="btn alt" id="bPSound" type="button">Sound</button><button class="btn alt" id="bPMusic" type="button">Music</button><button class="btn alt" id="bPPad" type="button">Controller</button><button class="btn alt" id="bPUpdate" type="button" hidden>Check for updates</button>
+      <button class="btn alt" id="bPComp" type="button">Completion</button>
       <button class="btn alt" id="bPHelp" type="button">Help &amp; codes</button>
       <button class="btn alt" id="bRestart" type="button">New run</button>
     </div>
@@ -365,14 +367,14 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
     <p class="lede"><b>Playing together.</b> Everyone's ping shows next to their name. If you die in a co-op world you are not out: you drop a tenth of your cash and wake up in the house eight seconds later. Players below the highest level in the world get catch-up help that grows with the gap: more experience, more damage, less damage taken and better loot. Z drops a marker everyone can see, Y opens chat. The host can kick players from the Co-op screen, and a player whose connection drops gets eight seconds to come back before their spot is given up.</p>
     <p class="lede"><b>Dimensions.</b> From level 20, rifts tear open out in the world. Step in (E) and you are somewhere else for a few minutes: the Goblin Market, the Deep Woods, the Boneyard, the Grey Zone, Nightfall Manor or the Pit, each with its own dead and its own rules, much better loot and more experience, and no house to run to. The way back opens after about a minute and a half. Stay too long and the place throws you out.</p>
     <p class="lede"><b>Every dimension is its own place.</b> Each one looks different and is the only place certain effects drop. All lifesteal (Vampiric weapons, the Leech on gear and the Blood element) comes from Nightfall Manor. Hellfire and Explosive come from the Pit, Seeking, Phantom and Gravitic from the Grey Zone, Unbroken and Executing from the Boneyard, Fleet and Deadshot from the Deep Woods, Lucky and Scavenging from the Goblin Market. Things you already own keep what they have.</p>
-    <p class="lede"><b>Dungeons.</b> From level 6, a way down opens nearby every few minutes: a root cellar, the storm drains, a hospital basement or a fallout shelter. Each is a fixed set of rooms with a fixed number of the dead, and nothing else comes. A named horror waits in the last room. Clear every one and a chest opens with a pile of loot, cash, parts and experience. Climb back out by the ladder any time. Deeper dungeons (every 25 levels) have more rooms and better chests.</p>
+    <p class="lede"><b>Dungeons.</b> From level 6, a way down opens nearby every few minutes: a root cellar, the storm drains, a hospital basement or a fallout shelter. Each is a fixed set of rooms with a fixed number of the dead, and nothing else comes. A named horror waits in the last room. Clear every one and a chest opens with a pile of loot, cash, parts and experience. Climb back out by the ladder any time. Deeper dungeons (every 40 levels) have more rooms and better chests. From level 8 some ways down are stealth runs: a heist, a ghost run or an assassination.</p>
     <p class="lede"><b>Hordes.</b> Every minute or so a pack comes at you from one direction, and you get a warning saying which way. The stronger you get, the more the dead answer with numbers rather than toughness: bigger crowds, faster spawns, bigger packs, more elites and more traits stacked on them. Single zombies keep getting easier; the answer to the crowd is effects. Piercing, Twin, Arcing, Splitting, Ricocheting and Explosive all get stronger on weapons in better condition.</p>
     <p class="lede"><b>Soft caps.</b> Bonuses from gear, counter treatments and the endless skills count in full up to a point, then each extra bit is worth less. A weapon or piece of gear you keep tuning, or that keeps up with you through its bond, gains less from every level past where it dropped, so new finds catch up with old favourites.</p>
     <p class="lede"><b>Loot goblins.</b> They show up in every dimension and now and then at home. They never fight back. They run, and after about 20 seconds they open a portal and escape. Catch one and it bursts with loot: about ten items, or a fortune in cash, weapons, armor, relics or materials depending on the kind. Hitting one spills a little as you chase it.</p>
     <p class="lede"><b>Crazed survivors.</b> From level 4, armed survivors who lost it come after you with a real weapon for your level. They aim badly, so keep moving. They often drop the weapon they were carrying.</p>
     <p class="lede"><b>More of the dead.</b> Leapers pounce, hoarders run off with full pockets (catch them), clingers slow you, riot zombies hide behind shields, burrowers travel underground and pop up beside you, hazmats leave toxic puddles, brood mothers spit out crawlers, pyres burn and explode, nurses heal the dead around them (kill them first) and phantoms flicker out of your shots. New elite traits: shielded, explosive, frostbitten, thorned, blinking, summoning and toxic. The game tells you what each one does the first time you meet it.</p>
     <p class="lede"><b>Streaks.</b> Kills less than 3 seconds apart chain into a streak. Each kill in a streak gives 1% more experience, up to 60%, and big streaks get called out. Early levels come faster while you find your feet.</p>
-    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims, the right trigger fires (turn on "Right stick fires" under Pause → Controller for twin-stick style), the left trigger or right bumper swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, clicking the left stick fires your class skill, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start always opens the pause screen, from play or from any menu. Select (View, Share, Minus) opens the quick menu: every screen, plus actions for wherever you're standing, so nothing needs a button of its own. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
+    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims, the right trigger fires (turn on "Right stick fires" under Pause → Controller for twin-stick style), the left trigger swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, right bumper fires your class skill, clicking the left stick sneaks, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start always opens the pause screen, from play or from any menu. Select (View, Share, Minus) opens the quick menu: every screen, plus actions for wherever you're standing, so nothing needs a button of its own. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
     <p class="lede"><b>Party and co-op.</b> Take up to 3 roommates along from the Party tab at home. They follow you, fight with the weapon you hand them, and each class has a trick: medics heal, tanks taunt, grenadiers lob frags, callers bring airstrikes. If you drop, you go down instead of dying while anyone in the party is still standing; they have 30 seconds to reach you. Press <kbd>C</kbd> for co-op: host a game or join one, up to 4 players, and friends take over roommate spots. It runs through claude.ai's live room, so friends need this page shared with them.</p>
     <p class="lede"><b>Places and throwables.</b> 22 kinds of place dot the city, each guarded, each with a themed cache that restocks every 4 days. 16 throwables, from molotovs and noisemakers to bear traps, airstrikes and a suitcase nuke. <kbd>G</kbd> throws, <kbd>T</kbd> switches.</p>
     <p class="eyebrow">Cheat codes &middot; press <kbd>`</kbd> or <kbd>Enter</kbd>, or tap Codes</p>
@@ -424,7 +426,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.7.0';
+const GAME_VERSION='1.8.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -478,7 +480,8 @@ const randn=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();r
 /* ---------- progression ---------- */
 const LVCAP=1e100;
 const need=L=>30*Math.pow(Math.max(0,L-1),1.7);
-const levelOf=t=>Math.min(LVCAP,1+Math.floor(Math.pow(Math.max(0,t)/30,1/1.7)+1e-7));
+const LVMAIN=240;
+const levelOf=t=>Math.min(LVMAIN,1+Math.floor(Math.pow(Math.max(0,t)/30,1/1.7)+1e-7));
 const oldLevelOf=t=>Math.min(LVCAP,1+Math.floor(Math.pow(Math.max(0,t)/25,1/1.4)+1e-7));
 const TIERS=[[0,'Lucid'],[15,'Forgetful'],[40,'Muddled'],[80,'Confused'],[140,'Lost'],[220,'Unmoored'],[320,'Hollow'],[450,'Unremembered'],[650,'Nameless'],[900,'Void']];
 function tier(d){
@@ -769,7 +772,7 @@ function genWeapon(ilvl,luck,o){
   o=o||{};ilvl=Math.max(1,Math.floor(Math.min(LVCAP,ilvl||1)));
   let t=o.type?WT.find(x=>x.k===o.type):null;
   if(!t){const pool=WT.filter(x=>x.lv<=ilvl);let tot=0;for(const x of pool)tot+=x.sci?.6:1;let r=Math.random()*tot;for(const x of pool){r-=x.sci?.6:1;if(r<=0){t=x;break;}}t=t||pool[0];}
-  const s=o.s!=null?clamp(Math.round(o.s),0,SMAX):rollState(luck||0,o.bump);
+  const s=o.s!=null?clamp(Math.round(o.s),0,SMAX):rollStateD(luck||0,o.bump);
   const mi=o.mat!=null?o.mat:rollMat(ilvl),mat=MATS[mi];
   const vg=VAR[vgOf(t)];
   let vi=-1;
@@ -883,7 +886,7 @@ const OWNERS=['Grandpa\'s','Grandma\'s','Mom\'s','Dad\'s','Your Wedding','Your S
 function rollGearTier(luck,bump){return clamp(Math.round(2+1.4*Math.log2(1+Math.max(0,luck)*2.5)+randn()*1.2+(bump||0)),0,9);}
 function genGear(ilvl,luck,o){
   o=o||{};ilvl=Math.max(1,Math.floor(Math.min(LVCAP,ilvl||1)));
-  let tier=o.tier!=null?clamp(Math.round(o.tier),0,OBLV):rollGearTier(luck,o.bump);
+  let tier=o.tier!=null?clamp(Math.round(o.tier),0,OBLV):rollGearTierD(luck,o.bump);
   if(o.tier==null&&o.sp){if(Math.random()<(o.sp.o||0)&&LV>=40)tier=OBLV;else if(Math.random()<(o.sp.h||0))tier=HEIR;}
   let pool=GB.filter(b=>b.lv<=ilvl);if(o.slot)pool=pool.filter(b=>b.slot===o.slot);if(!pool.length)pool=GB.filter(b=>b.slot===(o.slot||'chest'));
   const b=o.base&&GBI[o.base]?GBI[o.base]:pick(pool),T=GTIER[tier],lf=1+Math.log10(ilvl)/4;
@@ -1197,12 +1200,12 @@ const heldF=()=>{const w=G.p.slots[G.p.cur];return(w&&w.f)||{};};
 const bAct=k=>{const b=G.p.bf&&G.p.bf[k];return b&&b.t>0?b.v:0;};
 function buff(k,t,v){const b=G.p.bf||(G.p.bf={});const c=b[k];if(c&&c.t>0){c.t=Math.max(c.t,t);c.v=Math.max(c.v,v);}else b[k]={t,v};}
 const buffDmgL=()=>LG(1+bAct('fury'))+(bAct('rage')?LG(6):0)+homeDmgL()+clsDmgL()+qkDmgL()+cuDmgL();
-const maxHPL=()=>LG(100)+(LV-1)*GRH+LG(1+soft(.15*G.upg.hp,1.5))+LG(1+soft(.02*sk('stubborn'),1))+LG(1+gs().hp)+homeHPL()+clsHPL();
+const maxHPL=()=>(G?fgHPL():0)+LG(100)+(LV-1)*GRH+LG(1+soft(.15*G.upg.hp,1.5))+LG(1+soft(.02*sk('stubborn'),1))+LG(1+gs().hp)+homeHPL()+clsHPL();
 const armorMul=()=>(1-.6*(1-Math.pow(.88,G.upg.armor)))*Math.pow(.97,sk('thick'))*(1-Math.min(.6,fxAll('bulwark')));
-const pSpeed=()=>5*(1+.05*Math.min(10,G.upg.boots))*(1+.02*sk('spry'))*(1+fxAll('fleet'))*(1+gs().speed+homeSpd()+clsSpd()+qkSpd())*(G.p&&G.p.slowT>0?.55:1)*(G.wx&&G.wx.id==='snow'?.92:1)*(petOn('rabbit')?1.06:1)*(gs().ob.eventide&&isNight()?1.2:1)*(1+bAct('swift'))*(bAct('rage')?1.4:1);
-const knifeMulL=()=>LG(1+soft(.3*G.upg.blade,2))+LG(1+.12*sk('whet'))+LG(1+soft(.03*sk('rhythm'),1.2))+clsMeleeL();
+const pSpeed=()=>(G&&G.p&&G.p.sneak?.55:1)*5*(1+soft(.004*fgp('swift'),.3))*(1+.05*Math.min(10,G.upg.boots))*(1+.02*sk('spry'))*(1+fxAll('fleet'))*(1+gs().speed+homeSpd()+clsSpd()+qkSpd())*(G.p&&G.p.slowT>0?.55:1)*(G.wx&&G.wx.id==='snow'?.92:1)*(petOn('rabbit')?1.06:1)*(gs().ob.eventide&&isNight()?1.2:1)*(1+bAct('swift'))*(bAct('rage')?1.4:1);
+const knifeMulL=()=>(G?fgDmgL():0)+LG(1+soft(.3*G.upg.blade,2))+LG(1+.12*sk('whet'))+LG(1+soft(.03*sk('rhythm'),1.2))+clsMeleeL();
 const stabL=()=>LG(20)+(dLV()-1)*GRW+knifeMulL();
-const gunMulL=()=>LG(1+.06*sk('steady'))+LG(1+soft(.02*sk('discipline'),1))+clsGunL();
+const gunMulL=()=>(G?fgDmgL():0)+LG(1+.06*sk('steady'))+LG(1+soft(.02*sk('discipline'),1))+clsGunL();
 const wBaseL=w=>w?w.dmgL+(w.beh==='melee'?knifeMulL():gunMulL()):stabL();
 const priceMul=()=>(1-.03*sk('haggle'))*(G&&G.ev&&G.ev.id==='firesale'?.6:1);
 const isNight=()=>G.clock>=240||G.clock<20;
@@ -1271,12 +1274,12 @@ function makeZombie(x,y,type,noElite){
   const d=G.dementia;if(!type)type=rollZType();
   const t=ZT[type],of=Math.random()<.55?0:1+((Math.random()*(OUTFIT.length-1))|0),O=OUTFIT[of];
   const pc=O&&O.c?hexA(O.c):hexA(pick(PSHIRT)),zc=[(pc[0]*.45+38)|0,(pc[1]*.45+40)|0,(pc[2]*.45+33)|0];
-  const hpL=LG(30)+(zTz()-1)*GRW+LG(1+Math.min(zTz(),1e300)/60)+Math.max(LG(1+.025*zTd()),Math.min(zTd(),1e300)/12*GRW)+LG(1+Math.min(zTd(),1e300)/600)+LG(t.hp)+LG(evHp()*phHp())+(G&&G.adO>0?Math.min(G.adO,60):0);
-  const z={x,y,vx:0,vy:0,kx:0,ky:0,type,hpL,mhpL:hpL,dmgL:LG(9)+(zTz()-1)*GRH+LG(1+Math.min(zTz(),1e300)/35)+LG(1+.0025*Math.min(zTd(),1e300))+LG(t.dmg)+LG(evDmg()*phDmg())+(G&&G.adD>0?Math.min(G.adD,60):0),spd:t.spd*rnd(.9,1.1),r:t.r,
+  const hpL=LG(30)+(zTz()-1)*GRW+LG(1+Math.min(zTz(),1e300)/60)+Math.max(LG(1+.025*zTd()),Math.min(zTd(),1e300)/12*GRW)+LG(1+Math.min(zTd(),1e300)/600)+LG(t.hp)+LG(evHp()*phHp())+(G?dHpL():0)+(G&&G.adO>0?Math.min(G.adO,60):0);
+  const z={x,y,vx:0,vy:0,kx:0,ky:0,type,hpL,mhpL:hpL,dmgL:LG(9)+(zTz()-1)*GRH+LG(1+Math.min(zTz(),1e300)/35)+LG(1+.0025*Math.min(zTd(),1e300))+LG(t.dmg)+LG(evDmg()*phDmg())+(G?dDmgL():0)+(G&&G.adD>0?Math.min(G.adD,60):0),spd:t.spd*rnd(.9,1.1),r:t.r,
     hunt:Math.random()<.3+Math.min(d,1e4)/200,aggro:0,atk:0,dying:0,face:rnd(TAU),wa:rnd(TAU),seed:rnd(1000),flash:0,
     zs:hexA(pick(ZSKIN)),zc,ps:hexA(pick(PSKIN)),pc,ph:pick(PHAIR),of,ea:null,cd:rnd(1,3)};
   if(!noElite&&LV>=4){
-    const ch=(Math.min(.14,.01+LV/1500+Math.min(d,1e4)/4000)+Math.min(.12,(G&&G.adP||0)*.06))*(hardEv()?2:evId()==='calm'?0:1);
+    const ch=(Math.min(.14,.01+LV/1500+Math.min(d,1e4)/4000)+Math.min(.12,(G&&G.adP||0)*.06)+(G?dElite():0))*(hardEv()?2:evId()==='calm'?0:1);
     if(Math.random()<ch){
       const EO=eliteOk();z.ea=[pick(EO).id];const zp=G&&G.adP||0;if((LV>60||zp>.8)&&Math.random()<.4+Math.min(.3,zp*.1)){const e2=pick(EO).id;if(!z.ea.includes(e2))z.ea.push(e2);}if((LV>120||zp>1.6)&&Math.random()<.3+Math.min(.3,zp*.08)){const e3=pick(EO).id;if(!z.ea.includes(e3))z.ea.push(e3);}
       z.hpL+=LG(3);z.dmgL+=LG(1.3);
@@ -1529,11 +1532,11 @@ function dropLoot(z,w){
   dropMats(z);
   const d=G.dementia,t=ZT[z.type],ts=1+.06*sk('sense'),f=(w&&w.f)||{},sc=f.scavenger||0,elite=z.ea?4:1,el2=evLoot(),mc=w?(MATS[w.mat].cash||0):0;
   const lmL=d>0?lAdd(0,LG(d*.03)+LG(1+soft(.04*sk('embrace'),1.5))):0;
-  addItem(z.x,z.y,'cash',LG(6)+(dLV()-1)*GRC+(d>0?LG(1+soft(.04*sk('embrace'),1.5)):0)+LG(t.cash*rnd(.7,1.3)*(1+soft(.12*G.upg.pockets,1.2))*(1+.08*sk('packrat'))*(1+sc)*elite*(z.boss?40:1)*el2*(1+mc)*(1+gs().cash+homeCash())*(gs().ob.hollowluck?.5:1)));
+  addItem(z.x,z.y,'cash',LG(6)+(dLV()-1)*GRC+(d>0?LG(1+soft(.04*sk('embrace'),1.5)):0)+LG(t.cash*rnd(.7,1.3)*(1+soft(.12*G.upg.pockets,1.2))*(1+.08*sk('packrat'))*(1+sc)*elite*(z.boss?40:1)*el2*(1+mc)*(1+gs().cash+homeCash())*dCash()*(1+.03*fgp('greed'))*(gs().ob.hollowluck?.5:1)));
   if(Math.random()<.18||z.boss)addItem(z.x,z.y,'ammo',Math.round(rnd(18,40)*(1+Math.min(d,1e4)/200)*(z.boss?4:1)));
   if(Math.random()<.05*(1+Math.min(d,1e4)/150)||z.boss)addItem(z.x,z.y,'medkit',1);
   if(Math.random()<.025+Math.min(d,1e4)*.0001||z.boss)addItem(z.x,z.y,'meds',1);
-  const luck=(d/120+LV/220)*ts*(isNight()?1.3:1)*(evId()==='bloodmoon'?1.6:1)*(1+gs().luck+homeLuck())*(gs().ob.hollowluck?2.5:1);
+  const luck=(d/120+LV/220+dLuck()+.02*fgp('fortune'))*ts*(isNight()?1.3:1)*(evId()==='bloodmoon'?1.6:1)*(1+gs().luck+homeLuck())*(gs().ob.hollowluck?2.5:1);
   if(z.boss){for(let i=0;i<2;i++)addItem(z.x,z.y,'weapon',0,jackpot(luck));addItem(z.x,z.y,'gear',0,null,genGear(dLV()+Math.floor(rnd(4,14)),luck+2,{bump:2,sp:{h:.3,o:.1}}));return;}
   const ch=Math.min(.06,.012*(1+Math.min(d,1e4)/500)*(BIG(z.type)?2.5:1)*ts*(1+(f.lucky||0)+(gs().fx.lucky||0))*el2)*(z.ea?6:1);
   if(Math.random()<ch){const jp=Math.random()<.015;addItem(z.x,z.y,'weapon',0,jp?jackpot(luck):genWeapon(dLV(),luck));if(jp)floater(z.x,z.y-.8,'JACKPOT','lv');}
@@ -1656,11 +1659,11 @@ function tryFire(inside){
   if(melee)swing(w,L);else if(w.beh==='rail')rail(w,L);else if(w.beh==='tesla')tesla(w,L);else shoot(w,L);
   if(f.legion)ghosts(2,L+LG(f.legion),w);
   qkFire(w,melee);sfxW(w);
-  const nz=w.noise*(1-.08*sk('muffle'))*(1-clsP('quiet'))*qkNoise();if(nz>2.5)makeNoise(p.x,p.y,nz);
+  const nz=w.noise*(1-.08*sk('muffle'))*(1-clsP('quiet'))*qkNoise()*stealthNoise();if(nz>2.5)makeNoise(p.x,p.y,nz);
   if(!RM)shake=Math.max(shake,melee?1:w.beh==='rocket'||w.beh==='rail'?6:w.pel>3?5:w.noise>15?3:1.4);
 }
 function swing(w,L){
-  const p=G.p,reach=w.reach*(1+.08*sk('reach'))*(1+gs().range*.5),arc=w.arc*(1+.08*sk('reach')),shv=(1+.25*sk('shove'))*w.kb;
+  const p=G.p,reach=w.reach*(1+.08*sk('reach'))*(1+gs().range*.5+soft(.01*fgp('reach'),.4)*.5),arc=w.arc*(1+.08*sk('reach')),shv=(1+.25*sk('shove'))*w.kb;
   p.swing=.22;p.swingR=reach;p.swingA=arc;p.swingC=wCol(w);
   let first=null;
   for(const z of G.zombies){
@@ -1683,7 +1686,7 @@ function shoot(w,L){
   const k=w.beh==='rocket'?'r':w.beh==='orb'?'o':w.beh==='flame'?'f':'b';
   const pierce=w.pierce+sk('hollow'),critP=Math.min(.9,w.crit+.03*sk('deadeye')),col=wCol(w),rad=k==='o'?.3:k==='f'?.35:k==='r'?.2:.06;
   for(let i=0;i<w.pel;i++){
-    const a=p.aim+(Math.random()-.5)*2*w.spr,sp=w.spd*rnd(.92,1.08),life=w.range*(1+gs().range)/w.spd*(k==='f'?rnd(.7,1.1):1);
+    const a=p.aim+(Math.random()-.5)*2*w.spr,sp=w.spd*rnd(.92,1.08),life=w.range*(1+gs().range+soft(.01*fgp('reach'),.4))/w.spd*(k==='f'?rnd(.7,1.1):1);
     bullets.push({k,x:mx,y:my,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life,life0:life,L,pierce,critP,critM:w.critM,hit:[],w,rad,col,ph:!!f.phantom,hm:!!(f.homing||w.homing),aoe:w.aoe,ric:(f.ricochet?f.ricochet+Math.floor((w.s||0)/6):0)||0});
   }
   if(k!=='f')flashes.push({x:mx,y:my,t:.07,col:k==='b'&&!w.sci?'#ffd282':col});
@@ -1835,7 +1838,7 @@ function update(dt){
 
   // zombies
   const d=G.dementia,fog=G.wx&&G.wx.id==='fog';
-  const detectR=Math.min(40,9+Math.min(d,1e4)*.08)*(1-.05*sk('fog'))*(fog?.6:1)*(isNight()?1.2:1)*qkDetect();
+  const detectR=Math.min(40,9+Math.min(d,1e4)*.08)*(1-.05*sk('fog'))*(fog?.6:1)*(isNight()?1.2:1)*qkDetect()*stealthDetect();
   const spdMul=(1+.55*(1-Math.exp(-d/90)))*evSpd(),cap=pSpeed()*1.02,vr=viewR();
   let crowd=0;
   if(NET.role==='client')netMirrorTick(dt);else for(let i=G.zombies.length-1;i>=0;i--){
@@ -1870,7 +1873,7 @@ function update(dt){
       z.wa+=(Math.random()-.5)*dt*3;mx=Math.cos(z.wa);my=Math.sin(z.wa);sp*=.3;
       if(dist>12){mx=mx*.4+dx/dist*.6;my=my*.4+dy/dist*.6;}
     }else{
-      if(!z.hunt&&dist<detectR)z.hunt=true;
+      if(!z.hunt&&!z.guard&&dist<detectR)z.hunt=true;
       if(z.hunt){const f=tp===p?fieldDir(z):null;if(f){mx=f[0];my=f[1];}else{mx=dx/dist;my=dy/dist;}}
       else{const a=Math.atan2(dy,dx)+Math.sin(G.time*.4+z.seed)*1.1;mx=Math.cos(a);my=Math.sin(a);sp*=.45;}
       if(z.type==='spitter'&&z.hunt&&dist<7.5&&dist>2.5){sp*=.25;if(z.cd<=0){z.cd=rnd(2.2,3);const s2=8;eproj.push({x:z.x,y:z.y,vx:dx/dist*s2,vy:dy/dist*s2,life:1.2,L:z.dmgL});}}
@@ -2366,14 +2369,14 @@ let slotSig='';
 function hud(){
   partyHud();clsHud();if(G.um){const k=G.umSel;setT('umT',`${UM[k].n} ×${fmtI(G.um[k]||0)}`);}{const g=threatGap(),r=$('threatRow');if(r){const on=g>=1&&mode!=='title';if(r.hidden===on)r.hidden=!on;if(on)setT('threatT',`catching up · ${fmt(g)} lv behind`);}}
   const p=G.p,mhL=maxHPL(),t0=need(LV),t1=need(LV+1);
-  setT('lvNum',fmtI(LV));setT('armT',Math.round(gearRed()*100)+'% blocked');setT('bagN',G.inv.length+'/'+bagCap());setW('lvBar',t1>t0?(G.totalOut-t0)/(t1-t0):0);
+  setT('lvNum',fmtI(LV)+(LV>=LVMAIN?' · F'+fmtI(fgLv()):''));setT('armT',Math.round(gearRed()*100)+'% blocked');setT('bagN',G.inv.length+'/'+bagCap());if(LV>=LVMAIN){const F=fgLv(),a=fgNeed(F),b=fgNeed(F+1);setW('lvBar',b>a?(G.totalOut-a)/(b-a):0);}else setW('lvBar',t1>t0?(G.totalOut-t0)/(t1-t0):0);
   const xmv=xpMul()*evXP()*homeXP(),kl=Math.max(1,Math.ceil((t1-G.totalOut)/(5*xmv)));setT('lvNext',`~${fmt(kl)} kill${kl===1?'':'s'} to go · ×${xmv<10?xmv.toFixed(1):fmt(xmv)} XP`);
   setT('hpTxt',lfmt(LG(p.hpF)+mhL)+' / '+lfmt(mhL));setW('hpBar',p.hpF);
   const tr=tier(G.dementia);setT('demTxt',tr.name+' · '+fmt(G.dementia));setW('demBar',tr.frac);
   setT('cash','$'+lfmt(G.cashL));setT('ammo',G.cheats.ammo||bAct('rage')?'∞':fmt(Math.floor(G.ammo)));setT('meds',fmt(G.meds));setT('kits',fmt(G.medkits));setT('kills',fmtI(G.kills));
   {const sa=spAvail();setT('spT',fmt(sa));const dot=$('spDot');if(dot.hidden!==(sa<=0))dot.hidden=sa<=0;if(sa>0)setT('spDot',fmt(sa));}
   const hr=(5+G.clock/DAY*24)%24,hh=Math.floor(hr),mm=Math.floor((hr-hh)*60);
-  setT('world',`Day ${G.day} · ${pad2(hh)}:${pad2(mm)} · ${dayPhase()} · ${WXN[G.wx.id]}${G.ph&&!isInside(p.x,p.y)?' · '+PHASES[phId()].n:''}`);
+  setT('world',`${G.hardcore?'Hardcore · ':''}${dIdx()?dName()+' · ':''}Day ${G.day} · ${pad2(hh)}:${pad2(mm)} · ${dayPhase()} · ${WXN[G.wx.id]}${G.ph&&!isInside(p.x,p.y)?' · '+PHASES[phId()].n:''}`);
   const bl=[];if(p.bf)for(const k in p.bf){const b=p.bf[k];if(b.t>0)bl.push(`${{fury:'Fury',haste:'Haste',swift:'Swift',rage:'Remembered'}[k]||k} ${Math.ceil(b.t)}s`);}
   {const c=cuTxt();if(c)bl.push(c);}for(const e of(G.umFx||[]))bl.push(`${UM[e.k].n} ×${e.m}${e.trip?' till home':' '+Math.ceil(e.t)+'s'}`);if(restOn())bl.push('Well Rested '+Math.ceil(G.home.rest.t)+'s');if(fatigue()<.95)bl.push('Tired ×'+fatigue().toFixed(2)+' XP');if(p.shieldT>0)bl.push('Aegis');if(p.fzT>0&&p.fz)bl.push(`Frenzy ×${p.fz}`);
   setT('buffT',bl.join(' · '));$('buffRow').hidden=!bl.length;
@@ -3146,7 +3149,7 @@ function drawThrIcon(k,s){const D=THR[k]||THR.frag;ctx.fillStyle=D.col;ctx.begin
 function drawPartsIcon(s){ctx.fillStyle='#8a8478';ctx.beginPath();for(let i=0;i<8;i++){const a=i/8*TAU,r=i%2?s*.13:s*.19;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}ctx.closePath();ctx.fill();ctx.fillStyle='#3d3a34';ctx.beginPath();ctx.arc(0,0,s*.06,0,TAU);ctx.fill();}
 
 // ===== the house screens =====
-const HTABS=[['counter','Counter'],['party','Party'],['cls','Classes'],['craft','Crafting'],['bench','Workbench'],['wall','Weapon wall'],['bed','Bedroom'],['mates','Roommates'],['pets','Kennel'],['radio','Radio'],['mem','Memories'],['troph','Trophies'],['lab','Garage lab'],['rooms','Renovate']];
+const HTABS=[['counter','Counter'],['diff','Difficulty'],['party','Party'],['cls','Classes'],['craft','Crafting'],['bench','Workbench'],['wall','Weapon wall'],['bed','Bedroom'],['mates','Roommates'],['pets','Kennel'],['radio','Radio'],['mem','Memories'],['troph','Trophies'],['lab','Garage lab'],['rooms','Renovate']];
 function tabsHTML(){
   const H=G.home,badge={bench:G.p.slots.reduce((a,w)=>a+(w&&w.pp?w.pp:0),0),radio:H.bty.filter(b=>b.c>=b.n).length,bed:H.sleptDay!==G.day?'zz':0,mem:0};
   return`<div class="htabs" role="tablist">${HTABS.map(([id,n])=>`<button type="button" role="tab" aria-selected="${htab===id}" data-buy="h:tab:${id}">${n}${badge[id]?`<i>${badge[id]}</i>`:''}</button>`).join('')}</div>`;
@@ -3156,7 +3159,7 @@ function renderShop(){
   if(!G.home)homeInit();
   if(htab==='camp'){renderCamp();return;}
   if(htab==='counter'){renderCounter();const ph=$('shopBody').querySelector('.padhead');if(ph)ph.insertAdjacentHTML('afterend',tabsHTML());return;}
-  const f={party:partyHTML,cls:clsHTML,craft:craftHTML,bench:benchHTML,wall:wallHTML,bed:bedHTML,mates:matesHTML,pets:petsHTML,radio:radioHTML,mem:memHTML,troph:trophHTML,lab:labHTML,rooms:roomsHTML}[htab]||benchHTML;
+  const f={diff:diffHTML,party:partyHTML,cls:clsHTML,craft:craftHTML,bench:benchHTML,wall:wallHTML,bed:bedHTML,mates:matesHTML,pets:petsHTML,radio:radioHTML,mem:memHTML,troph:trophHTML,lab:labHTML,rooms:roomsHTML}[htab]||benchHTML;
   const[t,s,body]=f();
   $('shopBody').innerHTML=hHead(t,s)+tabsHTML()+body+`<div class="btns"><button class="btn" type="button" id="bShopX">Back outside</button><span class="fine" style="margin:0">${G.parts} parts · ${fmtI(G.inv.length)}/${fmtI(bagCap())} in your bag</span></div>`;
 }
@@ -3760,7 +3763,7 @@ function clsArm(){let a=clsP('arm');const mul=b=>{a=1-(1-a)*(1-b);};if(clsFx('st
 const clsDodge=()=>Math.random()<Math.min(.35,clsP('dodge')+(clsSig('bulwark')?.25:0)+(clsSig('scout')?.15:0));
 const clsSpd=()=>clsP('spd')+(clsFx('vanish')?.5:0)+(clsFx('wind')?.3:0)+(clsSig('survivor')?.1:0);
 const clsRate=melee=>(1+clsP('rate'))*(clsFx('fan')||clsFx('over')?2:1)*(!melee&&clsSig('gunslinger')?1.2:1);
-const clsCrit=()=>clsP('crit')+(clsFx('deadeye')?1:0)+(clsFx('allin')?.5:0);
+const clsCrit=()=>soft(.004*fgp('focus'),.25)+clsP('crit')+(clsFx('deadeye')?1:0)+(clsFx('allin')?.5:0);
 const clsCritM=()=>clsP('critM');
 const clsRegen=()=>clsP('regen')+(clsSig('medic')?.01:0)+(clsFx('medr')?.02*abPow():0)+(clsFx('sanct')&&G.cls.sz&&Math.hypot(G.p.x-G.cls.sz.x,G.p.y-G.cls.sz.y)<4?.03:0)+(clsFx('miasma')&&G.cls.sz&&Math.hypot(G.p.x-G.cls.sz.x,G.p.y-G.cls.sz.y)<3?.02:0);
 const clsFree=()=>clsFx('fan')||clsFx('over');
@@ -3884,9 +3887,9 @@ function clsAct(a){
 
 /* ---------- unmeds: things that make it worse, on purpose ---------- */
 // Loot from every source follows the same effective level as drops: your level plus a step per 12 dementia.
-const dLV=()=>Math.min(LVCAP,(G&&G.dun?2+G.dun.depth*2:0)+LV+Math.floor(Math.min(G&&G.dementia||0,1e300)/12)+(G&&G.dim&&typeof DIMS!=='undefined'&&DIMS[G.dim.k]?DIMS[G.dim.k].dlv:0)+(G&&NET.role?cuLoot():0));
+const dLV=()=>Math.min(LVCAP,(G?dIlvl():0)+(G&&G.dun?2+G.dun.depth*2:0)+LV+Math.floor(Math.min(G&&G.dementia||0,1e300)/12)+(G&&G.dim&&typeof DIMS!=='undefined'&&DIMS[G.dim.k]?DIMS[G.dim.k].dlv:0)+(G&&NET.role?cuLoot():0));
 const shopLuck=()=>(LV/90+Math.min(G&&G.dementia||0,1e300)/120)*1.15+.9;
-const dropLuck=()=>G?(Math.min(G.dementia,1e300)/120+LV/220):0;
+const dropLuck=()=>G?(Math.min(G.dementia,1e300)/120+LV/220+dLuck()+.02*fgp('fortune')):0;
 const UM={
   fog:{n:'Fog pill',d:'Dementia +25, plus a quarter of what you already have.',c:'#7a6a9a',cost:40},
   haze:{n:'Haze tonic',d:'Dementia builds 3× faster for 90 seconds outside.',c:'#8a6ae0',cost:60,t:90,m:3},
@@ -4587,7 +4590,10 @@ const STK_WIN=3;
 let hitStopT=0;
 function hitStop(s){if(s>hitStopT)hitStopT=Math.min(.35,s);}
 const streakXP=()=>1+Math.min(.6,((G&&G.stk)||0)*.01);
-const freshXP=()=>(LV<6?1.8:LV<10?1.3:1)/(1+Math.min(LV,1e9)/30)/(1+.4*Math.min(3,G&&G.adP||0))/(LV>40?1+(Math.min(LV,1e9)-40)/40:1)*umXP()*dimXP()*cuXP();
+// Experience per kill by level, fitted with a bot so a steady player reaches level 240 in about 80 hours.
+const XPT=[[1,1.4],[5,1.0],[10,.33],[20,.11],[40,.05],[60,.036],[120,.024],[240,.024]];
+function xpTaper(L){if(L<=XPT[0][0])return XPT[0][1];for(let i=1;i<XPT.length;i++){const[a,x]=XPT[i-1],[b,y]=XPT[i];if(L<=b){const t=Math.log(L/a)/Math.log(b/a);return Math.exp(Math.log(x)+(Math.log(y)-Math.log(x))*t);}}return XPT[XPT.length-1][1];}
+const freshXP=()=>(G?dXP():1)*xpTaper(Math.min(LV,LVMAIN))/(1+1.1*Math.min(3,G&&G.adP||0))*umXP()*dimXP()*cuXP();
 function feelKill(z,w){
   G.stk=(G.stkT>0?(G.stk||0):0)+1;G.stkT=STK_WIN;G.bestStk=Math.max(G.bestStk||0,G.stk);
   const m=STREAKS.find(s=>s[0]===G.stk);
@@ -4658,8 +4664,8 @@ function drawFeel(){
 const PAD_ACTIONS=[
   ['fire','Fire'],['melee','Swing'],['use','Use / pick up'],['meds','Take meds'],['kit','Use a medkit'],['swap','Swap weapon'],
   ['throw','Throw'],['skill','Class skill'],['unmed','Take an unmed'],['prevW','Previous weapon'],['nextW','Next weapon'],
-  ['skills','Skills'],['thrNext','Next throwable'],['pause','Pause'],['menu','Quick menu'],['bag','Bag'],['marker','Drop a marker']];
-const PAD_STD={fire:['b7'],melee:['b6','b5'],use:['b0'],meds:['b1'],kit:['b2'],swap:['b3'],throw:['b4'],skill:['b10'],unmed:['b11'],
+  ['skills','Skills'],['thrNext','Next throwable'],['pause','Pause'],['menu','Quick menu'],['sneak','Sneak'],['bag','Bag'],['marker','Drop a marker']];
+const PAD_STD={fire:['b7'],melee:['b6'],use:['b0'],meds:['b1'],kit:['b2'],swap:['b3'],throw:['b4'],skill:['b5'],sneak:['b10'],unmed:['b11'],
   prevW:['b14'],nextW:['b15'],skills:['b12'],thrNext:['b13'],pause:['b9'],menu:['b8'],bag:[],marker:[]};
 const PADCFG_KEY='dz-pad';
 let padCfg={assist:.5,vib:true,dz:.18,autofire:false,reticle:false,maps:{}};
@@ -4751,6 +4757,7 @@ function padPoll(){
     if(P('use'))interact();if(P('meds'))useMeds();if(P('kit'))useKit();if(P('swap'))cycleSlot(1);if(P('throw'))throwNow();
     if(P('melee'))wantMelee=true;if(P('skill'))useAbility();if(P('unmed'))useUnmed();if(P('marker'))placeMarker();
     if(P('prevW'))cycleSlot(-1);if(P('nextW'))cycleSlot(1);if(P('thrNext'))cycleThr();if(P('skills'))openSkills();
+    if(P('sneak'))setSneak(!G.p.sneak);
     if(P('pause'))setMode('pause');else if(P('menu'))openCtx();else if(P('bag'))openBag();
   }else if(mode!=='cheat'){
     const esc=()=>dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));
@@ -5466,10 +5473,11 @@ function respawnTick(dt){
   const p=G.p;if(!p.dead)return;p.respT-=dt;if(p.respT>0)return;
   p.dead=false;p.down=false;p.hpF=1;p.shieldT=3;p.rv=0;p.bleed=0;
   G.trip={xp:0,t:0,k:0,pos:0,downs:0};
+  if(G.dun&&typeof leaveDun==='function')leaveDun('');if(G.dim&&typeof leaveDim==='function')leaveDim(true);
   if(G.house){p.x=G.house.x+3.5;p.y=G.house.y+3.5;}
   toast('Back on your feet, in the house.','haze');sfx('level');
 }
-{const _d=die;die=function(){if(NET.role&&runActive&&mode==='play'){netDeath();return;}if(G&&G.p&&G.p.dead){G.p.dead=false;}_d();};}
+{const _d=die;die=function(){if((NET.role||(G&&!G.hardcore))&&runActive&&mode==='play'){netDeath();return;}if(G&&G.p&&G.p.dead){G.p.dead=false;}_d();};}
 
 // ===== markers and chat =====
 let chatLog=[];const mkSeen={},cmSeen={};
@@ -5712,7 +5720,7 @@ const DUNT={
   hospital:{n:'St. Agnes Basement',c:'#cfe0e0',wall:'#7a8282',wallTop:'#9aa4a4',floor:['#9ea4a0','#8e9490'],prop:'gurney',d:'Flickering lights, empty gurneys and a morgue that isn\'t empty.'},
   bunker:{n:'The Fallout Shelter',c:'#e8c03a',wall:'#55554f',wallTop:'#6c6c64',floor:['#3c3e3c','#383a38'],prop:'shelf',d:'Someone stocked this place for the end of the world. They didn\'t make it.'}};
 let dunGrid=null,dunEntT=null;
-function dunDepth(){return Math.min(4,1+Math.floor(LV/25));}
+function dunDepth(){return Math.min(6,1+Math.floor(LV/40));}
 function dunGen(seed,depth){
   let s=seed>>>0;const R=()=>{s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296;};
   const w=76,h=58,gr=new Uint8Array(w*h),rooms=[];const nR=Math.min(9,5+depth);
@@ -5752,8 +5760,8 @@ function dunGen(seed,depth){
     else if(P.prop==='gurney'){fill('#c8d0d0',.1,.24,.8,.42);fill('#8a9090',.14,.66,.06,.2);fill('#8a9090',.8,.66,.06,.2);if(h<.4)fill('rgba(140,30,30,.6)',.3,.3,.3,.2);}
     else{fill('#4a4a44',.08,.1,.84,.8);fill('#6a6a60',.08,.1,.84,.1);fill('#c8b060',.18,.3,.18,.14);fill('#7a9a6a',.5,.3,.2,.14);fill('#a85a3a',.24,.58,.2,.14);}}
 };}
-function enterDun(th){
-  if(G.dim||G.dun||NET.role)return;th=DUNT[th]?th:pick(Object.keys(DUNT));
+function enterDun(th,mode){
+  if(G.dim||G.dun||NET.role)return;mode=SMODE&&SMODE[mode]?mode:'fight';th=DUNT[th]?th:pick(Object.keys(DUNT));
   const depth=dunDepth(),seed=(Math.random()*4294967296)>>>0,p=G.p;
   dunGrid=dunGen(seed,depth);
   const ox=9000000+Math.floor(Math.random()*400)*120,oy=9000000;
@@ -5761,7 +5769,8 @@ function enterDun(th){
   G.dent=null;G.rift=null;G.zombies=[];G.npcs=[];G.stray=null;G.camp=null;G.ev=null;eproj.length=0;raids.length=0;chunks.clear();
   const R0=dunGrid.rooms[0];p.x=ox+R0.cx+.5;p.y=oy+R0.cy+1.5;G.dun.exit={x:ox+R0.cx+.5,y:oy+R0.cy+.5};
   // stock every room but the first; deeper rooms hold more
-  const rs=dunGrid.rooms;let n=0;
+  const rs=dunGrid.rooms;let n=0;G.dun.mode=mode;
+  if(mode!=='fight'){stealthStock();flashT=Math.max(flashT,.6);sfx('door');return;}
   for(let i=1;i<rs.length;i++){const r=rs[i],boss=i===rs.length-1,cnt=boss?2+depth:Math.round(3+i*.6+depth*1.2+Math.random()*2);
     for(let k=0;k<cnt;k++){const x=ox+r.x+1+Math.random()*(r.w-2),y=oy+r.y+1+Math.random()*(r.h-2);if(solid(Math.floor(x),Math.floor(y),true))continue;
       const z=makeZombie(x,y,null,false);z.dun=1;z.hunt=false;G.zombies.push(z);n++;}
@@ -5779,6 +5788,7 @@ function leaveDun(why){
   flashT=Math.max(flashT,.5);sfx('door');G.dunN=(G.dunN||0)+1;
   toast(why==='done'?'You climb back out with your pockets full.':'You climb back out into the street.','haze');
 }
+const dentName=e=>DUNT[e.th].n+(e.md&&e.md!=='fight'?` (${SMODE[e.md].n})`:'');
 const dunLeft=()=>G.zombies.reduce((a,z)=>a+(z.dun&&!z.dying?1:0),0);
 function dunTick(dt){
   const D=G.dun;
@@ -5786,11 +5796,11 @@ function dunTick(dt){
     if(G.dim||NET.role||LV<6)return;
     if(G.dent){G.dent.t-=dt;if(G.dent.t<=0){G.dent=null;toast('The way down has closed up.','haze');}return;}
     G.dentT=(G.dentT==null?rnd(90,180):G.dentT)-dt;
-    if(G.dentT<=0){G.dentT=rnd(240,360);const q=findSpot(8,13);if(q){const th=pick(Object.keys(DUNT));G.dent={x:q.x,y:q.y,th,t:150};toast(`A way down has opened nearby: ${DUNT[th].n}. It won't stay open long.`,'haze');}}
+    if(G.dentT<=0){G.dentT=rnd(240,360);const q=findSpot(8,13);if(q){const th=pick(Object.keys(DUNT)),md=LV>=8&&Math.random()<.4?pick(['heist','ghost','hunt']):'fight';G.dent={x:q.x,y:q.y,th,md,t:150};toast(`A way down has opened nearby: ${dentName(G.dent)}. It won't stay open long.`,'haze');}}
     return;
   }
   D.t+=dt;
-  if(!D.cleared&&dunLeft()===0&&D.t>1){D.cleared=true;dunReward();}
+  if(D.mode==='fight'&&!D.cleared&&dunLeft()===0&&D.t>1){D.cleared=true;dunReward();}
 }
 function dunReward(){
   const D=G.dun,r=dunGrid.rooms[dunGrid.rooms.length-1],x=D.ox+r.cx+.5,y=D.oy+r.cy+.5,dp=D.depth;
@@ -5811,14 +5821,14 @@ function dunReward(){
 {const _t=dimTick;dimTick=function(dt){if(G.dun)return;_t(dt);};}
 {const _h=drawHomeArrow;drawHomeArrow=function(inside){
   if(G.dun){const D=G.dun;if(D.exit)edgeArrow(D.exit.x,D.exit.y,'way out',DUNT[D.th].c,0);if(D.chest)edgeArrow(D.chest.x,D.chest.y,'the chest','#e8c03a',0);return;}
-  _h(inside);if(G.dent&&!G.dim)edgeArrow(G.dent.x,G.dent.y,DUNT[G.dent.th].n,DUNT[G.dent.th].c,0);};}
+  _h(inside);if(G.dent&&!G.dim)edgeArrow(G.dent.x,G.dent.y,dentName(G.dent),DUNT[G.dent.th].c,0);};}
 {const _s=specPrompt;specPrompt=function(){const p=G.p,E=useKey();
-  if(G.dun&&G.dun.exit&&Math.hypot(G.dun.exit.x-p.x,G.dun.exit.y-p.y)<1.6)return G.dun.cleared?`${E} to climb back up`:`${E} to climb back up (${dunLeft()} left down here)`;
-  if(!G.dun&&G.dent&&Math.hypot(G.dent.x-p.x,G.dent.y-p.y)<1.6)return`${E} to go down into ${DUNT[G.dent.th].n}`;
+  if(G.dun&&G.dun.exit&&Math.hypot(G.dun.exit.x-p.x,G.dun.exit.y-p.y)<1.6)return G.dun.cleared?`${E} to climb back up`:G.dun.mode!=='fight'?`${E} to give up and climb back out`:`${E} to climb back up (${dunLeft()} left down here)`;
+  if(!G.dun&&G.dent&&Math.hypot(G.dent.x-p.x,G.dent.y-p.y)<1.6)return`${E} to go down into ${dentName(G.dent)}`;
   return _s();};}
 {const _i=specInteract;specInteract=function(){const p=G.p;
   if(G.dun&&G.dun.exit&&Math.hypot(G.dun.exit.x-p.x,G.dun.exit.y-p.y)<1.6){leaveDun(G.dun.cleared?'done':'');return true;}
-  if(!G.dun&&G.dent&&Math.hypot(G.dent.x-p.x,G.dent.y-p.y)<1.6){enterDun(G.dent.th);return true;}
+  if(!G.dun&&G.dent&&Math.hypot(G.dent.x-p.x,G.dent.y-p.y)<1.6){enterDun(G.dent.th,G.dent.md);return true;}
   return _i();};}
 function drawDun(){
   ctx.setTransform(DPR,0,0,DPR,0,0);
@@ -5831,21 +5841,213 @@ function drawDun(){
   if(D.chest){const sx=D.chest.x*T-camX,sy=D.chest.y*T-camY;ctx.fillStyle='#5a3a1a';ctx.fillRect(sx-T*.45,sy-T*.2,T*.9,T*.5);ctx.fillStyle='#8a5a26';ctx.fillRect(sx-T*.45,sy-T*.45,T*.9,T*.22);ctx.fillStyle='#e8c03a';ctx.fillRect(sx-T*.08,sy-T*.12,T*.16,T*.16);}
   // your light, and the dark past it
   const px=G.p.x*T-camX,py=G.p.y*T-camY,gr=ctx.createRadialGradient(px,py,T*3.2,px,py,T*10.5);gr.addColorStop(0,'rgba(4,4,6,0)');gr.addColorStop(1,'rgba(4,4,6,.86)');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
-  const left=dunLeft(),pr=$('prompt'),up=pr&&!pr.hidden&&pr.offsetParent?34:0;ctx.textAlign='center';ctx.font=`18px ${DISPLAY}`;ctx.lineWidth=5;ctx.strokeStyle='rgba(10,10,14,.85)';ctx.strokeText(P.n.toUpperCase(),W/2,H-150-up);ctx.fillStyle=P.c;ctx.fillText(P.n.toUpperCase(),W/2,H-150-up);
-  ctx.font='600 11px "IBM Plex Mono",monospace';const sub=D.cleared?'cleared · the chest is open · climb back up when you\'re ready':`${left} of ${D.total} left · nothing else is coming`;ctx.lineWidth=4;ctx.strokeText(sub,W/2,H-132-up);ctx.fillStyle='#eee7d4';ctx.fillText(sub,W/2,H-132-up);
+  const left=dunLeft(),pr=$('prompt'),up=pr&&!pr.hidden&&pr.offsetParent?34:0;ctx.textAlign='center';ctx.font=`18px ${DISPLAY}`;ctx.lineWidth=5;ctx.strokeStyle='rgba(10,10,14,.85)';const ttl=(P.n+(D.mode&&D.mode!=='fight'?' · '+SMODE[D.mode].n:'')).toUpperCase();ctx.strokeText(ttl,W/2,H-150-up);ctx.fillStyle=P.c;ctx.fillText(ttl,W/2,H-150-up);
+  ctx.font='600 11px "IBM Plex Mono",monospace';const sub=D.mode&&D.mode!=='fight'?(D.cleared?'done · climb out right here':D.mode==='hunt'?`${G.zombies.filter(z=>z.mark&&!z.dying).length} of ${D.marks} marked left · ${D.alerts?D.alerts+' alarm'+(D.alerts>1?'s':''):'unseen so far'}`:D.alarm?'ALARM · get to the vault or get out':D.spotted?'spotted':`${SMODE[D.mode].n} · unseen so far`):D.cleared?'cleared · the chest is open · climb back up when you\'re ready':`${left} of ${D.total} left · nothing else is coming`;ctx.lineWidth=4;ctx.strokeText(sub,W/2,H-132-up);ctx.fillStyle='#eee7d4';ctx.fillText(sub,W/2,H-132-up);
 }
 {const _g=drawFeel;drawFeel=function(){drawDun();_g();};}
 // a save made underground wakes up back on the street
 {const _a=adopt;adopt=function(g){_a(g);if(G&&G.dun){const r=G.dun.ret;G.dun=null;dunGrid=null;if(r){G.p.x=r.x;G.p.y=r.y;}G.zombies=[];chunks.clear();}};}
+/* ---------- Forgotten levels: past 240, every level is a point on an endless board ---------- */
+const FGBASE=()=>need(LVMAIN+1)-need(LVMAIN);
+function fgOf(over){if(!(over>0))return 0;const a=1/400,b=1-a,c=over/FGBASE();return Math.max(0,Math.floor((-b+Math.sqrt(b*b+4*a*c))/(2*a)+1e-9));}
+function fgNeed(F){return need(LVMAIN)+FGBASE()*(F+F*(F-1)/400);}
+const fgLv=()=>G&&LV>=LVMAIN?fgOf(G.totalOut-need(LVMAIN)):0;
+const FGS=[
+  ['might','Might','damage',.02],['vigor','Vigor','max health',.02],['focus','Focus','crit chance',.004],['swift','Swiftness','move speed',.004],
+  ['fortune','Fortune','loot luck',.02],['greed','Greed','cash',.03],['shadow','Shadow','harder to notice',.02],['reach','Reach','range',.01]];
+const fgp=k=>(G&&G.fgp&&G.fgp[k])||0;
+const fgSpent=()=>{let s=0;if(G&&G.fgp)for(const k in G.fgp)s+=G.fgp[k];return s;};
+const fgFree=()=>Math.max(0,fgLv()-fgSpent());
+function fgHTML(){
+  const F=fgLv();if(F<=0&&LV<LVMAIN)return`<div class="shopsec fgsec"><h3><span>Forgotten levels</span></h3><p class="fine" style="margin:0">At level ${LVMAIN} your levels stop. Every level of experience after that is a Forgotten level and a point here, with no end.</p></div>`;
+  return`<div class="shopsec fgsec"><h3><span>Forgotten level ${fmtI(F)} · ${fmtI(fgFree())} point${fgFree()===1?'':'s'} to spend</span></h3><div class="ctxgrid">${FGS.map(([k,n,lab,per])=>{
+    const v=fgp(k),cur=k==='swift'||k==='focus'?soft(per*v,k==='swift'?.3:.25):per*v;return`<button type="button" class="ctxbtn" data-fg="${k}"${fgFree()?'':' disabled'}><b>${n} · ${fmtI(v)}</b><small>+${pc(cur)} ${lab}</small></button>`;}).join('')}</div></div>`;
+}
+{const _r=renderSkills;renderSkills=function(){_r();const t=$('trees');if(!t)return;const old=document.querySelector('#ovSkills .fgsec');if(old)old.remove();t.insertAdjacentHTML('beforebegin',fgHTML());};}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-fg]');if(!b||!G)return;if(fgFree()<=0)return;G.fgp=G.fgp||{};G.fgp[b.dataset.fg]=(G.fgp[b.dataset.fg]||0)+1;gearC=null;sfx('pick');renderSkills();hud();});
+const fgDmgL=()=>LG(1+.02*fgp('might')),fgHPL=()=>LG(1+.02*fgp('vigor'));
+
+/* ---------- difficulty ---------- */
+// Pick it at home. Higher tiers unlock with level: tougher dead, better and higher-level loot, more cash and experience.
+// Each tier has a fixed range of weapon conditions and gear tiers; within it, drops lean higher as you level.
+const DIFFS=[['Normal',1,0,6,0,4],['Hard',5,1,7,0,5],['Expert',15,2,8,1,5],['Master',30,3,9,1,6]];
+{const R=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI'],L=[45,58,70,82,95,108,120,132,145,158,170,182,195,208,220,235],
+  S=[[4,10],[4,10],[5,11],[5,11],[6,12],[6,12],[7,13],[7,13],[8,14],[8,14],[9,15],[9,15],[10,15],[11,15],[12,15],[13,15]],
+  Gt=[[2,6],[2,6],[2,7],[3,7],[3,7],[3,8],[4,8],[4,8],[5,8],[5,9],[5,9],[6,9],[6,9],[7,9],[7,9],[8,9]];
+  R.forEach((r,i)=>DIFFS.push(['Torment '+r,L[i],S[i][0],S[i][1],Gt[i][0],Gt[i][1]]));}
+const dIdx=()=>G&&G.diff>0?Math.min(G.diff,DIFFS.length-1):0;
+const dOpen=i=>LV>=DIFFS[i][1];
+const dHpL=()=>dIdx()*LG(1.2),dDmgL=()=>dIdx()*LG(1.12);
+const dXP=()=>1+.06*dIdx(),dCash=()=>1+.25*dIdx(),dLuck=()=>.15*dIdx(),dIlvl=()=>2*dIdx(),dElite=()=>.008*dIdx();
+const dName=()=>DIFFS[dIdx()][0];
+function qualRoll(lo,hi,luck,bump,tierLv){
+  const w=clamp((LV-tierLv)/40,0,3)+Math.max(0,luck)*.12;let f=1-Math.pow(Math.random(),1+w);f=clamp(f+(bump||0)*.15,0,1.2);
+  const v=lo+Math.round((hi-lo)*Math.min(1,f));return f>1.05?v+1:v;
+}
+function rollStateD(luck,bump){const D=DIFFS[dIdx()];return clamp(qualRoll(D[2],D[3],luck,bump,D[1]),0,SMAX);}
+function rollGearTierD(luck,bump){const D=DIFFS[dIdx()];return clamp(qualRoll(D[4],D[5],luck,bump,D[1]),0,9);}
+function diffHTML(){
+  const cur=dIdx(),rows=DIFFS.map((D,i)=>{const open=dOpen(i),on=i===cur;
+    return`<div class="item"><b>${D[0]}${on?' · current':''}</b><small>${open?`Dead ×${fmt(Math.pow(1.2,i))} health, ×${fmt(Math.pow(1.12,i))} damage · weapons ${STATES[D[2]].n} to ${STATES[D[3]].n}, gear ${GTIER[D[4]].n} to ${GTIER[D[5]].n} · loot +${2*i} levels · +${Math.round(25*i)}% cash · +${Math.round(6*i)}% experience`:`Unlocks at level ${D[1]}`}</small><span class="bact"><button type="button" class="mini${on?'':' alt'}" data-buy="h:diff:${i}"${open&&!on?'':' disabled'}>${on?'Playing':open?'Play this':'Locked'}</button></span></div>`;}).join('');
+  return['Difficulty',`Higher tiers open as you level. The dead get tougher; the loot gets better and higher level. You can drop back down any time.`,`<div class="shopsec"><h3><span>${dName()}</span></h3>${rows}</div>`];
+}
+{const _b=buy;buy=function(id){if(typeof id==='string'&&id.startsWith('h:diff:')){const i=+id.slice(7);if(i>=0&&i<DIFFS.length&&dOpen(i)){G.diff=i;G.shop=null;G.adO=G.adD=G.adP=0;toast(`${DIFFS[i][0]}. The dead outside will be ${i?'tougher':'back to normal'} from now on.`,'haze');}renderShop();return;}return _b(id);};}
+/* ---------- stealth ---------- */
+// Sneak (hold Shift, click the left stick on a controller, or the quick menu) to move slowly, quietly and out of notice.
+// Anything that hasn't noticed you takes a sneak attack: much harder hits, harder still while sneaking and up close.
+GSTAT.push({id:'stealth',sfx:'Shadows',b:.07,d:v=>`the dead notice you ${pc(v)} later`});GSI.stealth=GSTAT[GSTAT.length-1];SOFTK.stealth=.6;
+FX.push({id:'assassin',n:'Assassin\'s',sfx:'the Knife',t:2,r:()=>rnd(.5,1.1),d:v=>`Sneak attacks deal +${pc(v)} more`});FXI.assassin=FX[FX.length-1];
+const stealthV=()=>(G?gs().stealth||0:0)+soft(.02*fgp('shadow'),.6)+clsP('quiet')*.5;
+const sneakOn=()=>!!(G&&G.p&&G.p.sneak&&!G.p.down);
+const stealthDetect=()=>(sneakOn()?.45:1)/(1+stealthV());
+const stealthNoise=()=>(sneakOn()?.45:1)/(1+stealthV()*.7);
+const unaware=z=>!z.hunt&&!(z.aggro>0)&&!z.boss&&!z.dying&&!(z.alert>0);
+function sneakL(z,w){
+  if(!unaware(z))return 0;const p=G.p,melee=!w||w.beh==='melee',close=Math.hypot(z.x-p.x,z.y-p.y)<2.2;
+  let m=sneakOn()?4:2.5;if(melee&&close)m*=1.6;m*=1+((w&&w.f&&w.f.assassin)||0)+(gs().fx.assassin||0);
+  return LG(m);
+}
+{const _h=hitZ;hitZ=function(z,L,w,o){const b=z&&!z.dying?sneakL(z,w):0;if(b>0&&!(o&&o.proc==='none')){floater(z.x,z.y-.9,'SNEAK ATTACK','dot','#c8b8ff');G.snk=(G.snk||0)+1;}return _h(z,L+b,w,o);};}
+function setSneak(on){if(!G||!G.p)return;const was=!!G.p.sneak;G.p.sneak=!!on;if(was!==G.p.sneak)hint(G.p.sneak?'Sneaking. Slow and quiet; the dead notice you much later.':'Walking normally.','haze');}
+addEventListener('keydown',e=>{if(e.key==='Shift'&&mode==='play'&&!(e.target&&e.target.tagName==='INPUT'))setSneak(true);});
+addEventListener('keyup',e=>{if(e.key==='Shift')setSneak(false);});
+addEventListener('blur',()=>setSneak(false));
+function drawSneak(){
+  if(!G||!sneakOn()||mode!=='play')return;const p=G.p,sx=p.x*T-camX,sy=p.y*T-camY;ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.strokeStyle='rgba(200,184,255,.55)';ctx.lineWidth=2;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(sx,sy,T*.62,0,TAU);ctx.stroke();ctx.setLineDash([]);
+  ctx.font='600 10px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.lineWidth=3;ctx.strokeStyle='rgba(10,10,14,.8)';ctx.strokeText('sneaking',sx,sy-T*.85);ctx.fillStyle='#c8b8ff';ctx.fillText('sneaking',sx,sy-T*.85);
+}
+{const _g=drawFeel;drawFeel=function(){_g();drawSneak();};}
+/* ---------- stealth dungeons: heist, ghost run, assassination ---------- */
+const SMODE={heist:{n:'heist',goal:'Reach the vault at the far end. If they see you, the alarm wakes every one of them.'},
+  ghost:{n:'ghost run',goal:'Reach the hatch at the far end without ever being seen. If they see you, you\'re out.'},
+  hunt:{n:'assassination',goal:'Kill the marked ones. Every alarm costs you; a clean job pays half again.'}};
+const GV_R=7,GV_A=.72;
+function losClear(x0,y0,x1,y1){const d=Math.hypot(x1-x0,y1-y0),n=Math.ceil(d/.35);for(let i=1;i<n;i++){const t=i/n;if(solid(Math.floor(x0+(x1-x0)*t),Math.floor(y0+(y1-y0)*t),true))return false;}return true;}
+function floorIn(r,ox,oy){for(let k=0;k<20;k++){const x=ox+r.x+1+Math.random()*(r.w-2),y=oy+r.y+1+Math.random()*(r.h-2);if(!solid(Math.floor(x),Math.floor(y),true))return{x,y};}return{x:ox+r.cx+.5,y:oy+r.cy+.5};}
+function stealthStock(){
+  const D=G.dun,rs=dunGrid.rooms,ox=D.ox,oy=D.oy,last=rs[rs.length-1];let n=0;const guards=[];
+  for(let i=1;i<rs.length;i++){const r=rs[i],cnt=Math.round(2+i*.35+D.depth*.8+Math.random()*2);
+    for(let k=0;k<cnt;k++){const a=floorIn(r,ox,oy),pts=[a,floorIn(r,ox,oy)];if(Math.random()<.4){const o=rs[Math.max(1,i-1)];pts.push(floorIn(o,ox,oy));}
+      const z=makeZombie(a.x,a.y,null,false);z.dun=1;z.guard=1;z.hunt=false;z.pts=pts;z.pi=1;z.face=rnd(TAU);z.det=0;z.wait=rnd(0,2);G.zombies.push(z);guards.push(z);n++;}}
+  D.total=n;D.alerts=0;D.bodies=[];D.spotted=false;D.done=false;
+  if(D.mode==='heist')D.vault={x:ox+last.cx+.5,y:oy+last.cy+.5};
+  if(D.mode==='ghost')D.goal={x:ox+last.cx+.5,y:oy+last.cy+.5};
+  if(D.mode==='hunt'){const k=Math.min(guards.length,3+D.depth);const pool=guards.slice().sort(()=>Math.random()-.5).slice(0,k);for(const z of pool){z.mark=1;z.hpL+=LG(3);z.mhpL=z.hpL;if(!z.ea)z.ea=[pick(eliteOk()).id];}D.marks=k;}
+  const P=DUNT[D.th];toast(`${P.n}, ${SMODE[D.mode].n}. ${SMODE[D.mode].goal} Sneak with ${usingTouch?'the quick menu':pad.last==='pad'?actName('sneak'):'Shift'}; anything that hasn't seen you takes a sneak attack.`,'bad');
+}
+function guardSees(z,x,y,range){const dx=x-z.x,dy=y-z.y,d=Math.hypot(dx,dy);if(d>range)return 0;let da=Math.atan2(dy,dx)-z.face;da=Math.atan2(Math.sin(da),Math.cos(da));if(Math.abs(da)>GV_A)return 0;return losClear(z.x,z.y,x,y)?1-d/range*.7:0;}
+function stealthAlert(z,why){
+  const D=G.dun;if(!D||z.alert>0)return;z.alert=1;z.hunt=true;z.aggro=8;D.alerts++;D.spotted=true;
+  floater(z.x,z.y-.9,why||'!','dot','#ff4a3a');sfx('boss',.3);
+  if(D.mode==='heist'&&!D.alarm){D.alarm=true;for(const o of G.zombies)if(o.guard&&!o.dying){o.hunt=true;o.alert=1;o.aggro=8;}toast('ALARM. Every one of them knows you\'re here now.','bad');if(!RM)shake=Math.max(shake,5);}
+  else if(D.mode==='ghost'&&!D.done){D.done=true;toast('Spotted. The place spits you back out.','bad');setTimeout(()=>{if(G.dun)leaveDun('');},1400);}
+  else if(D.mode==='hunt'){for(const o of G.zombies)if(o.guard&&!o.dying&&Math.hypot(o.x-z.x,o.y-z.y)<8){o.hunt=true;o.alert=1;o.aggro=6;}toast('They\'re onto you here. The job pays less now.','bad');}
+}
+function stealthTick(dt){
+  const D=G.dun;if(!D||D.mode==='fight')return;const p=G.p,sn=sneakOn(),sv=stealthV(),range=GV_R*(sn?.6:1)/(1+sv*.8),hear=(sn?.9:2.4)/(1+sv*.5);
+  for(let i=D.bodies.length-1;i>=0;i--){D.bodies[i].t-=dt;if(D.bodies[i].t<=0)D.bodies.splice(i,1);}
+  for(const z of G.zombies){if(!z.guard||z.dying)continue;
+    if(z.hunt&&!z.alert){stealthAlert(z,'?!');continue;}
+    if(z.alert)continue;
+    let v=guardSees(z,p.x,p.y,range);const dp=Math.hypot(p.x-z.x,p.y-z.y);if(dp<hear)v=Math.max(v,.8);
+    if(v>0){z.det=Math.min(1,z.det+dt*(.7+1.6*v)*(sn?.55:1));z.face+=Math.atan2(Math.sin(Math.atan2(p.y-z.y,p.x-z.x)-z.face),Math.cos(Math.atan2(p.y-z.y,p.x-z.x)-z.face))*Math.min(1,dt*2*z.det);}
+    else z.det=Math.max(0,z.det-dt*.3);
+    if(z.det>=1){stealthAlert(z,'!');continue;}
+    for(const b of D.bodies)if(guardSees(z,b.x,b.y,6)>0){stealthAlert(z,'a body!');break;}
+  }
+  if(D.mode==='hunt'&&!D.done&&D.marks>0&&!G.zombies.some(z=>z.mark&&!z.dying)){D.done=true;stealthReward(p.x,p.y);}
+  if(D.mode==='ghost'&&!D.done&&D.goal&&Math.hypot(D.goal.x-p.x,D.goal.y-p.y)<1.4){D.done=true;stealthReward(D.goal.x,D.goal.y);}
+}
+function stealthReward(x,y){
+  const D=G.dun,dp=D.depth,clean=!D.spotted;
+  let mul=D.mode==='heist'?(clean?2:1):D.mode==='ghost'?1.6:Math.max(.3,1-.15*D.alerts)*(clean?1.5:1);
+  const n=Math.max(3,Math.round((5+dp*2)*mul)),luck=dropLuck()+1.2+dp*.4+(clean?.6:0),lv=dLV()+2+dp;
+  for(let i=0;i<n;i++){if(i%2)addItem(x+rnd(-1.5,1.5),y+rnd(-1.2,1.2),'gear',0,null,genGear(lv,luck,{bump:clean?2:1}));else addItem(x+rnd(-1.5,1.5),y+rnd(-1.2,1.2),'weapon',0,genWeapon(lv,luck,{bump:clean?2:1}));}
+  for(let i=0;i<4;i++)addItem(x+rnd(-1.5,1.5),y+rnd(-1.5,1.5),'cash',LG(70*(1+dp)*mul)+(dLV()-1)*GRC);
+  G.parts=(G.parts||0)+Math.round(8*dp*mul);const xp=(need(LV+1)-need(LV))*(.5+.25*dp)*mul;gainXP(xp,true);
+  D.cleared=true;D.exit2={x,y};sfx('level');flashT=Math.max(flashT,.4);
+  G.comp=G.comp||{};const c=G.comp.stealth=G.comp.stealth||{};c[D.mode]=Math.max(c[D.mode]||0,clean?2:1);
+  toast(`${clean?'Never seen. ':''}${n} items, cash, parts and +${fmt(xp)} experience. The way out is right here.`,'haze');
+}
+// guards walk their rounds and only turn on you when they notice you
+{const _z=zSpecial;zSpecial=function(z,dt,dist,dx,dy,tp,spdMul){
+  if(z.guard&&!z.hunt){
+    if(z.wait>0){z.wait-=dt;z.face+=Math.sin(G.time*1.3+(z.seed||0))*dt*.9;return 0;}
+    const q=z.pts[z.pi],ex=q.x-z.x,ey=q.y-z.y,ed=Math.hypot(ex,ey);
+    if(ed<.4){z.pi=(z.pi+1)%z.pts.length;z.wait=rnd(1,2.6);return 0;}
+    const sp=z.spd*.42*dt;const ox=z.x,oy=z.y;z.x+=ex/ed*sp;z.y+=ey/ed*sp;if(solid(Math.floor(z.x),Math.floor(z.y),true)){z.x=ox;z.y=oy;z.pi=(z.pi+1)%z.pts.length;z.wait=.5;}
+    z.face+=Math.atan2(Math.sin(Math.atan2(ey,ex)-z.face),Math.cos(Math.atan2(ey,ex)-z.face))*Math.min(1,dt*5);
+    return 0;}
+  return _z(z,dt,dist,dx,dy,tp,spdMul);};}
+{const _d=zOnDeath;zOnDeath=function(z,w){_d(z,w);const D=G.dun;if(D&&z.guard&&D.mode!=='fight')D.bodies.push({x:z.x,y:z.y,t:120});};}
+function drawStealth(){
+  const D=G.dun;if(!D||D.mode==='fight')return;ctx.setTransform(DPR,0,0,DPR,0,0);
+  for(const b of D.bodies){const sx=b.x*T-camX,sy=b.y*T-camY;ctx.fillStyle='rgba(60,10,10,.55)';ctx.beginPath();ctx.ellipse(sx,sy,T*.45,T*.28,0,0,TAU);ctx.fill();}
+  for(const z of G.zombies){if(!z.guard||z.dying)continue;const sx=z.x*T-camX,sy=z.y*T-camY;if(sx<-300||sy<-300||sx>W+300||sy>H+300)continue;
+    if(!z.alert){const r=GV_R*T*(sneakOn()?.6:1)/(1+stealthV()*.8),d=z.det||0;ctx.fillStyle=`rgba(${Math.round(240+15*d)},${Math.round(210-170*d)},${Math.round(90-60*d)},${.16+.24*d})`;ctx.strokeStyle=`rgba(${Math.round(240+15*d)},${Math.round(190-150*d)},60,${.45+.4*d})`;ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(sx,sy);const n=14;for(let i=0;i<=n;i++){const a=z.face-GV_A+2*GV_A*i/n;let L=1;for(let s=1;s<=10;s++){const t=s/10;if(solid(Math.floor(z.x+Math.cos(a)*r/T*t),Math.floor(z.y+Math.sin(a)*r/T*t),true)){L=t;break;}}ctx.lineTo(sx+Math.cos(a)*r*L,sy+Math.sin(a)*r*L);}ctx.closePath();ctx.fill();ctx.stroke();
+      if(d>0){ctx.fillStyle='rgba(10,10,14,.7)';ctx.fillRect(sx-T*.4,sy-T*.95,T*.8,4);ctx.fillStyle=d>.7?'#ff4a3a':'#ffd24a';ctx.fillRect(sx-T*.4,sy-T*.95,T*.8*d,4);}}
+    if(z.mark){ctx.fillStyle='#e8c03a';ctx.beginPath();ctx.moveTo(sx-T*.22,sy-T*.72);ctx.lineTo(sx-T*.22,sy-T*.95);ctx.lineTo(sx-T*.1,sy-T*.84);ctx.lineTo(sx,sy-T*1);ctx.lineTo(sx+T*.1,sy-T*.84);ctx.lineTo(sx+T*.22,sy-T*.95);ctx.lineTo(sx+T*.22,sy-T*.72);ctx.closePath();ctx.fill();}}
+  const tgt=D.vault&&!D.cleared?D.vault:D.goal&&!D.cleared?D.goal:null;
+  if(tgt){const sx=tgt.x*T-camX,sy=tgt.y*T-camY;ctx.fillStyle=D.vault?'#8a6a2a':'#3a3a3a';ctx.fillRect(sx-T*.5,sy-T*.5,T,T);ctx.strokeStyle=DUNT[D.th].c;ctx.lineWidth=2;ctx.strokeRect(sx-T*.5,sy-T*.5,T,T);ctx.fillStyle='#e8c03a';ctx.fillRect(sx-T*.1,sy-T*.1,T*.2,T*.2);}
+  if(D.exit2){const sx=D.exit2.x*T-camX,sy=D.exit2.y*T-camY;ctx.fillStyle='#6a5a40';for(let i=0;i<4;i++)ctx.fillRect(sx-T*.3,sy-T*.45+i*T*.24,T*.6,T*.06);}
+}
+{const _g=drawFeel;drawFeel=function(){if(G&&G.dun)drawStealth();_g();};}
+{const _t=dunTick;dunTick=function(dt){_t(dt);if(G.dun)stealthTick(dt);};}
+{const _s=specPrompt;specPrompt=function(){const D=G.dun,p=G.p,E=useKey();
+  if(D&&D.mode==='heist'&&D.vault&&!D.cleared&&Math.hypot(D.vault.x-p.x,D.vault.y-p.y)<1.6)return`${E} to crack the vault${D.spotted?'':' (still unseen: double loot)'}`;
+  if(D&&D.exit2&&Math.hypot(D.exit2.x-p.x,D.exit2.y-p.y)<1.6)return`${E} to climb out`;
+  return _s();};}
+{const _i=specInteract;specInteract=function(){const D=G.dun,p=G.p;
+  if(D&&D.mode==='heist'&&D.vault&&!D.cleared&&Math.hypot(D.vault.x-p.x,D.vault.y-p.y)<1.6){D.done=true;stealthReward(D.vault.x,D.vault.y);return true;}
+  if(D&&D.exit2&&Math.hypot(D.exit2.x-p.x,D.exit2.y-p.y)<1.6){leaveDun('done');return true;}
+  return _i();};}
+/* ---------- completion ---------- */
+// The game never ends, but it can be finished: a checklist that adds up to 100%.
+const compG=()=>{if(!G)return{};G.comp=G.comp||{};const c=G.comp;c.dd=c.dd||{};c.dk=c.dk||{};c.stealth=c.stealth||{};c.dims=c.dims||{};c.boss=c.boss||{};c.zt=c.zt||{};c.el=c.el||{};return c;};
+{const _k=killZ;killZ=function(z,w){const was=z&&z.dying;_k(z,w);if(!z||was||!G)return;const c=compG();if(z.type)c.zt[z.type]=1;if(z.ea)for(const e of z.ea)c.el[e]=1;if(z.boss)c.boss[z.boss]=1;};}
+{const _e=enterDim;enterDim=function(k){_e(k);if(G&&G.dim)compG().dims[G.dim.k]=1;};}
+{const _r=dunReward;dunReward=function(){_r();const c=compG();c.dd[dIdx()]=1;if(G.dun)c.dk[G.dun.th]=1;};}
+const COMP_ZT=()=>Object.keys(ZT).filter(k=>k!=='goblin'&&k!=='crazed');
+function compRows(){
+  const c=compG(),cl=PCLS.map(x=>x.id),fr=(a,b)=>b?Math.min(1,a/b):0,cnt=o=>Object.keys(o).length;
+  const maxOpen=DIFFS.reduce((m,D,i)=>dOpen(i)?i:m,0),zt=COMP_ZT(),st=c.stealth;
+  const clsDone=cl.filter(id=>clsLvOf(G.cls&&G.cls.xp[id]||0)>=40).length;
+  return[
+    ['Reach level 240',20,fr(LV,LVMAIN),`level ${fmtI(LV)} of ${LVMAIN}`],
+    ['Unlock every difficulty',10,fr(maxOpen,DIFFS.length-1),`${DIFFS[maxOpen][0]} of ${DIFFS[DIFFS.length-1][0]}`],
+    ['Clear a dungeon on every difficulty',15,fr(cnt(c.dd),DIFFS.length),`${cnt(c.dd)} of ${DIFFS.length}`],
+    ['Clear every kind of dungeon',5,fr(cnt(c.dk),Object.keys(DUNT).length),`${cnt(c.dk)} of ${Object.keys(DUNT).length}`],
+    ['Stealth: each kind done, and done unseen',10,fr(['heist','ghost','hunt'].reduce((a,m)=>a+Math.min(2,st[m]||0),0),6),['heist','ghost','hunt'].map(m=>`${SMODE[m].n} ${st[m]>=2?'unseen':st[m]?'done':'—'}`).join(' · ')],
+    ['Visit every dimension',5,fr(cnt(c.dims),Object.keys(DIMS).length),`${cnt(c.dims)} of ${Object.keys(DIMS).length}`],
+    ['Put down every named horror',10,fr(cnt(c.boss),BOSSN.length),`${cnt(c.boss)} of ${BOSSN.length}`],
+    ['Bestiary: every kind of dead and every elite trait',10,fr(zt.filter(k=>c.zt[k]).length+ELITE.filter(e=>c.el[e.id]).length,zt.length+ELITE.length),`${zt.filter(k=>c.zt[k]).length} of ${zt.length} kinds · ${ELITE.filter(e=>c.el[e.id]).length} of ${ELITE.length} traits`],
+    ['Take every class to level 40',15,fr(clsDone,cl.length),`${clsDone} of ${cl.length}`]];
+}
+const compPct=()=>compRows().reduce((a,r)=>a+r[1]*r[2],0);
+function ensureCompPanel(){
+  if($('ovComp'))return;const d=document.createElement('div');d.className='overlay';d.id='ovComp';d.hidden=true;
+  d.innerHTML='<div class="pad"><div class="padhead"><span class="rx">Rx</span><div><h2>Completion</h2><p id="compSub"></p></div><button class="x" type="button" data-cp="x">Close</button></div><div id="compBody"></div></div>';
+  document.body.appendChild(d);panels.comp=d;d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-cp]'))closeComp();});
+}
+let compBack='pause';
+function openComp(){if(!G||!runActive)return;compBack=mode==='play'?'play':mode==='ctx'?'pause':mode;ensureCompPanel();
+  $('compSub').textContent=`${compPct().toFixed(1)}% · the game never ends, but this is what finishing it looks like.`;
+  $('compBody').innerHTML=`<div class="shopsec">${compRows().map(([n,wt,f,txt])=>`<div class="item"><b>${esc(n)} <small>${Math.round(f*100)}% · worth ${wt}%</small></b><small>${esc(txt)}</small><div class="prog" style="grid-column:1/-1"><i style="width:${(f*100).toFixed(1)}%"></i></div></div>`).join('')}</div>`;
+  setMode('comp');}
+function closeComp(){setMode(compBack==='play'?'play':'pause');}
+
+$('bPComp').onclick=openComp;
 /* ---------- hordes ---------- */
 // Every minute or so a pack comes at you from one direction, together. The stronger you are, the bigger the pack.
 const DIR8=['east','southeast','south','southwest','west','northwest','north','northeast'];
 function hordeTick(dt){
-  if(!G||G.dun||NET.role==='client'||LV<5||mode!=='play'||isInside(G.p.x,G.p.y)||G.cheats.hush)return;
+  if(!G||G.dun||NET.role==='client'||LV<8||mode!=='play'||isInside(G.p.x,G.p.y)||G.cheats.hush)return;
   const prs=Math.min(3,G.adP||0);
   G.hwT=(G.hwT==null?rnd(70,110):G.hwT)-dt;if(G.hwT>0)return;
   G.hwT=rnd(55,85)/(1+Math.min(1,prs*.5));
-  const n=Math.min(40,Math.round(5+LV*.04+prs*9)),a=rnd(TAU),vr=viewR(),p=G.p,cx=p.x+Math.cos(a)*vr*1.15,cy=p.y+Math.sin(a)*vr*1.15,px=-Math.sin(a),py=Math.cos(a);let k=0;
+  const n=Math.min(40,Math.round(2+Math.min(LV,60)*.1+prs*9)),a=rnd(TAU),vr=viewR(),p=G.p,cx=p.x+Math.cos(a)*vr*1.15,cy=p.y+Math.sin(a)*vr*1.15,px=-Math.sin(a),py=Math.cos(a);let k=0;
   for(let i=0;i<n*2&&k<n;i++){const x=cx+px*rnd(-4.5,4.5)+Math.cos(a)*rnd(0,3.5),y=cy+py*rnd(-4.5,4.5)+Math.sin(a)*rnd(0,3.5);if(solid(Math.floor(x),Math.floor(y),true))continue;
     const z=makeZombie(x,y,null,false);z.hunt=true;z.horde=1;z.spd*=1+Math.min(.2,prs*.08);G.zombies.push(z);k++;}
   if(k){const di=((Math.round(a/(TAU/8))%8)+8)%8;hint(`A horde of ${k} is coming from the ${DIR8[di]}.`,'bad');sfx('boss',.35);}
@@ -5874,8 +6076,8 @@ function adTick(dt){
   const p=G.p,ws=p.slots.filter(Boolean);if(!ws.length)return;
   let best=-1e9,bw=null;for(const w of ws){const v=dpsL(w)+(w.beh==='melee'?knifeMulL():gunMulL());if(v>best){best=v;bw=w;}}
   const tz=Math.min(zTz(),1e300),td=Math.min(zTd(),1e300);
-  const hp=LG(30)+(tz-1)*GRW+LG(1+tz/60)+Math.max(LG(1+.025*td),td/12*GRW)+LG(1+td/600);
-  const dm=LG(9)+(tz-1)*GRH+LG(1+tz/35)+LG(1+.0025*td);
+  const hp=dHpL()+LG(30)+(tz-1)*GRW+LG(1+tz/60)+Math.max(LG(1+.025*td),td/12*GRW)+LG(1+td/600);
+  const dm=dDmgL()+LG(9)+(tz-1)*GRH+LG(1+tz/35)+LG(1+.0025*td);
   const ex=Math.max(0,LG(AD_TTK)-(hp-best)),tO=ex*.35,tP=Math.min(3,ex*.65+crowdScore(bw)*.12);
   const tD=Math.max(0,(maxHPL()-LG(Math.max(.03,1-gearRed()))-dm-LG(AD_HITS))*.7);
   if(!isFinite(tO)||!isFinite(tD))return;
@@ -5900,6 +6102,7 @@ function unlocksAt(a,b){ // what turns up for the first time between level a (ex
   for(const k in DIMS)if(hit(DIMS[k].lv))out.push(`rifts to ${DIMS[k].n}`);
   BOSSN.forEach((n,i)=>{if(i>=4&&hit(BOSSLV(i)))out.push(`a new named horror: ${n}`);});
   for(const k in GOBLV)if(hit(GOBLV[k]))out.push(`${GOBK[k].n}s`);
+  if(typeof DIFFS!=='undefined')DIFFS.forEach((D,i)=>{if(i>0&&hit(D[1]))out.push(`${D[0]} difficulty (pick it at home)`);});if(hit(8))out.push('stealth dungeons');
   if(hit(6))out.push('ways down into dungeons');if(hit(8))out.push('crazed survivors');if(hit(12))out.push('loot goblins');if(hit(60))out.push('elites with two traits');if(hit(120))out.push('elites with three traits');
   return out;
 }
@@ -5986,10 +6189,10 @@ function ctxItems(){
   const tk=G.thrSel&&G.thr[G.thrSel]>0?G.thrSel:null;
   if(tk&&!inside)act.push(['throw',`Throw ${THR[tk].n.toLowerCase()} (${fmt(G.thr[tk])})`,actName('throw')]);
   if(Object.keys(THR).filter(k=>G.thr[k]>0).length>1)act.push(['thr','Next throwable',actName('thrNext')]);
-  act.push(['unmed','Take an unmed',actName('unmed')]);
+  act.push(['unmed','Take an unmed',actName('unmed')]);act.push(['sneak',G.p.sneak?'Stop sneaking':'Sneak',actName('sneak')]);
   if(p.slots.filter(Boolean).length>1)act.push(['swap','Swap weapon',actName('swap')]);
   if(NET.role){act.push(['marker','Drop a marker where you aim',actName('marker')]);act.push(['chat','Chat','']);}
-  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['pad','Controller settings',''],['help','Help and codes',''],['pause','Pause screen',actName('pause')]);
+  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['comp','Completion',''],['pad','Controller settings',''],['help','Help and codes',''],['pause','Pause screen',actName('pause')]);
   if(here.length)out.push(['Here',here]);out.push(['Actions',act],['Menus',go]);return out;
 }
 function renderCtx(){
@@ -6011,9 +6214,10 @@ function ctxRun(k){
   const menus={bag:openBag,skills:openSkills,coop:openCoop,saves:openSaves,help:openHelp,shop:openShop};
   if(k==='pause'){setMode('pause');return;}
   if(k==='pad'){setMode('pause');openPadCfg();return;}
+  if(k==='comp'){setMode('pause');openComp();return;}
   if(menus[k]){setMode(ctxBack==='play'&&k!=='saves'?'play':'pause');menus[k]();return;}
   setMode('play');
-  ({use:interact,meds:useMeds,kit:useKit,skill:useAbility,throw:throwNow,thr:cycleThr,unmed:useUnmed,swap:()=>cycleSlot(1),marker:placeMarker,chat:openChat,map:toggleMinimap}[k]||(()=>{}))();
+  ({use:interact,meds:useMeds,kit:useKit,skill:useAbility,throw:throwNow,thr:cycleThr,unmed:useUnmed,sneak:()=>setSneak(!G.p.sneak),swap:()=>cycleSlot(1),marker:placeMarker,chat:openChat,map:toggleMinimap}[k]||(()=>{}))();
 }
 /* ---------- cheats ---------- */
 // numbers are read straight into log form, so CASH 1e5000 works
@@ -6074,7 +6278,7 @@ const CHEATS={
   PARTS:['PARTS [n]','Add scrap parts (default 100).',a=>{const n=Math.floor(clamp(nv(a,0,100),0,1e9));G.parts+=n;return`+${fmtI(n)} parts.`;}],
   THROW:['THROW [kind] [n]','Add throwables (default 5 of each).',(a,s)=>{const n=Math.floor(clamp(nv(a,0,5),1,1e6));const k=s?Object.keys(THR).find(x=>x===s.toLowerCase()||THR[x].n.toLowerCase().includes(s.toLowerCase())):null;if(s&&!k)return'Kinds: '+Object.keys(THR).join(', ')+'.';for(const x of k?[k]:Object.keys(THR))G.thr[x]=(G.thr[x]||0)+n;return k?`+${n} ${THR[k].n}.`:`+${n} of every throwable.`;},true],
   RIFT:['RIFT [dimension]','Tears a rift open next to you. Dimensions: '+Object.keys(DIMS).join(', ')+'.',(a,s)=>{const k=s&&DIMS[s.toLowerCase()]?s.toLowerCase():null;if(s&&!k)return'Dimensions: '+Object.keys(DIMS).join(', ')+'.';if(G.dim)return'You\'re already somewhere else.';G.rift={x:G.p.x+1.2,y:G.p.y,k:k||pick(Object.keys(DIMS)),t:120};return`A rift to ${DIMS[G.rift.k].n}. Press E next to it.`;},true],
-  DUNGEON:['DUNGEON [kind]','Opens a way down next to you: '+Object.keys(DUNT).join(', ')+'.',(a,s)=>{if(G.dun)return'You\'re already down here.';const k=s&&DUNT[s.toLowerCase()]?s.toLowerCase():pick(Object.keys(DUNT));const q=findSpot(2,3)||{x:G.p.x+2,y:G.p.y};G.dent={x:q.x,y:q.y,th:k,t:300};return`${DUNT[k].n} is open next to you.`;},1],
+  DUNGEON:['DUNGEON [kind]','Opens a way down next to you: '+Object.keys(DUNT).join(', ')+', optionally with heist, ghost or hunt for a stealth run.',(a,s)=>{if(G.dun)return'You\'re already down here.';const ws=(s||'').toLowerCase().split(/\s+/),k=ws.find(x=>DUNT[x])||pick(Object.keys(DUNT)),md=ws.find(x=>SMODE[x])||'fight';const q=findSpot(2,3)||{x:G.p.x+2,y:G.p.y};G.dent={x:q.x,y:q.y,th:k,md,t:300};return`${dentName(G.dent)} is open next to you.`;},1],
   DIMENSION:['DIMENSION name','Drops you straight into a dimension: '+Object.keys(DIMS).join(', ')+'.',(a,s)=>{const k=s&&DIMS[s.toLowerCase()]?s.toLowerCase():null;if(!k)return'Dimensions: '+Object.keys(DIMS).join(', ')+'.';if(G.dim)leaveDim(false);enterDim(k);return DIMS[k].n+'.';},true],
   GOBLIN:['GOBLIN [kind]','A loot goblin shows up nearby. Kinds: '+Object.keys(GOBK).join(', ')+'.',(a,s)=>{const k=s&&GOBK[s.toLowerCase()]?s.toLowerCase():null;if(s&&!k)return'Kinds: '+Object.keys(GOBK).join(', ')+'.';const z=spawnGoblin(k||undefined);return z?'Go get it.':'No room for one here.';},true],
   CRAZED:['CRAZED [n]','Crazed survivors with weapons come at you.',a=>{const n=Math.max(1,Math.min(10,Math.round(a.length?Math.pow(10,a[0]):2)));return`${spawnCrazed(n)} of them.`;}],
@@ -6335,13 +6539,13 @@ $('bRespec').onclick=()=>{
   respecArm=0;G.skills={};toast('Every skill point refunded.');renderSkills();hud();
 };
 
-const CTL_DESK=[['WASD / arrows','move'],['Mouse','aim'],['Left click','attack'],['Space / right click','stab (quiet)'],['1 2 3 / wheel','switch gun'],['E','take · befriend · recruit · open the house'],['F','class skill'],['M','minimap'],['N','sound on/off'],['G','throw'],['U / J','take / switch unmeds'],['C','co-op'],['T','switch throwable'],['Q','dementia meds'],['R','medkit'],['I / Tab','bag and gear'],['K','skill trees'],['O','save files'],['` or Enter','cheat codes'],['P / Esc','pause'],['H','help']];
+const CTL_DESK=[['WASD / arrows','move'],['Shift (hold)','sneak'],['Mouse','aim'],['Left click','attack'],['Space / right click','stab (quiet)'],['1 2 3 / wheel','switch gun'],['E','take · befriend · recruit · open the house'],['F','class skill'],['M','minimap'],['N','sound on/off'],['G','throw'],['U / J','take / switch unmeds'],['C','co-op'],['T','switch throwable'],['Q','dementia meds'],['R','medkit'],['I / Tab','bag and gear'],['K','skill trees'],['O','save files'],['` or Enter','cheat codes'],['P / Esc','pause'],['H','help']];
 const CTL_TOUCH=[['Left thumb','move'],['Right thumb','aim and attack'],['Stab','quiet melee'],['Use','take · befriend · recruit · open the house'],['Throw','throw the selected grenade'],['Swap','next gun'],['Meds / Kit','dementia meds · medkit'],['Bag · Skills · Saves · Codes','buttons under supplies']];
 function renderControls(){const list=(usingTouch?CTL_TOUCH:CTL_DESK).map(([a,b])=>`<div><span>${a}</span><span>${b}</span></div>`).join('');$('ctlList').innerHTML=list;$('ctlList2').innerHTML=list;}
 $('codeTable').innerHTML=Object.values(CHEATS).map(v=>`<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`).join('');
 function showContinue(lv){const b=$('bContinue');b.hidden=false;b.textContent=`Continue · Lv ${fmtI(Number(lv||1))}`;}
 
-$('bStart').onclick=startGame;
+$('bStart').onclick=startGame;$('bStartHC').onclick=()=>{startGame();G.hardcore=true;toast('Hardcore. One life: if you die, this run is over.','bad');};
 $('bContinue').onclick=async()=>{const s=await readSlot('auto');let g=null;try{g=s&&JSON.parse(s.json);}catch(_){}if(!loadGame(g,'the autosave'))startGame();};
 $('bAgain').onclick=startGame;
 $('bResume').onclick=()=>setMode('play');
@@ -6380,6 +6584,7 @@ addEventListener('keydown',e=>{
   if(k==='escape'||k==='p'){
     if(mode==='play')setMode('pause');else if(mode==='pause'||mode==='shop')setMode('play');
     else if(mode==='ctx')closeCtx();
+    else if(mode==='comp')closeComp();
     else if(mode==='help')closeHelp();else if(mode==='skills')closeSkills();else if(mode==='saves')closeSaves();else if(mode==='bag')closeBag();else if(mode==='coop')setMode(coopBack);else if(mode==='pad')closePadCfg();
     return;}
   if(k==='h'||k==='?'){if(mode==='help')closeHelp();else if(mode!=='dead')openHelp();return;}

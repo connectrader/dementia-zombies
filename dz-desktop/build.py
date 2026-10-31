@@ -114,7 +114,9 @@ END
 '''
 rc = rc.replace('#include <winver.h>\n', '')
 open(os.path.join(ROOT, 'app.rc'), 'w').write(rc)
-subprocess.check_call(['llvm-windres-18', '--target=pe-x86-64', '-O', 'coff', '-i', 'app.rc', '-o', 'rsrc_windows_amd64.syso'], cwd=ROOT)
+WINDRES = next((t for t in ('llvm-windres-18', 'llvm-windres', 'x86_64-w64-mingw32-windres') if shutil.which(t)), None)
+assert WINDRES, 'needs llvm-windres (apt install llvm-18)'
+subprocess.check_call([WINDRES, '--target=pe-x86-64', '-O', 'coff', '-i', 'app.rc', '-o', 'rsrc_windows_amd64.syso'], cwd=ROOT)
 
 os.makedirs(OUT, exist_ok=True)
 env = dict(os.environ, GOOS='windows', GOARCH='amd64', CGO_ENABLED='0')

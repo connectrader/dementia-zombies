@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Cut a release: build, commit, tag, and publish to GitHub so every copy of the game can update itself.
+"""Cut a release: build locally as a check, commit, push, and push the version tag.
+GitHub Actions (.github/workflows/release.yml) then builds the Windows app and publishes the release
+that every copy of the game updates from.
 
 Run from the repo (dz-desktop/release.py):
   python3 dz-desktop/release.py              release the version in GAME_VERSION (must have a CHANGELOG.md entry)
@@ -37,5 +39,6 @@ run('git', 'add', '-A')
 if subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=REPO).returncode:
     run('git', 'commit', '-m', f'Release {tag}')
 run('git', 'push', 'origin', 'HEAD')
-run('gh', 'release', 'create', tag, *files, '--repo', GH, '--title', f'Dementia Zombies {tag}', '--notes', notes, '--target', 'main')
-print('released', tag)
+run('git', 'tag', '-a', tag, '-m', f'Dementia Zombies {tag}')
+run('git', 'push', 'origin', tag)
+print(f'pushed {tag}. GitHub Actions is building and publishing it: https://github.com/{GH}/actions')

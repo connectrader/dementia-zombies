@@ -1,0 +1,48 @@
+name: Release
+
+# Push a tag like v1.2.0 (dz-desktop/release.py does it for you) and this builds the Windows app
+# and publishes the GitHub release that every copy of the game updates from.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Tools for the .exe icon and version info
+        run: sudo apt-get update && sudo apt-get install -y llvm-18
+
+      - name: The tag has to match GAME_VERSION
+        run: |
+          v="v$(grep -oP "GAME_VERSION='\K[0-9.]+" dementia-zombies.html)"
+          echo "game says $v, tag is $GITHUB_REF_NAME"
+          test "$v" = "$GITHUB_REF_NAME"
+
+      - name: Build
+        working-directory: dz-desktop
+        run: python3 build.py
+
+      - name: Release notes from CHANGELOG.md
+        run: |
+          python3 - <<'PY'
+          import os, re
+          tag = os.environ['GITHUB_REF_NAME']
+          log = open('CHANGELOG.md', encoding='utf-8').read()
+          m = re.search(r'^## ' + re.escape(tag) + r'\b.*?\n(.*?)(?=^## v|\Z)', log, re.S | re.M)
+          open('notes.md', 'w').write(m.group(1).strip() if m else f'Dementia Zombies {tag}')
+          PY
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dz-desktop/dist/release/* --title "Dementia Zombies $GITHUB_REF_NAME" --notes-file notes.md --verify-tag

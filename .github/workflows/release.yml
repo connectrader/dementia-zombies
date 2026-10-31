@@ -1,10 +1,17 @@
 name: Release
 
-# Push a tag like v1.2.0 (dz-desktop/release.py does it for you) and this builds the Windows app
-# and publishes the GitHub release that every copy of the game updates from.
+# Whenever main has a GAME_VERSION that hasn't been released yet, this builds the Windows app and
+# publishes release vX.Y.Z (creating the tag), which every copy of the game updates from.
+# Bump the version (dz-desktop/build.py --bump minor), add a CHANGELOG.md section, push to main. That's a release.
 on:
   push:
-    tags: ['v*']
+    branches: [main]
+    paths: ['dementia-zombies.html', 'dz-desktop/**', 'CHANGELOG.md', '.github/workflows/release.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -15,34 +22,49 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Which version is this, and is it out already?
+        id: ver
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="v$(grep -oP "GAME_VERSION='\K[0-9.]+" dementia-zombies.html)"
+          echo "tag=$v" >> "$GITHUB_OUTPUT"
+          if gh release view "$v" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "$v is already released, nothing to do"; echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "releasing $v"; echo "new=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-go@v5
+        if: steps.ver.outputs.new == 'true'
         with:
           go-version: '1.24'
 
       - name: Tools for the .exe icon and version info
+        if: steps.ver.outputs.new == 'true'
         run: sudo apt-get update && sudo apt-get install -y llvm-18
 
-      - name: The tag has to match GAME_VERSION
-        run: |
-          v="v$(grep -oP "GAME_VERSION='\K[0-9.]+" dementia-zombies.html)"
-          echo "game says $v, tag is $GITHUB_REF_NAME"
-          test "$v" = "$GITHUB_REF_NAME"
-
       - name: Build
+        if: steps.ver.outputs.new == 'true'
         working-directory: dz-desktop
         run: python3 build.py
 
       - name: Release notes from CHANGELOG.md
+        if: steps.ver.outputs.new == 'true'
+        env:
+          TAG: ${{ steps.ver.outputs.tag }}
         run: |
           python3 - <<'PY'
           import os, re
-          tag = os.environ['GITHUB_REF_NAME']
+          tag = os.environ['TAG']
           log = open('CHANGELOG.md', encoding='utf-8').read()
           m = re.search(r'^## ' + re.escape(tag) + r'\b.*?\n(.*?)(?=^## v|\Z)', log, re.S | re.M)
           open('notes.md', 'w').write(m.group(1).strip() if m else f'Dementia Zombies {tag}')
           PY
 
       - name: Publish
+        if: steps.ver.outputs.new == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dz-desktop/dist/release/* --title "Dementia Zombies $GITHUB_REF_NAME" --notes-file notes.md --verify-tag
+          TAG: ${{ steps.ver.outputs.tag }}
+        run: gh release create "$TAG" dz-desktop/dist/release/* --title "Dementia Zombies $TAG" --notes-file notes.md --target "$GITHUB_SHA"

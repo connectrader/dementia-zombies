@@ -13,8 +13,8 @@ Download the latest **Dementia-Zombies-vX.Y.Z-Windows.zip** from [Releases](../.
 | `dementia-zombies.html` | The whole game, one file. `GAME_VERSION` at the top of its script is the single version number. |
 | `dz-desktop/` | The Windows app: a small Go server that serves the game into an Edge app window, relays LAN co-op, keeps saves on disk and self-updates. |
 | `dz-desktop/build.py` | Builds the .exe and the versioned packages (`--bump major|minor|patch` to raise the version first). |
-| `dz-desktop/release.py` | Builds as a check, commits, pushes and tags the version. GitHub Actions then builds and publishes the release every copy of the game updates from. |
-| `.github/workflows/release.yml` | The release build: runs on every `v*` tag. |
+| `dz-desktop/release.py` | Builds as a check, commits and pushes. |
+| `.github/workflows/release.yml` | When main has a version that isn't released yet, builds the Windows app and publishes release vX.Y.Z, which every copy of the game updates from. |
 | `CHANGELOG.md` | Release notes. Each release needs a `## vX.Y.Z` section; it becomes the release text and the in-game update notes. |
 
 ## Build

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Cut a release: build locally as a check, commit, push, and push the version tag.
-GitHub Actions (.github/workflows/release.yml) then builds the Windows app and publishes the release
-that every copy of the game updates from.
+"""Cut a release: build locally as a check, commit, and push to main.
+GitHub Actions (.github/workflows/release.yml) sees a version that isn't released yet, builds the Windows app
+and publishes release vX.Y.Z, which every copy of the game updates from.
 
 Run from the repo (dz-desktop/release.py):
   python3 dz-desktop/release.py              release the version in GAME_VERSION (must have a CHANGELOG.md entry)
@@ -39,6 +39,4 @@ run('git', 'add', '-A')
 if subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=REPO).returncode:
     run('git', 'commit', '-m', f'Release {tag}')
 run('git', 'push', 'origin', 'HEAD')
-run('git', 'tag', '-a', tag, '-m', f'Dementia Zombies {tag}')
-run('git', 'push', 'origin', tag)
-print(f'pushed {tag}. GitHub Actions is building and publishing it: https://github.com/{GH}/actions')
+print(f'pushed {tag} to main. GitHub Actions is building and publishing it: https://github.com/{GH}/actions')

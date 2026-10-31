@@ -304,7 +304,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.8.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.8.1</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -321,7 +321,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.8.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.8.1</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -426,7 +426,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.8.0';
+const GAME_VERSION='1.8.1';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -1259,7 +1259,10 @@ const reqMet=n=>!n.req||sk(n.req[0])>=n.req[1];
 const canBuy=n=>spAvail()>=1&&reqMet(n)&&(n.max===0||sk(n.id)<n.max);
 const humanLook=()=>smooth(30,170,G.dementia);
 // each dementia tier adds +50% level speed, blended smoothly through the tier
-const xpMul=()=>{const t=tier(G.dementia);return 1+.5*(t.i+clamp(t.frac,0,1));};
+// Dementia counts as extra levels for the dead and the loot, but the further it runs ahead of your own level, the less each point adds.
+const demK=()=>6+Math.min(LV,1e6)*.25;
+const demLv=d=>{const r=Math.max(0,Math.min(d||0,1e300))/12,k=demK();return k*Math.log(1+r/k);};
+const xpMul=()=>{const t=tier(G.dementia);return 1+soft(.5*(t.i+clamp(t.frac,0,1)),4);};
 
 /* ---------- zombies ---------- */
 function rollZType(){
@@ -1274,7 +1277,7 @@ function makeZombie(x,y,type,noElite){
   const d=G.dementia;if(!type)type=rollZType();
   const t=ZT[type],of=Math.random()<.55?0:1+((Math.random()*(OUTFIT.length-1))|0),O=OUTFIT[of];
   const pc=O&&O.c?hexA(O.c):hexA(pick(PSHIRT)),zc=[(pc[0]*.45+38)|0,(pc[1]*.45+40)|0,(pc[2]*.45+33)|0];
-  const hpL=LG(30)+(zTz()-1)*GRW+LG(1+Math.min(zTz(),1e300)/60)+Math.max(LG(1+.025*zTd()),Math.min(zTd(),1e300)/12*GRW)+LG(1+Math.min(zTd(),1e300)/600)+LG(t.hp)+LG(evHp()*phHp())+(G?dHpL():0)+(G&&G.adO>0?Math.min(G.adO,60):0);
+  const hpL=LG(30)+(zTz()-1)*GRW+LG(1+Math.min(zTz(),1e300)/60)+Math.max(LG(1+.025*Math.min(zTd(),1e4)),demLv(zTd())*GRW)+LG(1+Math.min(zTd(),1e300)/600)+LG(t.hp)+LG(evHp()*phHp())+(G?dHpL():0)+(G&&G.adO>0?Math.min(G.adO,60):0);
   const z={x,y,vx:0,vy:0,kx:0,ky:0,type,hpL,mhpL:hpL,dmgL:LG(9)+(zTz()-1)*GRH+LG(1+Math.min(zTz(),1e300)/35)+LG(1+.0025*Math.min(zTd(),1e300))+LG(t.dmg)+LG(evDmg()*phDmg())+(G?dDmgL():0)+(G&&G.adD>0?Math.min(G.adD,60):0),spd:t.spd*rnd(.9,1.1),r:t.r,
     hunt:Math.random()<.3+Math.min(d,1e4)/200,aggro:0,atk:0,dying:0,face:rnd(TAU),wa:rnd(TAU),seed:rnd(1000),flash:0,
     zs:hexA(pick(ZSKIN)),zc,ps:hexA(pick(PSKIN)),pc,ph:pick(PHAIR),of,ea:null,cd:rnd(1,3)};
@@ -1806,7 +1809,7 @@ function update(dt){
     if(!p.down&&(mouse.down||pad.fire||(touch.aim.active&&touch.aim.mag>.35)))tryFire(inside);
     if(wantMelee){if(!p.down)doMelee();wantMelee=false;}
     if(!inside){
-      G.realOut=(G.realOut||0)+dt;G.dementia=Math.min(1e100,G.dementia+dt*.75*(1+Math.min(LV,1e4)*.004)*(1-.04*sk('lucid'))*(1-gs().dem)*(gs().ob.voidheart?2:1)*homeDem());p.hpF=Math.min(1,p.hpF+Math.min(.015,.004*sk('regrow')+gs().regen+clsRegen())*dt*(gs().ob.nullshell?.5:1));G.peakDem=Math.max(G.peakDem,G.dementia);
+      G.realOut=(G.realOut||0)+dt;G.dementia=Math.min(1e100,G.dementia+dt*.75*(1+Math.min(LV,1e4)*.004)*(demK()/(demK()+Math.max(0,G.dementia/12-demK())))*(1-.04*sk('lucid'))*(1-gs().dem)*(gs().ob.voidheart?2:1)*homeDem());p.hpF=Math.min(1,p.hpF+Math.min(.015,.004*sk('regrow')+gs().regen+clsRegen())*dt*(gs().ob.nullshell?.5:1));G.peakDem=Math.max(G.peakDem,G.dementia);
       const ti=tier(G.dementia).i;
       if(ti>G.tierI){G.tierI=ti;if(rel('fmn'))buff('rage',8,1);toast(`You feel ${tier(G.dementia).name.toLowerCase()}. Better loot, and kills now give ×${xpMul().toFixed(1)} experience.`,'haze');}
       if(!G.lookedHuman&&humanLook()>.5){G.lookedHuman=true;toast('They\'re starting to look like neighbors.','haze');}
@@ -3887,19 +3890,19 @@ function clsAct(a){
 
 /* ---------- unmeds: things that make it worse, on purpose ---------- */
 // Loot from every source follows the same effective level as drops: your level plus a step per 12 dementia.
-const dLV=()=>Math.min(LVCAP,(G?dIlvl():0)+(G&&G.dun?2+G.dun.depth*2:0)+LV+Math.floor(Math.min(G&&G.dementia||0,1e300)/12)+(G&&G.dim&&typeof DIMS!=='undefined'&&DIMS[G.dim.k]?DIMS[G.dim.k].dlv:0)+(G&&NET.role?cuLoot():0));
+const dLV=()=>Math.min(LVCAP,(G?dIlvl():0)+(G&&G.dun?2+G.dun.depth*2:0)+LV+Math.floor(demLv(G&&G.dementia||0))+(G&&G.dim&&typeof DIMS!=='undefined'&&DIMS[G.dim.k]?DIMS[G.dim.k].dlv:0)+(G&&NET.role?cuLoot():0));
 const shopLuck=()=>(LV/90+Math.min(G&&G.dementia||0,1e300)/120)*1.15+.9;
 const dropLuck=()=>G?(Math.min(G.dementia,1e300)/120+LV/220+dLuck()+.02*fgp('fortune')):0;
 const UM={
-  fog:{n:'Fog pill',d:'Dementia +25, plus a quarter of what you already have.',c:'#7a6a9a',cost:40},
+  fog:{n:'Fog pill',d:'A small push: dementia up a little, more at higher levels.',c:'#7a6a9a',cost:40},
   haze:{n:'Haze tonic',d:'Dementia builds 3× faster for 90 seconds outside.',c:'#8a6ae0',cost:60,t:90,m:3},
   syrup:{n:'Black syrup',d:'Dementia builds 2× faster until you get home.',c:'#3a2a44',cost:70,trip:2},
   lethe:{n:'Lethe draught',d:'Drops you straight into the next dementia tier.',c:'#b9a8ff',cost:150,lv:10},
   storm:{n:'Brainstorm',d:'Dementia builds 6× faster for 30 seconds outside.',c:'#e05ab0',cost:110,lv:15,t:30,m:6},
-  amp:{n:'Oblivion ampoule',d:'Doubles your dementia, and then some.',c:'#ff5fd2',cost:400,lv:30}};
+  amp:{n:'Oblivion ampoule',d:'A big push: dementia up a lot, scaled to your level.',c:'#ff5fd2',cost:400,lv:30}};
 const umOk=k=>LV>=(UM[k].lv||0);
 function umInit(){if(!G.um)G.um={fog:1};if(!G.umSel||!UM[G.umSel])G.umSel='fog';if(!G.umFx)G.umFx=[];}
-function umMul(){if(!G||!G.umFx)return 1;let m=1;for(const e of G.umFx)m*=e.m;return m;}
+function umMul(){if(!G||!G.umFx)return 1;let m=1;for(const e of G.umFx)m*=e.m;return Math.min(6,m);}
 function umTick(dt){if(!G.umFx)return;for(let i=G.umFx.length-1;i>=0;i--){const e=G.umFx[i];if(e.trip)continue;e.t-=dt;if(e.t<=0){G.umFx.splice(i,1);toast(`${UM[e.k].n} wore off.`,'haze');}}}
 function umHome(){if(G.umFx)G.umFx=G.umFx.filter(e=>!e.trip);}
 function addDem(v){G.dementia=Math.min(1e100,Math.max(0,v));G.peakDem=Math.max(G.peakDem,G.dementia);}
@@ -3908,9 +3911,9 @@ function useUnmed(){
   let k=G.umSel;if(!(G.um[k]>0)){const o=Object.keys(UM).find(x=>G.um[x]>0);if(!o){hint('No unmeds. The counter sells them, and the dead drop them.','bad');return;}k=G.umSel=o;}
   G.um[k]--;const U=UM[k],b=G.dementia;
   switch(k){
-    case'fog':addDem(b+25+b*.25);break;
-    case'lethe':{const i=tier(b).i;addDem(i+1<TIERS.length?TIERS[i+1][0]+1:b*1.5+50);break;}
-    case'amp':addDem(b*2+50);break;
+    case'fog':addDem(b+25+LV*1.5);break;
+    case'lethe':{const i=tier(b).i;addDem(i+1<TIERS.length?TIERS[i+1][0]+1:b+60+LV*3);break;}
+    case'amp':addDem(b+80+LV*5);break;
     default:if(U.trip){if(!G.umFx.some(e=>e.k===k))G.umFx.push({k,m:U.trip,trip:1});}else G.umFx.push({k,m:U.m,t:U.t});
   }
   const t=tier(G.dementia);
@@ -4201,7 +4204,7 @@ function acquire(o){
   const e=p.slots.indexOf(null);if(e>=0){p.slots[e]=o;slotSig='';return'in your hands';}if(bagRoom()){G.inv.push(o);return'in your bag';}giveWeapon(o);return'in your hands';
 }
 function openBox(){const r=Math.random(),p=G.p;
-  if(r<.12){addDem(G.dementia*1.3+40);return'a cloud of something sweet. Your dementia jumps.';}
+  if(r<.12){addDem(G.dementia+40+LV*2);return'a cloud of something sweet. Your dementia jumps.';}
   if(r<.3){const L=LG(rnd(200,900))+KL;G.cashL=lAdd(G.cashL,L);return`$${lfmt(L)} in old bills.`;}
   if(r<.5)return acquire(jackpot(sLuck()+1))&&'a jackpot weapon.';
   if(r<.7)return acquire(genGear(dLV()+4,sLuck()+1.5,{bump:2,sp:{h:.15,o:.03}}))&&'a piece of good gear.';
@@ -4453,7 +4456,7 @@ function areaHurt(x,y,r,L,o){
   for(const m of partyUp())if(Math.hypot(m.x-x,m.y-y)<r+.3)hurtMate(m,L);
   if(NET.role==='host')for(const rp of NET.rps)if(!rp.inn&&!rp.dn&&Math.hypot(rp.x-x,rp.y-y)<r+.3)netEv(['h',rp.slot,+L.toFixed(3)]);
 }
-function eFx(fx){const p=G.p;if(fx==='chill'){p.slowT=Math.max(p.slowT||0,2.5);floater(p.x,p.y-.6,'tangled','dot','#e8a0c0');}else if(fx==='dem'){const b=G.dementia;addDem(b+8+b*.02);floater(p.x,p.y-.6,'+dementia','dot','#b9a8ff');}}
+function eFx(fx){const p=G.p;if(fx==='chill'){p.slowT=Math.max(p.slowT||0,2.5);floater(p.x,p.y-.6,'tangled','dot','#e8a0c0');}else if(fx==='dem'){const b=G.dementia;addDem(b+8+LV*.1);floater(p.x,p.y-.6,'+dementia','dot','#b9a8ff');}}
 function bossTick(dt,inside){
   for(let i=ehaz.length-1;i>=0;i--){const q=ehaz[i];q.t-=dt;q.tick=(q.tick||0)-dt;if(q.tick<=0){q.tick=.5;areaHurt(q.x,q.y,q.r,q.L);}if(q.t<=0)ehaz.splice(i,1);}
   for(let i=erings.length-1;i>=0;i--){const q=erings[i];q.t-=dt;if(q.t<=0){booms.push({x:q.x,y:q.y,r:q.r,t:.35,life:.35,col:q.col});areaHurt(q.x,q.y,q.r,q.L,{kb:q.kb,fx:q.fx});if(!RM)shake=Math.max(shake,4);sfx('boom',sndAt(q.x,q.y)*.7);if(q.fire)ehaz.push({x:q.x,y:q.y,r:q.r*.8,t:4,L:q.L-LG(4),col:'#ff7a2e'});erings.splice(i,1);}}
@@ -5119,19 +5122,19 @@ function petTick2(dt,inside){
 Object.assign(UM,{
   drip:{n:'Slow drip',d:'Dementia builds 1.5× faster for five minutes outside.',c:'#6a7aa0',cost:50,lv:3,t:300,m:1.5},
   jolt:{n:'Jolt',d:'Dementia builds 10× faster for 12 seconds. Hold on.',c:'#ffe14d',cost:90,lv:8,t:12,m:10},
-  tide:{n:'Riptide',d:'Dementia up by half, and 20 seconds of fury (+50% damage).',c:'#3fb8a8',cost:130,lv:12},
+  tide:{n:'Riptide',d:'Dementia up, and 20 seconds of fury (+50% damage).',c:'#3fb8a8',cost:130,lv:12},
   blank:{n:'Blank slate',d:'Dementia +100, and the dead around you forget who\'s who and turn on each other for 6 seconds.',c:'#efeee8',cost:120,lv:18},
   echo:{n:'Echo',d:'Dementia builds 4× faster for a minute, and kills give 50% more experience while it lasts.',c:'#c04dff',cost:160,lv:22,t:60,m:4},
-  voidsr:{n:'Void serum',d:'Triples your dementia. For when you\'re ready.',c:'#1a1a2e',cost:900,lv:60}});
+  voidsr:{n:'Void serum',d:'A huge push: dementia way up, scaled to your level. For when you\'re ready.',c:'#1a1a2e',cost:900,lv:60}});
 const umXP=()=>G&&G.umFx&&G.umFx.some(e=>e.k==='echo'&&(e.t==null||e.t>0))?1.5:1;
 {const _u=useUnmed;useUnmed=function(){
   if(mode!=='play'||G.p.down)return _u();umInit();let k=G.umSel;
   if(!(G.um[k]>0)){const o=Object.keys(UM).find(x=>G.um[x]>0);if(o)k=G.umSel=o;}
   if((k==='tide'||k==='blank'||k==='voidsr')&&G.um[k]>0){
     G.um[k]--;const U=UM[k],b=G.dementia,p=G.p;
-    if(k==='tide'){addDem(b*1.5+20);buff('fury',20,.5);}
+    if(k==='tide'){addDem(b+40+LV*2.5);buff('fury',20,.5);}
     if(k==='blank'){addDem(b+100);for(const z of G.zombies)if(!z.dying&&!z.boss&&Math.hypot(z.x-p.x,z.y-p.y)<12){z.confT=6;z.hunt=false;z.aggro=0;}booms.push({x:p.x,y:p.y,r:12,t:.5,life:.5,col:'#efeee8'});}
-    if(k==='voidsr')addDem(b*3+100);
+    if(k==='voidsr')addDem(b+120+LV*7);
     toast(`${U.n}. Dementia ${fmt(b)} → ${fmt(G.dementia)} (${tier(G.dementia).name}).`,'haze');floater(p.x,p.y-.9,U.n.toUpperCase(),'dot',U.c);sfx('skill',.6);return;}
   return _u();};}
 
@@ -5575,7 +5578,7 @@ async function updInstall(){
   const r=await U.install();
   if(!r||!r.ok){updBusy=false;updNote(`The update didn't install: ${esc((r&&r.err)||'no answer')}. Nothing was changed.`);return;}
   updNote('Installed. Restarting into the new version…');
-  const target=updInfo&&updInfo.latest;await U.restart();
+  const target=updInfo&&updInfo.latest;window.__dzLeaving=true;await U.restart();
   const t0=performance.now();
   const poll=async()=>{const v=await U.version();if(v&&v===target){location.reload();return;}if(performance.now()-t0>30000){updNote('The new version is installed. Close and reopen the game to finish.');updBusy=false;return;}setTimeout(poll,700);};
   setTimeout(poll,900);
@@ -6039,6 +6042,37 @@ function openComp(){if(!G||!runActive)return;compBack=mode==='play'?'play':mode=
 function closeComp(){setMode(compBack==='play'?'play':'pause');}
 
 $('bPComp').onclick=openComp;
+/* ---------- repairs and safety ---------- */
+// Saves from 1.8.0 and earlier could compound dementia into the hundreds of thousands. Bring it back in reach once.
+function demRepair(){
+  if(!G||G.dfix)return;G.dfix=1;
+  const cap=12*demK()*6;let msg='';
+  if(G.dementia>cap){G.dementia=cap;G.td=Math.min(G.td||0,cap);G.tierI=tier(G.dementia).i;msg='Your dementia had run away from your level; it\'s been brought back in reach.';}
+  const cashCap=LG(1e8)+(LV-1)*GRC;if(G.items)G.items=G.items.filter(it=>!(it.kind==='cash'&&it.val>cashCap-4));if(isFinite(G.cashL)&&G.cashL>cashCap){G.cashL=cashCap;msg+=(msg?' ':'')+'Cash from that runaway was trimmed back to normal.';}
+  // items found during the runaway carry item levels in the tens of thousands; bring them down to what's reachable
+  const top=Math.floor(LV+demLv(G.dementia)+30),seen=new Set();let n=0;
+  const walk=(o,d)=>{if(!o||typeof o!=='object'||seen.has(o)||d>8)return;seen.add(o);
+    if(o.ilvl!=null&&isFinite(o.ilvl)&&o.ilvl>top&&(o.beh!=null||o.slot!=null)){const cut=o.ilvl-top;if(o.dmgL!=null&&o.beh!=null)o.dmgL-=cut*GRW;if(o.defL!=null&&o.slot!=null)o.defL-=cut*GRH;o.ilvl=top;if(o.il0!=null&&o.il0>top)o.il0=top;n++;}
+    for(const k in o){const v=o[k];if(v&&typeof v==='object'&&k!=='zombies')walk(v,d+1);}};
+  walk(G,0);if(n){msg+=(msg?' ':'')+`${n} items from it were brought down to level ${top}.`;gearC=null;eqChanged();}
+  G.shop=null;if(msg)setTimeout(()=>toast(msg,'haze'),1200);
+}
+{const _a=adopt;adopt=function(g){_a(g);demRepair();};}
+{const _h=openHelp;openHelp=function(){_h();let box=document.getElementById('errBox');const body=document.querySelector('#ovHelp .pad');if(!body)return;
+  let saved=[];try{saved=JSON.parse(localStorage.getItem('dz-errors')||'[]');}catch(e){}
+  if(!box){box=document.createElement('div');box.id='errBox';box.className='shopsec';body.appendChild(box);}
+  box.innerHTML=saved.length?`<h3><span>Error log · ${saved.length}</span></h3><p class="fine" style="margin:0 0 6px">If something broke, copy this and send it over.</p><button type="button" class="mini" id="errCopy">Copy error log</button> <button type="button" class="mini alt" id="errClear">Clear</button>`:'';
+  const c=document.getElementById('errCopy');if(c)c.onclick=()=>{try{navigator.clipboard.writeText(saved.join('\n'));toast('Error log copied.','haze');}catch(e){}};
+  const x=document.getElementById('errClear');if(x)x.onclick=()=>{try{localStorage.removeItem('dz-errors');}catch(e){}box.innerHTML='';};};}
+{const _n=newGame;newGame=function(){_n();G.dfix=1;};}
+// autosave every minute you're playing, so a closed window costs a minute at most
+let asT=0;{const _u=update;update=function(dt){_u(dt);if(mode==='play'&&runActive){asT+=dt;if(asT>60){asT=0;try{autosave(false);}catch(e){}}}};}
+// closing the window by accident (Ctrl+W, the X) asks first
+addEventListener('beforeunload',e=>{if(runActive&&G&&mode!=='dead'&&!window.__dzLeaving){try{autosave(false);}catch(_){}e.preventDefault();e.returnValue='';return'';}});
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&(e.key==='w'||e.key==='W')&&runActive){e.preventDefault();hint('Ctrl+W would close the game. Sneak is Shift.','bad');}},true);
+// a crash in one frame shouldn't freeze the game: log it, keep going
+const DZERR=[];function dzErr(where,e){const m=`${new Date().toISOString()} v${GAME_VERSION} ${where}: ${e&&e.message||e} ${(e&&e.stack||'').split('\n').slice(1,4).join(' | ')}`;DZERR.push(m);if(DZERR.length>30)DZERR.shift();try{localStorage.setItem('dz-errors',JSON.stringify(DZERR));}catch(_){}if(DZERR.length===1||DZERR.length%10===0)toast('Something went wrong, but the game kept going. It\'s logged under Help.','bad');}
+addEventListener('error',e=>dzErr('page',e.error||e.message));addEventListener('unhandledrejection',e=>dzErr('promise',e.reason));
 /* ---------- hordes ---------- */
 // Every minute or so a pack comes at you from one direction, together. The stronger you are, the bigger the pack.
 const DIR8=['east','southeast','south','southwest','west','northwest','north','northeast'];
@@ -6076,7 +6110,7 @@ function adTick(dt){
   const p=G.p,ws=p.slots.filter(Boolean);if(!ws.length)return;
   let best=-1e9,bw=null;for(const w of ws){const v=dpsL(w)+(w.beh==='melee'?knifeMulL():gunMulL());if(v>best){best=v;bw=w;}}
   const tz=Math.min(zTz(),1e300),td=Math.min(zTd(),1e300);
-  const hp=dHpL()+LG(30)+(tz-1)*GRW+LG(1+tz/60)+Math.max(LG(1+.025*td),td/12*GRW)+LG(1+td/600);
+  const hp=dHpL()+LG(30)+(tz-1)*GRW+LG(1+tz/60)+Math.max(LG(1+.025*Math.min(td,1e4)),demLv(td)*GRW)+LG(1+td/600);
   const dm=dDmgL()+LG(9)+(tz-1)*GRH+LG(1+tz/35)+LG(1+.0025*td);
   const ex=Math.max(0,LG(AD_TTK)-(hp-best)),tO=ex*.35,tP=Math.min(3,ex*.65+crowdScore(bw)*.12);
   const tD=Math.max(0,(maxHPL()-LG(Math.max(.03,1-gearRed()))-dm-LG(AD_HITS))*.7);
@@ -6651,12 +6685,14 @@ $('ovCoop').addEventListener('keydown',e=>{if(e.target.id==='coCode'&&e.key==='E
 /* ---------- boot ---------- */
 let last=performance.now(),hudT=0;
 function loop(now){
+  requestAnimationFrame(loop);
+  try{
   let dt=Math.min(.05,(now-last)/1000);last=now;frameDt=mode==='play'?dt:0;padPoll();musTick(dt);if(hitStopT>0){hitStopT-=dt;dt*=.07;}
   if(mode==='play'||mode==='title'||(NET.role&&mode!=='dead'))update(dt);
   netTick(dt);
   render();drawFeel();
   if(now-hudT>100){hudT=now;hud();}
-  requestAnimationFrame(loop);
+  }catch(e){dzErr('frame',e);}
 }
 function start(data){
   document.querySelectorAll('.ver').forEach(e=>{e.textContent='v'+GAME_VERSION;});

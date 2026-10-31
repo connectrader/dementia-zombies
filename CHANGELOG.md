@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.8.1
+
+**Dementia can't run away from your level anymore**
+- Fixed: unmeds multiplied your dementia (Fog pill +25%, Oblivion ampoule ×2, Riptide ×1.5, Void serum ×3), so a handful of pills could push it into the hundreds of thousands. The dead became tens of thousands of levels tougher than you and nothing could be killed. Pills now add a fixed amount scaled to your level, and stacked speed-ups cap at 6×.
+- Dementia still makes the dead meaner and the loot better, but the further it runs ahead of your own level, the less each point adds, and it builds more slowly once it's well ahead.
+- Dementia's experience bonus has a soft cap.
+- Saves already caught in this are repaired once on load: dementia comes back within reach, runaway cash is trimmed, and items found during it are brought down to a reachable level.
+
+**The game closing on you**
+- The game window could close outright mid-run (Ctrl+W, or the window's X). It now asks before leaving a run, and Ctrl+W is blocked during play.
+- Autosave every minute while you play, so a closed window costs a minute at most.
+- A bug in one frame no longer freezes the game: it's logged, the game keeps going, and the log can be copied from Help.
+
 ## v1.8.0
 
 **The long game: about 80 hours to 100%**

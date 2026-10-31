@@ -135,6 +135,7 @@ body.touch #tbtns{display:grid}
 .btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
 .btn.red{background:var(--rx)}
 .fine{font-size:11px;color:var(--muted);margin:14px 0 0}
+.updnote{border:1px solid rgba(231,162,59,.45);background:rgba(231,162,59,.08);border-radius:8px;padding:9px 11px;font-size:12px;line-height:1.5;color:inherit}.updnote .btn{margin-top:8px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 18px}
 .stats div{border-top:1.5px solid var(--ink);padding-top:5px}
 .stats b{display:block;font-family:var(--display);font-weight:400;font-size:22px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
@@ -294,22 +295,24 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.3</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.4</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
       <button class="btn" id="bStart" type="button">Step outside</button>
       <button class="btn alt" id="bContinue" type="button" hidden>Continue</button>
       <button class="btn alt" id="bTSaves" type="button">Save files</button>
+      <button class="btn alt" id="bTUpdate" type="button" hidden>Check for updates</button>
     </div>
+    <p class="fine updnote" id="updNoteT" hidden></p>
     <p class="fine" id="bestLine"></p>
   </div>
 </div>
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.3</span></p></div></div>
-    <p class="fine" id="updNote" hidden></p>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.4</span></p></div></div>
+    <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
       <button class="btn alt" id="bPBag" type="button">Bag</button>
@@ -408,7 +411,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.2.3';
+const GAME_VERSION='1.2.4';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -5517,7 +5520,7 @@ function cuTxt(){const g=cuGap();if(!g)return'';return`Catch-up +${Math.round((c
 // The Windows app can check GitHub for a newer version, download it, check it, swap it in and restart into it.
 const UPD=()=>window.claude&&window.claude.update?window.claude.update:null;
 let updInfo=null,updBusy=false;
-function updNote(html){const n=$('updNote');if(!n)return;n.hidden=!html;n.innerHTML=html||'';}
+function updNote(html){for(const id of['updNote','updNoteT']){const n=$(id);if(!n)continue;n.hidden=!html;n.innerHTML=(html||'').replace(/id="bUpdGo"/g,'data-upd="go"');}}
 async function updCheck(force,quiet){
   const U=UPD();if(!U||updBusy)return;updBusy=true;if(!quiet)updNote('Checking for updates…');
   const r=await U.check(force);updBusy=false;updInfo=r;
@@ -5525,7 +5528,7 @@ async function updCheck(force,quiet){
   if(!r.newer){if(!quiet)updNote(`You're on the latest version, v${esc(r.current)}.`);return;}
   const notes=String(r.notes||'').split('\n').filter(l=>l.trim()).slice(0,8).map(l=>esc(l.replace(/^[-*#\s]+/,''))).join('<br>');
   updNote(`<b>Version ${esc(r.latest)} is out</b> (you have ${esc(r.current)}).${notes?'<br>'+notes:''}<br>${r.installable?'<button type="button" class="btn" id="bUpdGo">Install and restart</button>':'This copy can\'t update itself here. Download the new version from GitHub.'}`);
-  if(quiet)toast(`Dementia Zombies ${r.latest} is out. Pause (Esc) to install it.`,'haze');
+  if(quiet&&mode!=='title')toast(`Dementia Zombies ${r.latest} is out. Pause (Esc) to install it.`,'haze');
 }
 async function updInstall(){
   const U=UPD();if(!U||updBusy)return;updBusy=true;
@@ -5539,7 +5542,7 @@ async function updInstall(){
   const poll=async()=>{const v=await U.version();if(v&&v===target){location.reload();return;}if(performance.now()-t0>30000){updNote('The new version is installed. Close and reopen the game to finish.');updBusy=false;return;}setTimeout(poll,700);};
   setTimeout(poll,900);
 }
-document.addEventListener('click',e=>{if(e.target&&e.target.id==='bUpdGo')updInstall();});
+document.addEventListener('click',e=>{if(e.target&&e.target.dataset&&e.target.dataset.upd==='go')updInstall();});
 /* ---------- cheats ---------- */
 // numbers are read straight into log form, so CASH 1e5000 works
 const MULT={K:3,M:6,B:9,T:12,QA:15,QI:18,SX:21,SP:24,OC:27,NO:30,DC:33};
@@ -5952,7 +5955,7 @@ $('tbtns').addEventListener('pointerdown',e=>{
 $('bCoop').onclick=()=>{if(mode==='coop')setMode(coopBack);else if(mode!=='dead'&&mode!=='cheat')openCoop();};
 $('bPCoop').onclick=()=>openCoop();
 const sndLabel=()=>{$('bPSound').textContent='Sound: '+(sndVol>0?Math.round(sndVol*100)+'%':'off');};sndLabel();
-if(UPD()){$('bPUpdate').hidden=false;$('bPUpdate').onclick=()=>updCheck(true,false);setTimeout(()=>updCheck(false,true),6000);}
+if(UPD()){for(const id of['bPUpdate','bTUpdate']){$(id).hidden=false;$(id).onclick=()=>updCheck(true,false);}setTimeout(()=>updCheck(false,true),1500);}
 $('bPPad').onclick=()=>openPadCfg();
 musLabel();$('bPMusic').onclick=()=>{sndInit();const L=[0,.25,.5,.8];const i=L.findIndex(v=>Math.abs(v-musVol)<.05);setMus(L[(i+1)%L.length]);musLabel();};
 $('bPSound').onclick=()=>{sndInit();const L=[0,.3,.6,1];const i=L.findIndex(v=>Math.abs(v-sndVol)<.05);setVol(L[(i+1)%L.length]);sndLabel();sfx('ui');};

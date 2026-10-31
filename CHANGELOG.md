@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.4
+
+**Updates**
+- "Check for updates" is now on the title screen, not just the pause menu.
+- The game checks for a new version as soon as it opens and shows it on the title screen with an "Install and restart" button.
+- A clearer message when GitHub has no public release to check.
+
 ## v1.2.3
 
 **Controllers**

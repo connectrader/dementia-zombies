@@ -109,7 +109,7 @@ func latestRelease(force bool) (*release, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode == 404 {
-		return nil, errors.New("no releases found")
+		return nil, errors.New("GitHub has no public releases of the game to check (the repository may be private)")
 	}
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("GitHub answered %d", resp.StatusCode)

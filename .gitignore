@@ -1,0 +1,10 @@
+dz-desktop/dist/
+dz-desktop/web/
+dz-desktop/*.syso
+dz-desktop/app.rc
+dz-desktop/app.manifest
+dz-desktop/tools/
+dz-desktop/icon-1024.png
+*.download
+*.old
+__pycache__/

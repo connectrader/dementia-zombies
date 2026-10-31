@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.7.0
+
+**Power, crowds and readable numbers**
+- Numbers grow far slower. Damage, health, armor, cash and prices now grow about 5% a level instead of 10 to 13%. Damage is in the thousands for the first stretch and around a million after an hour or two, instead of trillions.
+- You get stronger and stay stronger. Single zombies keep dying faster as you grow; the dead no longer soak up your upgrades.
+- The dead answer your power with numbers and nastiness instead: bigger crowds, faster spawns, more elites and more traits on them.
+- Hordes: every minute or so a pack comes at you from one direction, with a warning. Packs grow from 5 to about 40 as you get stronger.
+- Crowd effects scale with condition: Piercing (+1 per 4 condition levels), Twin (+1 per 6), Arcing (+1 jump per 4), Ricocheting (+1 bounce per 6), Splitting (+1 shard per 5) and Explosive (bigger blasts). They also roll more often.
+- Bigger crowds mean more kills, so each kill gives a little less experience when the pressure is up.
+- Saves from older versions are converted to the new numbers the first time they load.
+
 ## v1.6.0
 
 **Dungeons**

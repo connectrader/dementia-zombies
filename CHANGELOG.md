@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.1
+
+**Controllers**
+- Pushing the right stick no longer fires on its own. Aim freely and fire with the right trigger.
+- New "Right stick fires" option under Pause → Controller for twin-stick style shooting.
+- Controllers whose triggers report the wrong resting position until first pressed are now corrected automatically, so they can't look like a held trigger.
+
 ## v1.2.0
 
 **Controllers**

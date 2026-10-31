@@ -294,7 +294,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.1</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -308,7 +308,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.1</span></p></div></div>
     <p class="fine" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -356,7 +356,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
     <p class="lede"><b>Crazed survivors.</b> From level 4, armed survivors who lost it come after you with a real weapon for your level. They aim badly, so keep moving. They often drop the weapon they were carrying.</p>
     <p class="lede"><b>More of the dead.</b> Leapers pounce, hoarders run off with full pockets (catch them), clingers slow you, riot zombies hide behind shields, burrowers travel underground and pop up beside you, hazmats leave toxic puddles, brood mothers spit out crawlers, pyres burn and explode, nurses heal the dead around them (kill them first) and phantoms flicker out of your shots. New elite traits: shielded, explosive, frostbitten, thorned, blinking, summoning and toxic. The game tells you what each one does the first time you meet it.</p>
     <p class="lede"><b>Streaks.</b> Kills less than 3 seconds apart chain into a streak. Each kill in a streak gives 1% more experience, up to 60%, and big streaks get called out. Early levels come faster while you find your feet.</p>
-    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims and fires (the right trigger fires too), the left trigger or right bumper swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, clicking the left stick fires your class skill, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start pauses, Select/View opens the bag. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
+    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims, the right trigger fires (turn on "Right stick fires" under Pause → Controller for twin-stick style), the left trigger or right bumper swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, clicking the left stick fires your class skill, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start pauses, Select/View opens the bag. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
     <p class="lede"><b>Party and co-op.</b> Take up to 3 roommates along from the Party tab at home. They follow you, fight with the weapon you hand them, and each class has a trick: medics heal, tanks taunt, grenadiers lob frags, callers bring airstrikes. If you drop, you go down instead of dying while anyone in the party is still standing; they have 30 seconds to reach you. Press <kbd>C</kbd> for co-op: host a game or join one, up to 4 players, and friends take over roommate spots. It runs through claude.ai's live room, so friends need this page shared with them.</p>
     <p class="lede"><b>Places and throwables.</b> 22 kinds of place dot the city, each guarded, each with a themed cache that restocks every 4 days. 16 throwables, from molotovs and noisemakers to bear traps, airstrikes and a suitcase nuke. <kbd>G</kbd> throws, <kbd>T</kbd> switches.</p>
     <p class="eyebrow">Cheat codes &middot; press <kbd>`</kbd> or <kbd>Enter</kbd>, or tap Codes</p>
@@ -408,7 +408,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.2.0';
+const GAME_VERSION='1.2.1';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -4634,7 +4634,7 @@ const PAD_ACTIONS=[
 const PAD_STD={fire:['b7'],melee:['b6','b5'],use:['b0'],meds:['b1'],kit:['b2'],swap:['b3'],throw:['b4'],skill:['b10'],unmed:['b11'],
   prevW:['b14'],nextW:['b15'],skills:['b12'],thrNext:['b13'],pause:['b9'],bag:['b8'],marker:[]};
 const PADCFG_KEY='dz-pad';
-let padCfg={assist:.5,vib:true,dz:.18,maps:{}};
+let padCfg={assist:.5,vib:true,dz:.18,autofire:false,maps:{}};
 try{const s=JSON.parse(localStorage.getItem(PADCFG_KEY)||'null');if(s&&typeof s==='object')padCfg=Object.assign(padCfg,s);if(!padCfg.maps||typeof padCfg.maps!=='object')padCfg.maps={};}catch(e){}
 const padSave=()=>{try{localStorage.setItem(PADCFG_KEY,JSON.stringify(padCfg));}catch(e){}};
 const pad={on:false,mx:0,my:0,m:0,aim:0,aimR:6,useAim:false,fire:false,prev:{},last:'kb',idx:-1,gp:null,info:{},rep:{},cap:null};
@@ -4710,6 +4710,11 @@ function padPoll(){
   if(!gp){pad.on=false;pad.fire=false;pad.gp=null;return;}
   if(pad.info.id!==gp.id)padLearn(gp);
   pad.gp=gp;pad.idx=gp.index;
+  {const st0=pad.stab||(pad.stab={});const rest=pad.info.rest||[];let changed=false;
+    gp.axes.forEach((v,i)=>{const q=st0[i];if(!q||Math.abs(v-q.v)>.02){st0[i]={v,t:now};return;}
+      if(now-q.t>2000&&Math.abs(v)>.9&&Math.abs((rest[i]||0)-v)>.5){rest[i]=v;changed=true;}});
+    if(changed&&!pad.info.std){const fake={id:gp.id,mapping:gp.mapping,axes:rest};padLearn(fake);pad.info.rest=rest;}
+    else if(changed)pad.info.rest=rest;}
   if(pad.cap){padCapture(gp);return;}
   const S=padSticks(),L=stick(gp,S.lx,S.ly),R=stick(gp,S.rx,S.ry);
   const st={};for(const[a]of PAD_ACTIONS)st[a]=actOn(gp,a);const pv=pad.prevAct||(pad.prevAct={}),P=a=>st[a]&&!pv[a];
@@ -4717,7 +4722,7 @@ function padPoll(){
   if(any){if(pad.last!=='pad'){pad.last='pad';document.body.classList.add('padnav');sndInit();}pad.on=true;}
   pad.mx=L[0];pad.my=L[1];pad.m=L[2];
   if(R[2]>.25){const t=Math.atan2(R[1],R[0]);pad.aim=pad.useAim?pad.aim+Math.atan2(Math.sin(t-pad.aim),Math.cos(t-pad.aim))*.6:t;pad.useAim=true;pad.aimR+=((2.5+R[2]*6.5)-pad.aimR)*.3;}
-  pad.fire=pad.last==='pad'&&(st.fire||R[2]>.6);
+  pad.fire=pad.last==='pad'&&(st.fire||(padCfg.autofire&&R[2]>.6));
   if(mode==='play'){
     if(P('use'))interact();if(P('meds'))useMeds();if(P('kit'))useKit();if(P('swap'))cycleSlot(1);if(P('throw'))throwNow();
     if(P('melee'))wantMelee=true;if(P('skill'))useAbility();if(P('unmed'))useUnmed();if(P('marker'))placeMarker();
@@ -4767,6 +4772,7 @@ function ensurePadPanel(){
     else if(a==='reset'){if(pad.info.id){delete padCfg.maps[pad.info.id];padSave();toast('Controller layout reset.','haze');}renderPadCfg();}
     else if(a.startsWith('as:')){padCfg.assist=+a.slice(3);padSave();renderPadCfg();}
     else if(a.startsWith('dz:')){padCfg.dz=+a.slice(3);padSave();renderPadCfg();}
+    else if(a==='af'){padCfg.autofire=!padCfg.autofire;padSave();renderPadCfg();}
     else if(a==='vib'){padCfg.vib=!padCfg.vib;padSave();if(padCfg.vib){const was=pad.last;pad.last='pad';rumble(.6,.6,250);pad.last=was;}renderPadCfg();}});
 }
 const PAD_STEPS=[['lx','Push the LEFT stick to the right'],['ly','Push the LEFT stick down'],['rx','Push the RIGHT stick to the right'],['ry','Push the RIGHT stick down'],...PAD_ACTIONS.map(([k,n])=>[k,`Press the button for: ${n}`])];
@@ -4804,6 +4810,7 @@ function renderPadCfg(){
   <div class="shopsec"><h3><span>Settings</span></h3>
     <div class="item"><b>Aim assist</b><span class="bact">${opt(padCfg.assist,0,'Off','as')}${opt(padCfg.assist,.5,'Low','as')}${opt(padCfg.assist,1,'Normal','as')}${opt(padCfg.assist,1.5,'Strong','as')}</span></div>
     <div class="item"><b>Stick dead zone</b><span class="bact">${opt(padCfg.dz,.1,'Small','dz')}${opt(padCfg.dz,.18,'Normal','dz')}${opt(padCfg.dz,.28,'Large','dz')}</span></div>
+    <div class="item"><b>Right stick fires</b><small>Off: aim freely, fire with ${esc(actName('fire'))}. On: pushing the stick most of the way fires, like a twin-stick shooter.</small><span class="bact"><button type="button" class="mini${padCfg.autofire?'':' alt'}" data-pc="af">${padCfg.autofire?'On':'Off'}</button></span></div>
     <div class="item"><b>Vibration</b><span class="bact"><button type="button" class="mini${padCfg.vib?'':' alt'}" data-pc="vib">${padCfg.vib?'On':'Off'}</button></span></div></div>
   <div class="shopsec"><h3><span>Buttons</span></h3>${binds}<div class="btns"><button type="button" class="btn" data-pc="remap" ${gp?'':'disabled'}>Rebind everything</button><button type="button" class="btn alt" data-pc="reset" ${padMap()?'':'disabled'}>Back to default</button></div>
     <p class="fine">In menus: D-pad or left stick moves, ${esc(actName('use'))} presses, ${esc(actName('meds'))} goes back, ${k==='ps'?'L1 / R1':k==='nin'?'L / R':'LB / RB'} switch tabs at the house, right stick scrolls.</p></div>`;

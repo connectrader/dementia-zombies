@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.0
+
+**Controllers**
+- Start always opens the pause screen: from play, from inside the house, and from any menu. Press it again to resume.
+- New quick menu on Select (View, Share or Minus): every screen in the game, plus actions that fit where you're standing, like opening the house, taking meds, throwing, your class skill, markers and chat in co-op. Nothing needs a button of its own anymore. Bag moved into the quick menu and can still be bound to a button.
+- Xbox Series controllers connected over Bluetooth showed PlayStation button names. Fixed.
+
 ## v1.2.4
 
 **Updates**

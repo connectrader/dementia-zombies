@@ -135,6 +135,7 @@ body.touch #tbtns{display:grid}
 .btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
 .btn.red{background:var(--rx)}
 .fine{font-size:11px;color:var(--muted);margin:14px 0 0}
+.ctxgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}.ctxbtn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:9px 11px;border:1px solid var(--line,rgba(0,0,0,.2));border-radius:7px;background:transparent;color:inherit;font:inherit;font-size:13px;cursor:pointer}.ctxbtn:hover{background:rgba(231,162,59,.12)}.ctxbtn small{font-size:10.5px;opacity:.65}
 .updnote{border:1px solid rgba(231,162,59,.45);background:rgba(231,162,59,.08);border-radius:8px;padding:9px 11px;font-size:12px;line-height:1.5;color:inherit}.updnote .btn{margin-top:8px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 18px}
 .stats div{border-top:1.5px solid var(--ink);padding-top:5px}
@@ -295,7 +296,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.4</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.3.0</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -311,7 +312,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.4</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.3.0</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -359,7 +360,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
     <p class="lede"><b>Crazed survivors.</b> From level 4, armed survivors who lost it come after you with a real weapon for your level. They aim badly, so keep moving. They often drop the weapon they were carrying.</p>
     <p class="lede"><b>More of the dead.</b> Leapers pounce, hoarders run off with full pockets (catch them), clingers slow you, riot zombies hide behind shields, burrowers travel underground and pop up beside you, hazmats leave toxic puddles, brood mothers spit out crawlers, pyres burn and explode, nurses heal the dead around them (kill them first) and phantoms flicker out of your shots. New elite traits: shielded, explosive, frostbitten, thorned, blinking, summoning and toxic. The game tells you what each one does the first time you meet it.</p>
     <p class="lede"><b>Streaks.</b> Kills less than 3 seconds apart chain into a streak. Each kill in a streak gives 1% more experience, up to 60%, and big streaks get called out. Early levels come faster while you find your feet.</p>
-    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims, the right trigger fires (turn on "Right stick fires" under Pause → Controller for twin-stick style), the left trigger or right bumper swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, clicking the left stick fires your class skill, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start pauses, Select/View opens the bag. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
+    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims, the right trigger fires (turn on "Right stick fires" under Pause → Controller for twin-stick style), the left trigger or right bumper swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, clicking the left stick fires your class skill, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start always opens the pause screen, from play or from any menu. Select (View, Share, Minus) opens the quick menu: every screen, plus actions for wherever you're standing, so nothing needs a button of its own. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
     <p class="lede"><b>Party and co-op.</b> Take up to 3 roommates along from the Party tab at home. They follow you, fight with the weapon you hand them, and each class has a trick: medics heal, tanks taunt, grenadiers lob frags, callers bring airstrikes. If you drop, you go down instead of dying while anyone in the party is still standing; they have 30 seconds to reach you. Press <kbd>C</kbd> for co-op: host a game or join one, up to 4 players, and friends take over roommate spots. It runs through claude.ai's live room, so friends need this page shared with them.</p>
     <p class="lede"><b>Places and throwables.</b> 22 kinds of place dot the city, each guarded, each with a themed cache that restocks every 4 days. 16 throwables, from molotovs and noisemakers to bear traps, airstrikes and a suitcase nuke. <kbd>G</kbd> throws, <kbd>T</kbd> switches.</p>
     <p class="eyebrow">Cheat codes &middot; press <kbd>`</kbd> or <kbd>Enter</kbd>, or tap Codes</p>
@@ -411,7 +412,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.2.4';
+const GAME_VERSION='1.3.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -4633,9 +4634,9 @@ function drawFeel(){
 const PAD_ACTIONS=[
   ['fire','Fire'],['melee','Swing'],['use','Use / pick up'],['meds','Take meds'],['kit','Use a medkit'],['swap','Swap weapon'],
   ['throw','Throw'],['skill','Class skill'],['unmed','Take an unmed'],['prevW','Previous weapon'],['nextW','Next weapon'],
-  ['skills','Skills'],['thrNext','Next throwable'],['pause','Pause'],['bag','Bag'],['marker','Drop a marker']];
+  ['skills','Skills'],['thrNext','Next throwable'],['pause','Pause'],['menu','Quick menu'],['bag','Bag'],['marker','Drop a marker']];
 const PAD_STD={fire:['b7'],melee:['b6','b5'],use:['b0'],meds:['b1'],kit:['b2'],swap:['b3'],throw:['b4'],skill:['b10'],unmed:['b11'],
-  prevW:['b14'],nextW:['b15'],skills:['b12'],thrNext:['b13'],pause:['b9'],bag:['b8'],marker:[]};
+  prevW:['b14'],nextW:['b15'],skills:['b12'],thrNext:['b13'],pause:['b9'],menu:['b8'],bag:[],marker:[]};
 const PADCFG_KEY='dz-pad';
 let padCfg={assist:.5,vib:true,dz:.18,autofire:false,reticle:false,maps:{}};
 try{const s=JSON.parse(localStorage.getItem(PADCFG_KEY)||'null');if(s&&typeof s==='object')padCfg=Object.assign(padCfg,s);if(!padCfg.maps||typeof padCfg.maps!=='object')padCfg.maps={};}catch(e){}
@@ -4644,9 +4645,10 @@ const pad={on:false,mx:0,my:0,m:0,aim:0,aimR:6,useAim:false,fire:false,prev:{},l
 
 // what kind of controller is it, so prompts can say A / ✕ / B
 function padKind(gp){const id=(gp&&gp.id||'').toLowerCase();
+  if(/045e|xbox|xinput|x-box/.test(id))return'xbox';
   if(/054c|playstation|dualshock|dualsense|wireless controller|ps[345]/.test(id))return'ps';
   if(/057e|nintendo|pro controller|joy-con|switch/.test(id))return'nin';
-  if(/045e|xbox|xinput|x-box/.test(id)||(gp&&gp.mapping==='standard'))return'xbox';return'generic';}
+  if(gp&&gp.mapping==='standard')return'xbox';return'generic';}
 const PAD_GLYPH={
   xbox:{b0:'A',b1:'B',b2:'X',b3:'Y',b4:'LB',b5:'RB',b6:'LT',b7:'RT',b8:'View',b9:'Menu',b10:'L3',b11:'R3',b12:'D-pad up',b13:'D-pad down',b14:'D-pad left',b15:'D-pad right'},
   ps:{b0:'✕',b1:'○',b2:'□',b3:'△',b4:'L1',b5:'R1',b6:'L2',b7:'R2',b8:'Create',b9:'Options',b10:'L3',b11:'R3',b12:'D-pad up',b13:'D-pad down',b14:'D-pad left',b15:'D-pad right'},
@@ -4689,7 +4691,7 @@ function actOn(gp,act){for(const s of padBind(act))if(srcOn(gp,s))return true;re
 function stick(gp,ix,iy){let x=gp.axes[ix]||0,y=gp.axes[iy]||0;const m=Math.hypot(x,y),dz=padCfg.dz;if(m<dz)return[0,0,0];const k=Math.min(1,(m-dz)/(1-dz))/m;x*=k;y*=k;return[x,y,Math.min(1,m*k)];}
 
 addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&(Math.abs(e.movementX)+Math.abs(e.movementY))>2){pad.last='kb';document.body.classList.remove('padnav');}});
-addEventListener('gamepadconnected',e=>{padLearn(e.gamepad);hint(`${padKind(e.gamepad)==='generic'?'Controller connected. If any buttons are wrong, Pause → Controller lets you rebind them.':'Controller connected. Left stick moves, right stick aims and fires.'}`,'haze');});
+addEventListener('gamepadconnected',e=>{padLearn(e.gamepad);hint(`${padKind(e.gamepad)==='generic'?'Controller connected. If any buttons are wrong, Pause → Controller lets you rebind them.':'Controller connected. Start pauses, Select opens the quick menu.'}`,'haze');});
 addEventListener('gamepaddisconnected',e=>{if(pad.gp&&e.gamepad.index===pad.idx){pad.on=false;pad.fire=false;pad.gp=null;pad.idx=-1;if(mode==='play'&&pad.last==='pad'){setMode('pause');toast('Controller disconnected. Paused until you\'re back.','bad');}}});
 
 function padFocusables(){const ov=document.querySelector('.overlay:not([hidden])');if(!ov)return[];return[...ov.querySelectorAll('button:not([disabled]),select,input,[data-buy],[data-sv],[data-co]')].filter(el=>el.offsetParent!==null&&!el.closest('[hidden]'));}
@@ -4725,18 +4727,20 @@ function padPoll(){
     if(P('use'))interact();if(P('meds'))useMeds();if(P('kit'))useKit();if(P('swap'))cycleSlot(1);if(P('throw'))throwNow();
     if(P('melee'))wantMelee=true;if(P('skill'))useAbility();if(P('unmed'))useUnmed();if(P('marker'))placeMarker();
     if(P('prevW'))cycleSlot(-1);if(P('nextW'))cycleSlot(1);if(P('thrNext'))cycleThr();if(P('skills'))openSkills();
-    if(P('pause'))setMode('pause');else if(P('bag'))openBag();
+    if(P('pause'))setMode('pause');else if(P('menu'))openCtx();else if(P('bag'))openBag();
   }else if(mode!=='cheat'&&mode!=='pad'){
     const esc=()=>dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));
     const up=rep('u',st.skills||L[1]<-.6,now),dn=rep('d',st.thrNext||L[1]>.6,now),lf=rep('l',st.prevW||L[0]<-.6,now),rt=rep('r',st.nextW||L[0]>.6,now);
-    if(P('pause')){if(mode==='pause')setMode('play');else if(mode==='title'||mode==='dead')startGame();else esc();}
+    if(P('pause')){if(mode==='pause')setMode('play');else if(mode==='title'||mode==='dead')startGame();else padToPause();}
+    else if(P('menu')&&mode==='ctx')closeCtx();
+    else if(P('menu')&&runActive&&mode!=='title'&&mode!=='dead')openCtx();
     else if(P('meds'))esc();
     else if(P('bag')&&mode==='bag')closeBag();
     else if(P('throw'))padTab(-1);else if(gp.buttons[5]&&gp.buttons[5].pressed&&!pv.__rb)padTab(1);
     else if(up||lf)padMove(-1);else if(dn||rt)padMove(1);
     else if(P('use')){const el=document.activeElement;if(el&&el.closest&&el.closest('.overlay:not([hidden])'))el.click();else if(mode==='title'||mode==='dead')startGame();else padMove(1);}
     if(Math.abs(R[1])>.3)padScroll(R[1]*18);
-  }else if(mode==='pad'){if(P('meds'))closePadCfg();}
+  }else if(mode==='pad'){if(P('meds'))closePadCfg();else if(P('pause'))padToPause();else if(P('menu'))openCtx();}
   for(const[a]of PAD_ACTIONS)pv[a]=st[a];pv.__rb=!!(gp.buttons[5]&&gp.buttons[5].pressed);
 }
 // aim assist: a nudge toward the zombie nearest your aim, only with a stick
@@ -5543,6 +5547,56 @@ async function updInstall(){
   setTimeout(poll,900);
 }
 document.addEventListener('click',e=>{if(e.target&&e.target.dataset&&e.target.dataset.upd==='go')updInstall();});
+/* ---------- quick menu (controller Select) ---------- */
+// One button reaches every screen, plus whatever makes sense right where you're standing.
+let ctxBack='play';
+function padToPause(){pad.cap=null;const ci=document.getElementById('chatF');if(ci)ci.remove();setMode('pause');}
+function ensureCtxPanel(){
+  if($('ovCtx'))return;const d=document.createElement('div');d.className='overlay';d.id='ovCtx';d.hidden=true;
+  d.innerHTML='<div class="pad ctxpad"><div class="padhead"><span class="rx">Rx</span><div><h2>Quick menu</h2><p id="ctxSub"></p></div><button class="x" type="button" data-cx="x">Close</button></div><div id="ctxBody"></div></div>';
+  document.body.appendChild(d);panels.ctx=d;
+  d.addEventListener('click',e=>{if(e.target===d){closeCtx();return;}const b=e.target.closest('[data-cx]');if(!b)return;ctxRun(b.dataset.cx);});
+}
+function ctxItems(){
+  const p=G.p,inside=isInside(p.x,p.y),out=[],here=[],act=[],go=[];
+  const pr=$('prompt'),pt=pr&&!pr.hidden&&pr.offsetParent!==null?pr.textContent.trim():'';
+  if(inside)here.push(['shop','Open the house','The counter, your bed, the lab and the rest']);
+  else if(pt)here.push(['use',pt.replace(/^\S+(?: \S+)? to /,'').replace(/^./,c=>c.toUpperCase()),actName('use')]);
+  if(G.meds>0)act.push(['meds',`Take dementia meds (${fmt(G.meds)})`,actName('meds')]);
+  if(G.medkits>0)act.push(['kit',`Use a medkit (${fmt(G.medkits)})`,actName('kit')]);
+  if(!inside){const C=clsCur(),S=G.cls;act.push(['skill',S.cd>0?`${C.ab.n} (ready in ${Math.ceil(S.cd)}s)`:C.ab.n,actName('skill')]);}
+  const tk=G.thrSel&&G.thr[G.thrSel]>0?G.thrSel:null;
+  if(tk&&!inside)act.push(['throw',`Throw ${THR[tk].n.toLowerCase()} (${fmt(G.thr[tk])})`,actName('throw')]);
+  if(Object.keys(THR).filter(k=>G.thr[k]>0).length>1)act.push(['thr','Next throwable',actName('thrNext')]);
+  act.push(['unmed','Take an unmed',actName('unmed')]);
+  if(p.slots.filter(Boolean).length>1)act.push(['swap','Swap weapon',actName('swap')]);
+  if(NET.role){act.push(['marker','Drop a marker where you aim',actName('marker')]);act.push(['chat','Chat','']);}
+  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['pad','Controller settings',''],['help','Help and codes',''],['pause','Pause screen',actName('pause')]);
+  if(here.length)out.push(['Here',here]);out.push(['Actions',act],['Menus',go]);return out;
+}
+function renderCtx(){
+  const body=$('ctxBody');if(!body)return;
+  $('ctxSub').textContent=`${actName('menu')} or ${actName('meds')} closes it. ${actName('pause')} pauses.`;
+  body.innerHTML=ctxItems().map(([h,list])=>`<div class="shopsec"><h3><span>${esc(h)}</span></h3><div class="ctxgrid">${list.map(([k,n,g])=>`<button type="button" class="ctxbtn" data-cx="${k}"><b>${esc(n)}</b>${g&&!/^—|^$|unbound/i.test(g)?`<small>${esc(g)}</small>`:''}</button>`).join('')}</div></div>`).join('');
+}
+function openCtx(){
+  if(!G||!runActive)return;if(mode==='ctx'){closeCtx();return;}
+  if(mode==='pad')pad.cap=null;
+  ctxBack=mode==='play'?'play':'pause';ensureCtxPanel();
+  // read the "press A to…" prompt while it's still showing
+  renderCtx();setMode('ctx');
+  const f=document.querySelector('#ctxBody .ctxbtn');if(f&&pad.last==='pad')f.focus({preventScroll:true});
+}
+function closeCtx(){setMode(ctxBack);}
+function ctxRun(k){
+  if(k==='x'){closeCtx();return;}
+  const menus={bag:openBag,skills:openSkills,coop:openCoop,saves:openSaves,help:openHelp,shop:openShop};
+  if(k==='pause'){setMode('pause');return;}
+  if(k==='pad'){setMode('pause');openPadCfg();return;}
+  if(menus[k]){setMode(ctxBack==='play'&&k!=='saves'?'play':'pause');menus[k]();return;}
+  setMode('play');
+  ({use:interact,meds:useMeds,kit:useKit,skill:useAbility,throw:throwNow,thr:cycleThr,unmed:useUnmed,swap:()=>cycleSlot(1),marker:placeMarker,chat:openChat,map:toggleMinimap}[k]||(()=>{}))();
+}
 /* ---------- cheats ---------- */
 // numbers are read straight into log form, so CASH 1e5000 works
 const MULT={K:3,M:6,B:9,T:12,QA:15,QI:18,SX:21,SP:24,OC:27,NO:30,DC:33};
@@ -5905,6 +5959,7 @@ addEventListener('keydown',e=>{
   if(k==='enter'){if(mode==='title'||mode==='dead')startGame();return;}
   if(k==='escape'||k==='p'){
     if(mode==='play')setMode('pause');else if(mode==='pause'||mode==='shop')setMode('play');
+    else if(mode==='ctx')closeCtx();
     else if(mode==='help')closeHelp();else if(mode==='skills')closeSkills();else if(mode==='saves')closeSaves();else if(mode==='bag')closeBag();else if(mode==='coop')setMode(coopBack);else if(mode==='pad')closePadCfg();
     return;}
   if(k==='h'||k==='?'){if(mode==='help')closeHelp();else if(mode!=='dead')openHelp();return;}

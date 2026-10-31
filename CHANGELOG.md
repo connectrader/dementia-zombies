@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.6.0
+
+**Dungeons**
+- From level 6, a way down opens nearby every few minutes: the Root Cellar, the Storm Drains, St. Agnes Basement or the Fallout Shelter.
+- Each is a fixed map of rooms and corridors with a fixed number of the dead. Nothing respawns and nothing wanders in, and a counter shows how many are left.
+- A named horror waits in the last room. Clear everything and a chest opens with a pile of weapons and gear, cash, parts and experience.
+- Dark past your light, with each kind dressed differently. Climb back out by the ladder any time.
+- Deeper dungeons every 25 levels: more rooms, more of the dead, better loot.
+
+**Dimensions**
+- Every dimension has its own look: forest trails and log cabins in the Deep Woods, rows of graves and mausoleums in the Boneyard, striped market stalls and coin sacks in the Goblin Market, metal plating and crystal spires in the Grey Zone, red-lit brick and coffins in Nightfall Manor, and lava cracks and brimstone in the Pit.
+- Each dimension is the only place certain effects drop. All lifesteal (Vampiric weapons, the Leech on gear and the Blood element) comes from Nightfall Manor only. Hellfire and Explosive come from the Pit, Seeking, Phantom and Gravitic from the Grey Zone, Unbroken and Executing from the Boneyard, Fleet and Deadshot from the Deep Woods, and Lucky and Scavenging from the Goblin Market. Loot found there often carries one.
+- Things you already own keep what they have.
+
+**Soft caps**
+- Gear bonuses (damage, attack speed, crit, health, cash, experience, luck, lifesteal, thorns, range and more) count in full up to a point, then each extra bit is worth less.
+- Counter treatments (Vitamins, Whetstone kit, Coin purse) and the endless skills follow the same curve, and show what the next rank actually adds.
+- Levels a weapon or piece of gear gains after it drops (tuning, bond catch-up, heirloom scaling) count for less the further it goes. Better condition holds its value longer. Keeping a favourite still works for a good while, but new finds catch up.
+
 ## v1.5.0
 
 **Balance overhaul: a run that lasts**

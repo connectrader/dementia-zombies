@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.5.0
+
+**Balance overhaul: a run that lasts**
+- Fixed the runaway that made the game pointless after about ten minutes. Class bonuses to experience, luck, cash and parts grew without limit, which fed more experience, which grew them further. Levels went into the millions while you couldn't be hurt and nothing in the shop mattered.
+- Class passives now grow until class level 100, where the class is mastered.
+- The endless skills (Trigger Discipline, Butcher's Rhythm, Stubborn, Embrace the Fog) give a flat bonus per point instead of compounding.
+- Levels come steadily: quick at first, about a minute each by the mid-game, slower after that. The "made it home" bonus no longer gets multiplied twice.
+- Elites are a little rarer and give a little less experience; hard events double them instead of tripling.
+- The dead size you up. Every second the game checks how quickly you drop a plain zombie and how many hits you could take, and new zombies close most of the gap to a fair fight over about half a minute. Upgrades still feel big, but no amount of stacking makes you untouchable.
+- Zombies scale harder with level to keep pace with what a long run piles on.
+
+**Something new for hours**
+- New kinds of dead now arrive from level 3 to level 75, instead of all of them by 26.
+- Elite traits unlock one at a time up to level 74. Elites can carry two traits from level 60 and three from level 120.
+- Named horrors join the roster as you go: four when hunts start at level 22, then one more every six levels.
+- Rifts open from level 20, with a new dimension at 32, 44, 56, 70 and 85.
+- Events are spread from level 1 to level 40. Loot goblins appear from level 12 (relic goblins at 25, golden at 40), crazed survivors from level 8.
+- A message tells you whenever something new is out there.
+
 ## v1.4.0
 
 **Menus on a controller**

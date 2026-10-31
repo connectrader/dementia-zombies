@@ -56,6 +56,7 @@ kbd{font:600 10px/1 var(--mono);border:1px solid currentColor;border-radius:3px;
 button{font:inherit;color:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 #chatF{position:fixed;left:16px;bottom:100px;z-index:40;width:min(420px,calc(100vw - 32px))}#chatF input{width:100%;box-sizing:border-box;font:13px 'IBM Plex Mono',monospace;padding:8px 10px;background:rgba(14,15,19,.92);color:#eee7d4;border:1px solid var(--amber);border-radius:4px}
+.padtest{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:10px}.pst{position:relative;width:64px;height:64px;border-radius:50%;border:2px solid var(--ink);display:inline-block;flex:none}.pst i{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--amber)}.pbt{display:flex;flex-wrap:wrap;gap:4px;flex:1;min-width:200px}.pbt b{font:600 11px 'IBM Plex Mono',monospace;padding:2px 6px;border:1px solid rgba(36,37,43,.35);border-radius:3px}.pbt b.on{background:var(--amber);color:#111}
 body.padnav button:focus,body.padnav select:focus,body.padnav input:focus{outline:3px solid var(--amber);outline-offset:2px}
 
 /* HUD */
@@ -293,7 +294,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.1.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.2.0</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -307,7 +308,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.1.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.2.0</span></p></div></div>
     <p class="fine" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -315,7 +316,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
       <button class="btn alt" id="bPSkills" type="button">Skills</button>
       <button class="btn alt" id="bPSaves" type="button">Save files</button>
       <button class="btn alt" id="bPCoop" type="button">Co-op</button>
-      <button class="btn alt" id="bPSound" type="button">Sound</button><button class="btn alt" id="bPMusic" type="button">Music</button><button class="btn alt" id="bPUpdate" type="button" hidden>Check for updates</button>
+      <button class="btn alt" id="bPSound" type="button">Sound</button><button class="btn alt" id="bPMusic" type="button">Music</button><button class="btn alt" id="bPPad" type="button">Controller</button><button class="btn alt" id="bPUpdate" type="button" hidden>Check for updates</button>
       <button class="btn alt" id="bPHelp" type="button">Help &amp; codes</button>
       <button class="btn alt" id="bRestart" type="button">New run</button>
     </div>
@@ -355,7 +356,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
     <p class="lede"><b>Crazed survivors.</b> From level 4, armed survivors who lost it come after you with a real weapon for your level. They aim badly, so keep moving. They often drop the weapon they were carrying.</p>
     <p class="lede"><b>More of the dead.</b> Leapers pounce, hoarders run off with full pockets (catch them), clingers slow you, riot zombies hide behind shields, burrowers travel underground and pop up beside you, hazmats leave toxic puddles, brood mothers spit out crawlers, pyres burn and explode, nurses heal the dead around them (kill them first) and phantoms flicker out of your shots. New elite traits: shielded, explosive, frostbitten, thorned, blinking, summoning and toxic. The game tells you what each one does the first time you meet it.</p>
     <p class="lede"><b>Streaks.</b> Kills less than 3 seconds apart chain into a streak. Each kill in a streak gives 1% more experience, up to 60%, and big streaks get called out. Early levels come faster while you find your feet.</p>
-    <p class="lede"><b>Controller.</b> Left stick moves, right stick aims and fires (RT fires too), LT or RB swings. A uses, B takes meds, X uses a medkit, Y swaps weapons, LB throws, L3 is your class skill, R3 takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start pauses, View opens the bag. In menus the D-pad moves, A presses and B goes back. Music volume is in the pause menu.</p>
+    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims and fires (the right trigger fires too), the left trigger or right bumper swings. Bottom face button uses, right face button takes meds, left face button uses a medkit, top face button swaps weapons, left bumper throws, clicking the left stick fires your class skill, clicking the right stick takes an unmed. D-pad left and right pick a weapon, up opens skills, down picks a throwable. Start pauses, Select/View opens the bag. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
     <p class="lede"><b>Party and co-op.</b> Take up to 3 roommates along from the Party tab at home. They follow you, fight with the weapon you hand them, and each class has a trick: medics heal, tanks taunt, grenadiers lob frags, callers bring airstrikes. If you drop, you go down instead of dying while anyone in the party is still standing; they have 30 seconds to reach you. Press <kbd>C</kbd> for co-op: host a game or join one, up to 4 players, and friends take over roommate spots. It runs through claude.ai's live room, so friends need this page shared with them.</p>
     <p class="lede"><b>Places and throwables.</b> 22 kinds of place dot the city, each guarded, each with a themed cache that restocks every 4 days. 16 throwables, from molotovs and noisemakers to bear traps, airstrikes and a suitcase nuke. <kbd>G</kbd> throws, <kbd>T</kbd> switches.</p>
     <p class="eyebrow">Cheat codes &middot; press <kbd>`</kbd> or <kbd>Enter</kbd>, or tap Codes</p>
@@ -407,7 +408,7 @@ body.narrow.ev #toasts{top:calc(env(safe-area-inset-top,0px) + 280px)}
 </form>
 
 <script>
-const GAME_VERSION='1.1.0';
+const GAME_VERSION='1.2.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -2363,8 +2364,8 @@ function hud(){
   const it=play&&!inside?nearestWeapon():null;const pr=$('prompt');const sp=play&&!inside?specPrompt():null;
   setT('thrT',G.thr&&G.thrSel?`${THR[G.thrSel].n} ×${fmtI(G.thr[G.thrSel]||0)}`:'none');
   if(sp){setT('prompt',sp);pr.style.setProperty('--rc','#e7a23b');pr.hidden=false;}
-  else if(it){let v;if(it.g){const g=it.g,cm=gCompare(g);v=`${usingTouch?'Tap Use':'E'} to put on ${g.name}${cm?' ('+cm[1]+')':''} · ${gShort(g)}`;pr.style.setProperty('--rc',GTIER[g.tier].c);}
-    else{const cur=p.slots[p.cur],dd=cur?dpsL(it.w)-dpsL(cur):3;const fx=Object.keys(it.w.f).map(id=>FXI[id]?FXI[id].n:'').join(', ');v=`${usingTouch?'Tap Use':'E'} to hold ${it.w.name} · DPS ${lfmt(dpsL(it.w))} (${lpct(dd)})${fx?' · '+fx:''}`;pr.style.setProperty('--rc',STATES[it.w.s].c);}
+  else if(it){let v;if(it.g){const g=it.g,cm=gCompare(g);v=`${useKey()} to put on ${g.name}${cm?' ('+cm[1]+')':''} · ${gShort(g)}`;pr.style.setProperty('--rc',GTIER[g.tier].c);}
+    else{const cur=p.slots[p.cur],dd=cur?dpsL(it.w)-dpsL(cur):3;const fx=Object.keys(it.w.f).map(id=>FXI[id]?FXI[id].n:'').join(', ');v=`${useKey()} to hold ${it.w.name} · DPS ${lfmt(dpsL(it.w))} (${lpct(dd)})${fx?' · '+fx:''}`;pr.style.setProperty('--rc',STATES[it.w.s].c);}
     setT('prompt',v);pr.hidden=false;}
   else pr.hidden=true;
 }
@@ -2927,7 +2928,7 @@ function throwNow(){
   let k=G.thrSel;if(!(G.thr[k]>0)){const o=Object.keys(THR).find(x=>G.thr[x]>0);if(!o){hint('No throwables. The counter and the garage lab make them.','bad');return;}k=G.thrSel=o;}
   if(!(rel('candle')&&Math.random()<.3))G.thr[k]--;const D=THR[k];
   if(D.place){traps.push({k,x:p.x,y:p.y,t:120,L:thrL(k)});hint(`${D.n} set.`);return;}
-  let tx,ty;if(usingTouch){tx=p.x+Math.cos(p.aim)*6;ty=p.y+Math.sin(p.aim)*6;}else{tx=(mouse.x+camX)/T;ty=(mouse.y+camY)/T;}
+  let tx,ty;if(usingTouch||(pad.on&&pad.last==='pad')){const r=pad.last==='pad'?pad.aimR:6;tx=p.x+Math.cos(p.aim)*r;ty=p.y+Math.sin(p.aim)*r;}else{tx=(mouse.x+camX)/T;ty=(mouse.y+camY)/T;}
   const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy)||.01;if(d>9){tx=p.x+dx/d*9;ty=p.y+dy/d*9;}
   thrs.push({k,x0:p.x,y0:p.y,tx,ty,t:0,T:.3+Math.min(d,9)*.04,L:thrL(k)});sfx('throw');
 }
@@ -3044,7 +3045,7 @@ function nearNpc(){let best=null,bd=1.9;for(const n of G.npcs){if(n.turn>0||n.fo
 function nearCache(){for(const s of nearSites(1)){if(siteDone(s.id))continue;if(Math.hypot(s.x-G.p.x,s.y-G.p.y)<1.5)return s;}return null;}
 const followers=()=>G.npcs.filter(n=>n.follow&&n.turn<=0).length;
 function specPrompt(){
-  const E=usingTouch?'Tap Use':'E',p=G.p;
+  const E=useKey(),p=G.p;
   if(nearMerchant())return`${E} to trade with ${G.camp.name}, the ${MERCHI[G.camp.k].n.replace(/^The /,'')}`;
   if(G.stray&&Math.hypot(G.stray.x-p.x,G.stray.y-p.y)<1.7)return`${E} to befriend the stray ${PETK[G.stray.k].n.toLowerCase()}`;
   const s=nearCache();if(s){const n=guardsLeft(s.id);return n?`${SITEI[s.k].n}: ${n} guard${n>1?'s':''} left`:`${E} to open the cache · ${SITEI[s.k].d}`;}
@@ -3767,7 +3768,7 @@ function useAbility(){
   if(isInside(p.x,p.y)){hint('Not in the house.');return;}
   const C=clsCur(),S=G.cls;if(S.cd>0){hint(`${C.ab.n} is ready in ${Math.ceil(S.cd)}s.`);return;}
   S.cd=abCd()*(rel('clockkey')?Math.max(.4,1-.3*rel('clockkey')/1.15):1);const pw=abPow(),w=p.slots[p.cur],base=pBase(),fx=S.fx;
-  const aim=()=>{let tx,ty;if(usingTouch){tx=p.x+Math.cos(p.aim)*6;ty=p.y+Math.sin(p.aim)*6;}else{tx=(mouse.x+camX)/T;ty=(mouse.y+camY)/T;}const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy)||.01;if(d>10){tx=p.x+dx/d*10;ty=p.y+dy/d*10;}return[tx,ty];};
+  const aim=()=>{let tx,ty;if(usingTouch||(pad.on&&pad.last==='pad')){const r=pad.last==='pad'?pad.aimR:6;tx=p.x+Math.cos(p.aim)*r;ty=p.y+Math.sin(p.aim)*r;}else{tx=(mouse.x+camX)/T;ty=(mouse.y+camY)/T;}const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy)||.01;if(d>10){tx=p.x+dx/d*10;ty=p.y+dy/d*10;}return[tx,ty];};
   floater(p.x,p.y-1.1,C.ab.n.toUpperCase(),'lv');sfx('skill');
   switch(C.id){
     case'survivor':healP(.3*Math.min(2,pw));fx.wind=5;break;
@@ -4592,7 +4593,7 @@ function firstSteps(){
   if(G.fs||G.kills>5||LV>2||NET.role==='client'){G.fs=1;return;}
   G.fs=1;setPhase('stir',true);
   const p=G.p;for(let i=0;i<4;i++){const a=rnd(TAU),d=rnd(8,11);const x=p.x+Math.cos(a)*d,y=p.y+Math.sin(a)*d;if(solid(Math.floor(x),Math.floor(y),false))continue;const z=makeZombie(x,y,'shambler',true);z.hunt=true;G.zombies.push(z);}
-  toast(pad.last==='pad'?'Here they come. Aim with the right stick to shoot. RB swings your bat.':'Here they come. Aim with the mouse and hold left click to shoot. Space swings your bat.','haze');
+  toast(pad.last==='pad'?`Here they come. Aim with the right stick and hold ${actName('fire')} to shoot. ${actName('melee')} swings your bat.`:'Here they come. Aim with the mouse and hold left click to shoot. Space swings your bat.','haze');
 }
 function firstFinds(z){
   if(G.ff==null)G.ff=G.kills>20?3:0;
@@ -4621,46 +4622,205 @@ function drawFeel(){
 }
 
 // ===== controller =====
-// Xbox-style layout (PlayStation works the same by position). Left stick moves, right stick aims and fires,
-// RT fires, LT/RB swing, A uses, B meds, X medkit, Y swaps, LB throws, L3 class skill, R3 unmed,
-// D-pad: left/right weapons, up skills, down throwables. Start pauses, View opens the bag.
-// In menus the D-pad moves between buttons, A presses, B goes back.
-const pad={on:false,mx:0,my:0,m:0,aim:0,useAim:false,fire:false,prev:[],last:'kb'};
+// Works with any controller the browser can see. Pads that report the standard layout (Xbox, PlayStation, Switch Pro,
+// most 8BitDo and XInput pads) work out of the box. Anything else gets its layout guessed: triggers that show up as
+// analog axes, d-pads that show up as a single "hat" axis, and the right stick on whichever axes it really uses.
+// If the guess is wrong, Pause → Controller has a live input test and lets you rebind every action.
+// The last controller you touched is the one in charge, so swapping pads mid-game just works.
+const PAD_ACTIONS=[
+  ['fire','Fire'],['melee','Swing'],['use','Use / pick up'],['meds','Take meds'],['kit','Use a medkit'],['swap','Swap weapon'],
+  ['throw','Throw'],['skill','Class skill'],['unmed','Take an unmed'],['prevW','Previous weapon'],['nextW','Next weapon'],
+  ['skills','Skills'],['thrNext','Next throwable'],['pause','Pause'],['bag','Bag'],['marker','Drop a marker']];
+const PAD_STD={fire:['b7'],melee:['b6','b5'],use:['b0'],meds:['b1'],kit:['b2'],swap:['b3'],throw:['b4'],skill:['b10'],unmed:['b11'],
+  prevW:['b14'],nextW:['b15'],skills:['b12'],thrNext:['b13'],pause:['b9'],bag:['b8'],marker:[]};
+const PADCFG_KEY='dz-pad';
+let padCfg={assist:.5,vib:true,dz:.18,maps:{}};
+try{const s=JSON.parse(localStorage.getItem(PADCFG_KEY)||'null');if(s&&typeof s==='object')padCfg=Object.assign(padCfg,s);if(!padCfg.maps||typeof padCfg.maps!=='object')padCfg.maps={};}catch(e){}
+const padSave=()=>{try{localStorage.setItem(PADCFG_KEY,JSON.stringify(padCfg));}catch(e){}};
+const pad={on:false,mx:0,my:0,m:0,aim:0,aimR:6,useAim:false,fire:false,prev:{},last:'kb',idx:-1,gp:null,info:{},rep:{},cap:null};
+
+// what kind of controller is it, so prompts can say A / ✕ / B
+function padKind(gp){const id=(gp&&gp.id||'').toLowerCase();
+  if(/054c|playstation|dualshock|dualsense|wireless controller|ps[345]/.test(id))return'ps';
+  if(/057e|nintendo|pro controller|joy-con|switch/.test(id))return'nin';
+  if(/045e|xbox|xinput|x-box/.test(id)||(gp&&gp.mapping==='standard'))return'xbox';return'generic';}
+const PAD_GLYPH={
+  xbox:{b0:'A',b1:'B',b2:'X',b3:'Y',b4:'LB',b5:'RB',b6:'LT',b7:'RT',b8:'View',b9:'Menu',b10:'L3',b11:'R3',b12:'D-pad up',b13:'D-pad down',b14:'D-pad left',b15:'D-pad right'},
+  ps:{b0:'✕',b1:'○',b2:'□',b3:'△',b4:'L1',b5:'R1',b6:'L2',b7:'R2',b8:'Create',b9:'Options',b10:'L3',b11:'R3',b12:'D-pad up',b13:'D-pad down',b14:'D-pad left',b15:'D-pad right'},
+  nin:{b0:'B',b1:'A',b2:'Y',b3:'X',b4:'L',b5:'R',b6:'ZL',b7:'ZR',b8:'−',b9:'+',b10:'L-stick press',b11:'R-stick press',b12:'D-pad up',b13:'D-pad down',b14:'D-pad left',b15:'D-pad right'}};
+function srcName(src,kind){
+  if(!src)return'—';const std=pad.info.std!==false;
+  if(src[0]==='b'&&std&&PAD_GLYPH[kind]&&PAD_GLYPH[kind][src])return PAD_GLYPH[kind][src];
+  if(src[0]==='b')return'Button '+(+src.slice(1)+1);
+  if(src[0]==='a')return'Axis '+src.slice(1,-1)+(src.endsWith('+')?' +':' −');
+  if(src[0]==='h'){const v=+src.split(':')[1];return'D-pad '+(v<-.7?'up':v<-.2?'right':v<.4?'down':'left');}
+  return src;}
+function actName(act){const b=padBind(act);const k=padKind(pad.gp);return b.length?b.map(s=>srcName(s,k)).join(' / '):'unbound';}
+// on-screen "press this" for the use button, in whatever the player is holding
+function useKey(){return pad.last==='pad'&&pad.on?actName('use'):usingTouch?'Tap Use':'E';}
+
+// first look at a pad: learn its resting axes, then guess a layout if it isn't standard
+function padLearn(gp){
+  const id=gp.id,rest=Array.from(gp.axes||[]),std=gp.mapping==='standard';
+  const trig=[],hat=[],free=[];rest.forEach((v,i)=>{if(Math.abs(v+1)<.08&&i>1)trig.push(i);else if(v>1.05)hat.push(i);else if(i>1&&Math.abs(v)<.2)free.push(i);});
+  const binds=JSON.parse(JSON.stringify(PAD_STD));let sticks={lx:0,ly:1,rx:2,ry:3};
+  if(!std){
+    if(free.length>=2)sticks={lx:0,ly:1,rx:free[0],ry:free[1]};
+    if(trig.length>=2){binds.melee=[`a${trig[0]}+`,'b5'];binds.fire=[`a${trig[1]}+`];}
+    else if(trig.length===1){binds.fire=[`a${trig[0]}+`,'b7'];}
+    if(hat.length){const h=hat[0];binds.skills=[`h${h}:-1`];binds.nextW=[`h${h}:-0.43`];binds.thrNext=[`h${h}:0.14`];binds.prevW=[`h${h}:0.71`];}
+  }
+  pad.info={id,std,rest,auto:{binds,sticks},kind:padKind(gp),name:id.replace(/\s*\((?:STANDARD GAMEPAD\s*)?Vendor:.*$/i,'').slice(0,60)||'Controller'};
+}
+const padMap=()=>padCfg.maps[pad.info.id]||null;
+function padBind(act){const m=padMap();if(m&&m.binds&&m.binds[act])return m.binds[act];return(pad.info.auto&&pad.info.auto.binds[act])||PAD_STD[act]||[];}
+function padSticks(){const m=padMap();return(m&&m.sticks)||(pad.info.auto&&pad.info.auto.sticks)||{lx:0,ly:1,rx:2,ry:3};}
+function srcOn(gp,src){
+  if(!gp||!src)return false;
+  if(src[0]==='b'){const b=gp.buttons[+src.slice(1)];return!!(b&&(b.pressed||b.value>.5));}
+  if(src[0]==='a'){const i=+src.slice(1,-1),v=gp.axes[i];if(v==null)return false;const r=pad.info.rest&&pad.info.rest[i]!=null?pad.info.rest[i]:0;return src.endsWith('+')?v-r>.6:r-v>.6;}
+  if(src[0]==='h'){const i=+src.slice(1).split(':')[0],want=+src.split(':')[1],v=gp.axes[i];return v!=null&&Math.abs(v-want)<.12;}
+  return false;}
+function actOn(gp,act){for(const s of padBind(act))if(srcOn(gp,s))return true;return false;}
+// radial dead zone: the stick has to leave a small circle before it counts, then ramps smoothly from there
+function stick(gp,ix,iy){let x=gp.axes[ix]||0,y=gp.axes[iy]||0;const m=Math.hypot(x,y),dz=padCfg.dz;if(m<dz)return[0,0,0];const k=Math.min(1,(m-dz)/(1-dz))/m;x*=k;y*=k;return[x,y,Math.min(1,m*k)];}
+
 addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&(Math.abs(e.movementX)+Math.abs(e.movementY))>2){pad.last='kb';document.body.classList.remove('padnav');}});
-addEventListener('gamepadconnected',()=>{hint('Controller connected. Left stick moves, right stick aims and fires. H shows every button.','haze');});
+addEventListener('gamepadconnected',e=>{padLearn(e.gamepad);hint(`${padKind(e.gamepad)==='generic'?'Controller connected. If any buttons are wrong, Pause → Controller lets you rebind them.':'Controller connected. Left stick moves, right stick aims and fires.'}`,'haze');});
+addEventListener('gamepaddisconnected',e=>{if(pad.gp&&e.gamepad.index===pad.idx){pad.on=false;pad.fire=false;pad.gp=null;pad.idx=-1;if(mode==='play'&&pad.last==='pad'){setMode('pause');toast('Controller disconnected. Paused until you\'re back.','bad');}}});
+
 function padFocusables(){const ov=document.querySelector('.overlay:not([hidden])');if(!ov)return[];return[...ov.querySelectorAll('button:not([disabled]),select,input,[data-buy],[data-sv],[data-co]')].filter(el=>el.offsetParent!==null&&!el.closest('[hidden]'));}
 function padMove(dir){const els=padFocusables();if(!els.length)return;let i=els.indexOf(document.activeElement);i=i<0?0:(i+dir+els.length)%els.length;const el=els.at(i);el.focus({preventScroll:true});el.scrollIntoView({block:'nearest'});}
+function padScroll(dy){const ov=document.querySelector('.overlay:not([hidden])');if(!ov)return;const sc=[ov,...ov.querySelectorAll('*')].find(el=>el.scrollHeight>el.clientHeight+4&&/auto|scroll/.test(getComputedStyle(el).overflowY));if(sc)sc.scrollTop+=dy;}
+function padTab(dir){if(mode!=='shop')return;const ids=HTABS.map(t=>t[0]);const i=Math.max(0,ids.indexOf(htab));buy('h:tab:'+ids.at((i+dir+ids.length)%ids.length));}
+// held d-pad or stick in menus repeats: first step at once, then again after 0.4s, then every 0.12s
+function rep(key,on,now){const r=pad.rep[key];if(!on){delete pad.rep[key];return false;}if(!r){pad.rep[key]={t:now+400};return true;}if(now>=r.t){r.t=now+120;return true;}return false;}
+function rumble(strong,weak,ms){
+  if(!padCfg.vib||pad.last!=='pad'||!pad.gp)return;const a=pad.gp.vibrationActuator;
+  try{if(a&&a.playEffect)a.playEffect(a.type||'dual-rumble',{startDelay:0,duration:ms,strongMagnitude:Math.min(1,strong),weakMagnitude:Math.min(1,weak)}).catch(()=>{});}catch(e){}
+}
 function padPoll(){
-  const gps=navigator.getGamepads?navigator.getGamepads():[];let gp=null;for(const g of gps)if(g&&g.connected){gp=g;break;}
-  if(!gp){pad.on=false;pad.fire=false;return;}
-  const B=i=>{const b=gp.buttons[i];return!!(b&&(b.pressed||b.value>.5));},dz=v=>Math.abs(v)<.18?0:v;
-  const ax=gp.axes||[],lx=dz(ax[0]||0),ly=dz(ax[1]||0),rx=dz(ax[2]||0),ry=dz(ax[3]||0),rm=Math.hypot(rx,ry);
-  const now=gp.buttons.map((_,i)=>B(i)),P=i=>now[i]&&!pad.prev[i];
-  if(now.some(Boolean)||lx||ly||rm){if(pad.last!=='pad'){pad.last='pad';document.body.classList.add('padnav');sndInit();}pad.on=true;}
-  pad.mx=lx;pad.my=ly;pad.m=Math.min(1,Math.hypot(lx,ly));
-  if(rm>.3){pad.aim=Math.atan2(ry,rx);pad.useAim=true;}
-  pad.fire=pad.last==='pad'&&(B(7)||rm>.6);
+  const gps=navigator.getGamepads?Array.from(navigator.getGamepads()):[];const now=performance.now();
+  // the controller in charge is the last one that moved
+  for(const g of gps){if(!g||!g.connected)continue;if(!pad.prev['g'+g.index])pad.prev['g'+g.index]={b:[],a:Array.from(g.axes)};const pv=pad.prev['g'+g.index];
+    let act=false;g.buttons.forEach((b,i)=>{if((b.pressed||b.value>.5)&&!pv.b[i])act=true;});g.axes.forEach((v,i)=>{if(Math.abs(v-(pv.a[i]||0))>.35&&Math.abs(v)>.4)act=true;});
+    pv.b=g.buttons.map(b=>b.pressed||b.value>.5);pv.a=Array.from(g.axes);
+    if(act&&g.index!==pad.idx){pad.idx=g.index;padLearn(g);pad.prevAct={};}}
+  const gp=gps.find(g=>g&&g.connected&&g.index===pad.idx)||(pad.idx<0?gps.find(g=>g&&g.connected):null);
+  if(!gp){pad.on=false;pad.fire=false;pad.gp=null;return;}
+  if(pad.info.id!==gp.id)padLearn(gp);
+  pad.gp=gp;pad.idx=gp.index;
+  if(pad.cap){padCapture(gp);return;}
+  const S=padSticks(),L=stick(gp,S.lx,S.ly),R=stick(gp,S.rx,S.ry);
+  const st={};for(const[a]of PAD_ACTIONS)st[a]=actOn(gp,a);const pv=pad.prevAct||(pad.prevAct={}),P=a=>st[a]&&!pv[a];
+  const any=Object.values(st).some(Boolean)||L[2]>0||R[2]>0;
+  if(any){if(pad.last!=='pad'){pad.last='pad';document.body.classList.add('padnav');sndInit();}pad.on=true;}
+  pad.mx=L[0];pad.my=L[1];pad.m=L[2];
+  if(R[2]>.25){const t=Math.atan2(R[1],R[0]);pad.aim=pad.useAim?pad.aim+Math.atan2(Math.sin(t-pad.aim),Math.cos(t-pad.aim))*.6:t;pad.useAim=true;pad.aimR+=((2.5+R[2]*6.5)-pad.aimR)*.3;}
+  pad.fire=pad.last==='pad'&&(st.fire||R[2]>.6);
   if(mode==='play'){
-    if(P(0))interact();if(P(1))useMeds();if(P(2))useKit();if(P(3))cycleSlot(1);if(P(4))throwNow();
-    if(P(5)||P(6))wantMelee=true;if(P(10))useAbility();if(P(11))useUnmed();
-    if(P(14))cycleSlot(-1);if(P(15))cycleSlot(1);if(P(13))cycleThr();if(P(12))openSkills();
-    if(P(9))setMode('pause');else if(P(8))openBag();
-  }else if(mode!=='cheat'){
+    if(P('use'))interact();if(P('meds'))useMeds();if(P('kit'))useKit();if(P('swap'))cycleSlot(1);if(P('throw'))throwNow();
+    if(P('melee'))wantMelee=true;if(P('skill'))useAbility();if(P('unmed'))useUnmed();if(P('marker'))placeMarker();
+    if(P('prevW'))cycleSlot(-1);if(P('nextW'))cycleSlot(1);if(P('thrNext'))cycleThr();if(P('skills'))openSkills();
+    if(P('pause'))setMode('pause');else if(P('bag'))openBag();
+  }else if(mode!=='cheat'&&mode!=='pad'){
     const esc=()=>dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));
-    if(P(9)){if(mode==='pause')setMode('play');else if(mode==='title'||mode==='dead')startGame();else esc();}
-    else if(P(1))esc();
-    else if(P(8)&&mode==='bag')closeBag();
-    else if(P(12)||P(14))padMove(-1);else if(P(13)||P(15))padMove(1);
-    else if(P(0)){const el=document.activeElement;if(el&&el.closest&&el.closest('.overlay:not([hidden])'))el.click();else if(mode==='title'||mode==='dead')startGame();else padMove(1);}
-  }
-  pad.prev=now;
+    const up=rep('u',st.skills||L[1]<-.6,now),dn=rep('d',st.thrNext||L[1]>.6,now),lf=rep('l',st.prevW||L[0]<-.6,now),rt=rep('r',st.nextW||L[0]>.6,now);
+    if(P('pause')){if(mode==='pause')setMode('play');else if(mode==='title'||mode==='dead')startGame();else esc();}
+    else if(P('meds'))esc();
+    else if(P('bag')&&mode==='bag')closeBag();
+    else if(P('throw'))padTab(-1);else if(gp.buttons[5]&&gp.buttons[5].pressed&&!pv.__rb)padTab(1);
+    else if(up||lf)padMove(-1);else if(dn||rt)padMove(1);
+    else if(P('use')){const el=document.activeElement;if(el&&el.closest&&el.closest('.overlay:not([hidden])'))el.click();else if(mode==='title'||mode==='dead')startGame();else padMove(1);}
+    if(Math.abs(R[1])>.3)padScroll(R[1]*18);
+  }else if(mode==='pad'){if(P('meds'))closePadCfg();}
+  for(const[a]of PAD_ACTIONS)pv[a]=st[a];pv.__rb=!!(gp.buttons[5]&&gp.buttons[5].pressed);
 }
 // aim assist: a nudge toward the zombie nearest your aim, only with a stick
 function padAim(p){
-  let a=pad.useAim?pad.aim:(pad.m>.2?Math.atan2(pad.my,pad.mx):p.aim);let best=null,bs=.32;
-  for(const z of G.zombies){if(z.dying)continue;const dx=z.x-p.x,dy=z.y-p.y,d=Math.hypot(dx,dy);if(d>11)continue;let da=Math.atan2(dy,dx)-a;da=Math.atan2(Math.sin(da),Math.cos(da));const s=Math.abs(da)+d*.012;if(s<bs){bs=s;best=da;}}
-  if(best!=null)a+=best*.55;return a;
+  let a=pad.useAim?pad.aim:(pad.m>.2?Math.atan2(pad.my,pad.mx):p.aim);const k=padCfg.assist;if(!k)return a;let best=null,bs=.32*Math.min(1.4,k);
+  for(const z of G.zombies){if(z.dying||z.under)continue;const dx=z.x-p.x,dy=z.y-p.y,d=Math.hypot(dx,dy);if(d>11)continue;let da=Math.atan2(dy,dx)-a;da=Math.atan2(Math.sin(da),Math.cos(da));const s=Math.abs(da)+d*.012;if(s<bs){bs=s;best=da;}}
+  if(best!=null)a+=best*Math.min(.85,.55*k);return a;
 }
+
+// a sight line and reticle while you play on a controller, so you can see exactly where you're aiming
+function drawPadAim(){
+  if(!G||mode!=='play'||pad.last!=='pad'||!pad.on)return;const p=G.p;if(p.down||isInside(p.x,p.y))return;
+  ctx.setTransform(DPR,0,0,DPR,0,0);const sx=p.x*T-camX,sy=p.y*T-camY,c=Math.cos(p.aim),s=Math.sin(p.aim),r=pad.aimR*T;
+  ctx.strokeStyle='rgba(231,162,59,.55)';ctx.lineWidth=2;ctx.setLineDash([4,7]);ctx.beginPath();ctx.moveTo(sx+c*T*.8,sy+s*T*.8);ctx.lineTo(sx+c*(r-T*.35),sy+s*(r-T*.35));ctx.stroke();ctx.setLineDash([]);
+  const rx=sx+c*r,ry=sy+s*r,k=T*.32;ctx.strokeStyle=pad.fire?'rgba(255,90,60,.95)':'rgba(231,162,59,.9)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(rx,ry,k,0,TAU);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(rx-k*1.6,ry);ctx.lineTo(rx-k*.6,ry);ctx.moveTo(rx+k*.6,ry);ctx.lineTo(rx+k*1.6,ry);ctx.moveTo(rx,ry-k*1.6);ctx.lineTo(rx,ry-k*.6);ctx.moveTo(rx,ry+k*.6);ctx.lineTo(rx,ry+k*1.6);ctx.stroke();
+}
+// ===== Pause → Controller: test, settings, rebinding =====
+let padBack='pause',padUiT=0;
+function openPadCfg(){if(mode!=='pause'&&mode!=='title')return;padBack=mode;ensurePadPanel();renderPadCfg();setMode('pad');}
+function closePadCfg(){pad.cap=null;setMode(padBack);}
+function ensurePadPanel(){
+  if($('ovPad'))return;const d=document.createElement('div');d.className='overlay';d.id='ovPad';d.hidden=true;
+  d.innerHTML='<div class="pad"><div class="padhead"><span class="rx">Rx</span><div><h2>Controller</h2><p>Test your controller, tune it, or rebind its buttons.</p></div><button class="x" type="button" data-pc="x">Close</button></div><div id="padBody"></div></div>';
+  document.body.appendChild(d);panels.pad=d;
+  d.addEventListener('click',e=>{if(e.target===d){closePadCfg();return;}const b=e.target.closest('[data-pc]');if(!b)return;const a=b.dataset.pc;
+    if(a==='x')closePadCfg();
+    else if(a==='remap')padStartCap();
+    else if(a==='skip'){if(pad.cap){pad.cap.i++;pad.cap.base=null;padNextCap();}}
+    else if(a==='cancel'){pad.cap=null;renderPadCfg();}
+    else if(a==='reset'){if(pad.info.id){delete padCfg.maps[pad.info.id];padSave();toast('Controller layout reset.','haze');}renderPadCfg();}
+    else if(a.startsWith('as:')){padCfg.assist=+a.slice(3);padSave();renderPadCfg();}
+    else if(a.startsWith('dz:')){padCfg.dz=+a.slice(3);padSave();renderPadCfg();}
+    else if(a==='vib'){padCfg.vib=!padCfg.vib;padSave();if(padCfg.vib){const was=pad.last;pad.last='pad';rumble(.6,.6,250);pad.last=was;}renderPadCfg();}});
+}
+const PAD_STEPS=[['lx','Push the LEFT stick to the right'],['ly','Push the LEFT stick down'],['rx','Push the RIGHT stick to the right'],['ry','Push the RIGHT stick down'],...PAD_ACTIONS.map(([k,n])=>[k,`Press the button for: ${n}`])];
+function padStartCap(){if(!pad.gp){toast('Press a button on your controller first so the game can see it.','bad');return;}pad.cap={i:0,base:null,binds:{},sticks:{},t:performance.now()};padNextCap();}
+function padNextCap(){const c=pad.cap;if(!c)return;if(c.i>=PAD_STEPS.length){padFinishCap();return;}c.base=null;c.t=performance.now();renderPadCfg();}
+function padCapture(gp){
+  const c=pad.cap,now=performance.now();if(!c.base){c.base={b:gp.buttons.map(b=>b.pressed||b.value>.5),a:Array.from(gp.axes)};c.armT=now+250;return;}
+  if(now<c.armT)return;
+  // wait for everything to be let go between steps
+  if(c.wait){const idle=gp.buttons.every(b=>!(b.pressed||b.value>.5))&&gp.axes.every((v,i)=>Math.abs(v-(pad.info.rest[i]||0))<.3);if(idle){c.wait=false;c.i++;padNextCap();}return;}
+  if(now-c.t>10000){c.i++;padNextCap();return;}
+  const [key]=PAD_STEPS.at(c.i),stickStep=['lx','ly','rx','ry'].includes(key);
+  let src=null;
+  if(!stickStep)gp.buttons.forEach((b,i)=>{if(!src&&(b.pressed||b.value>.5)&&!c.base.b[i])src='b'+i;});
+  if(!src){let bi=-1,bv=.6;gp.axes.forEach((v,i)=>{const d=Math.abs(v-(c.base.a[i]||0));if(d>bv){bv=d;bi=i;}});
+    if(bi>=0){const v=gp.axes[bi],r=pad.info.rest[bi]||0;if(stickStep){if(v-r>0)src=bi;}else if(r>1.05)src=`h${bi}:${(Math.round(v*100)/100)}`;else src=`a${bi}${v>r?'+':'-'}`;}}
+  if(src==null)return;
+  if(stickStep)c.sticks[key]=src;else c.binds[key]=[src];
+  sfx('pick');c.wait=true;renderPadCfg();
+}
+function padFinishCap(){
+  const c=pad.cap;pad.cap=null;const auto=pad.info.auto||{binds:PAD_STD,sticks:{lx:0,ly:1,rx:2,ry:3}};
+  const sticks=Object.assign({},auto.sticks,c.sticks),binds=Object.assign({},JSON.parse(JSON.stringify(auto.binds)),c.binds);
+  padCfg.maps[pad.info.id]={binds,sticks};padSave();toast('Controller layout saved for this controller.','haze');renderPadCfg();
+}
+function renderPadCfg(){
+  const body=$('padBody');if(!body)return;const gp=pad.gp,k=padKind(gp);
+  if(pad.cap){const c=pad.cap,[key,txt]=PAD_STEPS.at(Math.min(c.i,PAD_STEPS.length-1));
+    body.innerHTML=`<div class="shopsec"><h3><span>Rebinding · step ${c.i+1} of ${PAD_STEPS.length}</span></h3><p class="lede" style="margin:0 0 8px">${esc(txt)}</p><p class="fine">${c.wait?'Got it. Let go.':'Waiting… (skips itself after 10 seconds and keeps the current setting)'}</p><div class="btns"><button type="button" class="btn alt" data-pc="skip">Skip this one</button><button type="button" class="btn alt" data-pc="cancel">Cancel</button></div></div>`;return;}
+  const opt=(cur,v,lab,pre)=>`<button type="button" class="mini${Math.abs(cur-v)<.001?'':' alt'}" data-pc="${pre}:${v}">${lab}</button>`;
+  const binds=PAD_ACTIONS.map(([a,n])=>`<div class="item"><b>${esc(n)}</b><small>${esc(actName(a))}</small></div>`).join('');
+  body.innerHTML=`<div class="shopsec"><h3><span>${gp?esc(pad.info.name):'No controller yet'}</span></h3>
+    <p class="fine">${gp?`${{xbox:'Xbox-style',ps:'PlayStation',nin:'Nintendo',generic:'Generic'}[k]} controller · ${pad.info.std?'standard layout, works as is':'non-standard layout, set up automatically. Rebind anything that\'s wrong.'}${padMap()?' · using your custom layout':''}`:'Press any button on your controller. Browsers only show a controller to the game after a button is pressed.'}</p>
+    <div class="padtest" id="padTest"></div></div>
+  <div class="shopsec"><h3><span>Settings</span></h3>
+    <div class="item"><b>Aim assist</b><span class="bact">${opt(padCfg.assist,0,'Off','as')}${opt(padCfg.assist,.5,'Low','as')}${opt(padCfg.assist,1,'Normal','as')}${opt(padCfg.assist,1.5,'Strong','as')}</span></div>
+    <div class="item"><b>Stick dead zone</b><span class="bact">${opt(padCfg.dz,.1,'Small','dz')}${opt(padCfg.dz,.18,'Normal','dz')}${opt(padCfg.dz,.28,'Large','dz')}</span></div>
+    <div class="item"><b>Vibration</b><span class="bact"><button type="button" class="mini${padCfg.vib?'':' alt'}" data-pc="vib">${padCfg.vib?'On':'Off'}</button></span></div></div>
+  <div class="shopsec"><h3><span>Buttons</span></h3>${binds}<div class="btns"><button type="button" class="btn" data-pc="remap" ${gp?'':'disabled'}>Rebind everything</button><button type="button" class="btn alt" data-pc="reset" ${padMap()?'':'disabled'}>Back to default</button></div>
+    <p class="fine">In menus: D-pad or left stick moves, ${esc(actName('use'))} presses, ${esc(actName('meds'))} goes back, ${k==='ps'?'L1 / R1':k==='nin'?'L / R':'LB / RB'} switch tabs at the house, right stick scrolls.</p></div>`;
+  padTestDraw();
+}
+function padTestDraw(){
+  const el=$('padTest');if(!el)return;const gp=pad.gp;if(!gp){el.innerHTML='';return;}const S=padSticks();
+  const dot=(x,y)=>`<span class="pst"><i style="left:${(50+((x||0)*40)).toFixed(0)}%;top:${(50+((y||0)*40)).toFixed(0)}%"></i></span>`;
+  el.innerHTML=`${dot(gp.axes[S.lx],gp.axes[S.ly])}${dot(gp.axes[S.rx],gp.axes[S.ry])}<span class="pbt">${gp.buttons.map((b,i)=>`<b class="${b.pressed||b.value>.5?'on':''}">${esc(srcName('b'+i,padKind(gp)))}</b>`).join('')}</span>`;
+}
+let padCapSig='';
+setInterval(()=>{if(mode!=='pad')return;if(!pad.cap){padCapSig='';padTestDraw();return;}const sig=pad.cap.i+'|'+!!pad.cap.wait;if(sig!==padCapSig){padCapSig=sig;renderPadCfg();}},120);
+// vibration on the moments that matter
+{const _g=drawFeel;drawFeel=function(){drawPadAim();_g();};}
+{const _s=sfx;sfx=function(n,vol){_s(n,vol);if(pad.last!=='pad')return;
+  if(n==='hurt')rumble(.55,.35,140);else if(n==='boom')rumble(.7*(vol==null?1:Math.min(1,vol)),.4,220);else if(n==='beat')rumble(.25,0,70);
+  else if(n==='level')rumble(.2,.5,250);else if(n==='streak')rumble(.3,.6,180);else if(n==='down')rumble(1,1,500);else if(n==='boss')rumble(.6,.2,400);};}
 
 // ===== music: synthesized, follows the danger =====
 // Calm pad and bass at home or when it's quiet; a heartbeat kick, hats and an arpeggio come in as the dead close in.
@@ -5210,7 +5370,7 @@ Object.assign(ZDESC,{crazed:'A survivor who lost it, carrying a real weapon. Kee
     else if(z.dim==='skeleton'){ctx.fillStyle='#1a1a1e';ctx.beginPath();ctx.arc(sx-r*.25,sy-r*.25,r*.14,0,TAU);ctx.arc(sx+r*.25,sy-r*.25,r*.14,0,TAU);ctx.fill();}
     else if(z.dim==='cryptid'){ctx.strokeStyle='rgba(60,45,30,.7)';ctx.lineWidth=1;for(let i=0;i<6;i++){const a=i/6*TAU+z.seed;ctx.beginPath();ctx.moveTo(sx+Math.cos(a)*r*.8,sy+Math.sin(a)*r*.8);ctx.lineTo(sx+Math.cos(a)*r*1.15,sy+Math.sin(a)*r*1.15);ctx.stroke();}}
   }};}
-{const _s=specPrompt;specPrompt=function(){const R=G.rift,p=G.p;if(R&&Math.hypot(R.x-p.x,R.y-p.y)<1.8){const E=usingTouch?'Tap Use':'E';return R.exit?`${E} to step back into the neighborhood`:`${E} to step into ${DIMS[R.k].n}`;}return _s();};}
+{const _s=specPrompt;specPrompt=function(){const R=G.rift,p=G.p;if(R&&Math.hypot(R.x-p.x,R.y-p.y)<1.8){const E=useKey();return R.exit?`${E} to step back into the neighborhood`:`${E} to step into ${DIMS[R.k].n}`;}return _s();};}
 {const _s=specInteract;specInteract=function(){const R=G.rift,p=G.p;if(R&&Math.hypot(R.x-p.x,R.y-p.y)<1.8){if(R.exit)leaveDim(false);else enterDim(R.k);return true;}return _s();};}
 {const _d=director;director=function(dt){dimTick(dt);dimRiseTick(dt);gobWorldTick(dt);crazedWorldTick(dt);if(G.dim){evTick2(dt);return;}_d(dt);};}
 {const _c=campTick;campTick=function(dt){if(G.dim)return;_c(dt);};}
@@ -5280,7 +5440,7 @@ const CHATRX=new RegExp('[\\x00-\\x1f\\x7f-\\x9f\\u200b-\\u200f\\u2028-\\u202e\\
 const cleanChat=s=>String(s==null?'':s).replace(CHATRX,'').trim().slice(0,80);
 function placeMarker(){
   const p=G.p;let x,y;
-  if(pad.on&&pad.last==='pad'){x=p.x+Math.cos(p.aim)*6;y=p.y+Math.sin(p.aim)*6;}else{x=(mouse.x+camX)/T;y=(mouse.y+camY)/T;}
+  if(pad.on&&pad.last==='pad'){x=p.x+Math.cos(p.aim)*pad.aimR;y=p.y+Math.sin(p.aim)*pad.aimR;}else{x=(mouse.x+camX)/T;y=(mouse.y+camY)/T;}
   NET.mks=(NET.mks||0)+1;NET.mk=[+x.toFixed(1),+y.toFixed(1),NET.mks];NET.mkAt=performance.now();sfx('pick');
 }
 function openChat(){
@@ -5738,7 +5898,7 @@ addEventListener('keydown',e=>{
   if(k==='enter'){if(mode==='title'||mode==='dead')startGame();return;}
   if(k==='escape'||k==='p'){
     if(mode==='play')setMode('pause');else if(mode==='pause'||mode==='shop')setMode('play');
-    else if(mode==='help')closeHelp();else if(mode==='skills')closeSkills();else if(mode==='saves')closeSaves();else if(mode==='bag')closeBag();else if(mode==='coop')setMode(coopBack);
+    else if(mode==='help')closeHelp();else if(mode==='skills')closeSkills();else if(mode==='saves')closeSaves();else if(mode==='bag')closeBag();else if(mode==='coop')setMode(coopBack);else if(mode==='pad')closePadCfg();
     return;}
   if(k==='h'||k==='?'){if(mode==='help')closeHelp();else if(mode!=='dead')openHelp();return;}
   if(k==='i'||k==='tab'){e.preventDefault();if(mode==='bag')closeBag();else openBag();return;}
@@ -5789,6 +5949,7 @@ $('bCoop').onclick=()=>{if(mode==='coop')setMode(coopBack);else if(mode!=='dead'
 $('bPCoop').onclick=()=>openCoop();
 const sndLabel=()=>{$('bPSound').textContent='Sound: '+(sndVol>0?Math.round(sndVol*100)+'%':'off');};sndLabel();
 if(UPD()){$('bPUpdate').hidden=false;$('bPUpdate').onclick=()=>updCheck(true,false);setTimeout(()=>updCheck(false,true),6000);}
+$('bPPad').onclick=()=>openPadCfg();
 musLabel();$('bPMusic').onclick=()=>{sndInit();const L=[0,.25,.5,.8];const i=L.findIndex(v=>Math.abs(v-musVol)<.05);setMus(L[(i+1)%L.length]);musLabel();};
 $('bPSound').onclick=()=>{sndInit();const L=[0,.3,.6,1];const i=L.findIndex(v=>Math.abs(v-sndVol)<.05);setVol(L[(i+1)%L.length]);sndLabel();sfx('ui');};
 $('ovCoop').addEventListener('click',e=>{

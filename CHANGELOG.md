@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.0
+
+**Controllers**
+- Works with any controller: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Non-standard pads are set up automatically, including triggers that report as axes, d-pads that report as a single hat, and right sticks on unusual axes.
+- New Pause → Controller screen: live input test, rebind every action (saved per controller), aim assist (off, low, normal, strong), stick dead zone and vibration.
+- True 360° aiming: smooth analog aim in any direction, a sight line and reticle on screen, and the reticle distance follows how far you push the stick. Grenades, targeted class skills and map markers land on the reticle.
+- On-screen prompts use your controller's own button names (A, ✕ or B).
+- Vibration on hits, explosions, the low-health heartbeat, level-ups, streaks and boss arrivals.
+- Menus: the left stick navigates with repeat, the bumpers switch tabs at the house, the right stick scrolls.
+- Whichever controller you touched last is in charge, and the game pauses if it disconnects mid-play.
+- Aim assist now defaults to low.
+
 ## v1.1.0
 
 **Playing together**

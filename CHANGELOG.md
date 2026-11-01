@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.3.0
+
+**A real phone layout**
+- On touch screens the paper status cards are gone. A slim bar along the top shows your level, health, dementia, cash and ammo, with round Menu and Pause buttons.
+- Round action buttons sit around your right thumb: a big Roll, Shove, Reload, Skill and Throw. Meds and Kit sit above the move stick.
+- One big Use button appears in the middle only when there's something to use, and it says what it does: Open the house, Drive the pickup, Ride along, Try the car.
+- Tap a weapon at the top to switch to it.
+- The camera sits closer on phones, and the right stick gently leans your aim onto the nearest one near where you're pointing.
+- A faint ring shows where your left thumb moves you.
+- Only the two newest messages show at once, and the minimap tucks under the top bar.
+- Bigger text in every menu.
+
 ## v3.2.0
 
 **Phones**

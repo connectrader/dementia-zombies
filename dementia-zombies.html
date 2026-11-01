@@ -288,7 +288,6 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 /* phones */
 body.touch #rcol .tools #bSaves,body.touch #rcol .tools #bCoop,body.touch #rcol .tools #bCodes,body.touch #rcol .tools #bHelp,body.touch #rcol .tools #bSkills{display:none}
 body.touch #rcol .tools button{min-height:36px;padding:0 12px;font-size:12px}
-body.touch #tbtns{gap:8px}
 body.touch #tbtns button{-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 body.touch #tbtns button:active{transform:scale(.94);filter:brightness(1.25)}
 body.touch .pad{-webkit-overflow-scrolling:touch}
@@ -297,9 +296,6 @@ body.touch .htabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-
 body.touch .htabs::-webkit-scrollbar{display:none}
 body.touch .htabs button{flex:0 0 auto}
 body.touch input[type=range]{height:32px}
-body.short #tbtns{grid-template-columns:repeat(4,54px);gap:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 8px)}
-body.short #tbtns button{height:36px!important;font-size:10.5px}
-body.short #tbtns button.melee{grid-column:span 2;height:44px!important}
 body.short #slipL{max-height:calc(100vh - 24px);overflow:hidden}
 body.short #rcol{width:min(140px,30vw)}
 body.short #toasts{max-width:min(380px,50vw)}
@@ -307,6 +303,56 @@ body.short .overlay{padding:8px max(8px,env(safe-area-inset-right,0px)) 8px max(
 body.short .pad{padding:14px 16px;box-sizing:border-box}
 @media (max-width:560px){.overlay{padding:0}.pad{box-sizing:border-box;max-width:100%;max-height:100%;height:100%;border-radius:0;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 18px)}.ctxgrid{grid-template-columns:1fr!important}#toasts{max-width:calc(100vw - 24px)}}
 @media (max-width:700px){.codes,.codes tbody,.codes tr,.codes td{display:block;width:auto}.codes tr{padding:6px 0;border-bottom:1px dotted #b9ae92}.codes td{border:0;padding:0;white-space:normal!important}.codes td:first-child{color:var(--ink)}}
+
+/* touch layout */
+#mhud{display:none}
+body.touch #slipL,body.touch #slipR,body.touch #rcol .tools,body.touch #prompt,body.touch #safe{display:none!important}
+body.touch #mhud{display:flex;top:calc(env(safe-area-inset-top,0px) + 8px);left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));justify-content:space-between;align-items:center;gap:12px;pointer-events:none}
+#mhud .mh-l{display:flex;align-items:center;gap:8px;flex:1;max-width:52%}
+#mhud #mhLv{font:400 24px var(--display);color:var(--paper);min-width:26px;text-shadow:0 1px 4px #000}
+#mhud .mh-bars{flex:1;display:flex;flex-direction:column;gap:4px}
+#mhud .mh-bars i{display:block;height:9px;background:rgba(10,10,14,.65);border-radius:5px;overflow:hidden;box-shadow:0 0 0 1px rgba(238,231,212,.15)}
+#mhud .mh-bars i.mh-dm{height:5px}
+#mhud s{display:block;height:100%;width:0;background:#d9534f;text-decoration:none;transition:width .15s}
+#mhud .mh-dm s{background:#8a7ad8}
+#mhud .mh-r{display:flex;align-items:center;gap:8px}
+#mhud .mh-txt{display:flex;flex-direction:column;align-items:flex-end;font:600 12px "IBM Plex Mono",monospace;color:var(--paper);text-shadow:0 1px 4px #000;line-height:1.25}
+#mhud .mh-txt span:last-child{color:#d8cfb8;font-size:11px}
+#mhud button{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:1px solid rgba(238,231,212,.35);background:rgba(20,22,27,.78);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;-webkit-tap-highlight-color:transparent}
+#mhMenu i{display:block;width:16px;height:2px;background:var(--paper);border-radius:1px}
+#mhPause{flex-direction:row!important;gap:4px!important}#mhPause b{display:block;width:4px;height:14px;background:var(--paper);border-radius:1px}
+body.touch #tbtns{display:block!important;position:fixed;inset:auto 0 0 auto;width:0;height:0;padding:0}
+body.touch #tbtns .mb{position:fixed;width:54px;height:54px;border-radius:50%;padding:0;border:1px solid rgba(238,231,212,.35);background:rgba(20,22,27,.72);color:var(--paper);font:600 11px "IBM Plex Mono",monospace;touch-action:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;grid-column:auto}
+body.touch #tbtns .mb:active{transform:scale(.92);background:rgba(60,62,70,.85)}
+body.touch #tbtns .r1{right:calc(env(safe-area-inset-right,0px) + 20px);bottom:calc(env(safe-area-inset-bottom,0px) + 110px);width:78px;height:78px;background:rgba(196,67,59,.9);border-color:transparent;font:400 16px var(--display)}
+body.touch #tbtns .r2{right:calc(env(safe-area-inset-right,0px) + 110px);bottom:calc(env(safe-area-inset-bottom,0px) + 34px);width:68px;height:68px;font:400 14px var(--display);background:rgba(120,70,40,.85)}
+body.touch #tbtns .r3{right:calc(env(safe-area-inset-right,0px) + 32px);bottom:calc(env(safe-area-inset-bottom,0px) + 206px)}
+body.touch #tbtns .r4{right:calc(env(safe-area-inset-right,0px) + 108px);bottom:calc(env(safe-area-inset-bottom,0px) + 178px)}
+body.touch #tbtns .r5{right:calc(env(safe-area-inset-right,0px) + 22px);bottom:calc(env(safe-area-inset-bottom,0px) + 34px)}
+body.touch #tbtns .r6{left:calc(env(safe-area-inset-left,0px) + 14px);bottom:calc(env(safe-area-inset-bottom,0px) + 220px);width:48px;height:48px}
+body.touch #tbtns .r7{left:calc(env(safe-area-inset-left,0px) + 70px);bottom:calc(env(safe-area-inset-bottom,0px) + 220px);width:48px;height:48px}
+body.touch #tbtns .muse{display:none;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 96px);width:auto;max-width:62vw;height:50px;border-radius:25px;padding:0 22px;background:var(--amber);color:#1b1d21;border-color:transparent;font:600 14px "IBM Plex Mono",monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.touch #tbtns .muse.show{display:block}
+body.touch #tbtns .muse:active{transform:translateX(-50%) scale(.95)}
+body.touch #slots{display:flex!important;top:calc(env(safe-area-inset-top,0px) + 58px);bottom:auto;left:max(10px,env(safe-area-inset-left,0px));transform:none;gap:6px;width:auto;max-width:calc(100% - 120px)}
+body.touch #slots>*{min-width:0;padding:5px 8px!important;font-size:11px!important}
+body.touch #slots kbd,body.touch #slots .ss{display:none}body.touch #slots .slot{max-width:30vw;min-height:34px;display:flex;align-items:center}body.touch #slots .sn{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}body.touch #slots .slot:not(.on){opacity:.7}
+body.touch #toasts{top:calc(env(safe-area-inset-top,0px) + 104px)!important;max-width:min(360px,calc(100vw - 110px))!important}
+body.touch .toast{font-size:12px}
+body.touch #toasts .toast:nth-last-child(n+3){display:none}
+body.touch.short #tbtns .r1{bottom:calc(env(safe-area-inset-bottom,0px) + 84px);width:66px;height:66px}
+body.touch.short #tbtns .r2{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);width:58px;height:58px;right:calc(env(safe-area-inset-right,0px) + 96px)}
+body.touch.short #tbtns .r3{bottom:calc(env(safe-area-inset-bottom,0px) + 160px);right:calc(env(safe-area-inset-right,0px) + 100px)}
+body.touch.short #tbtns .r4{bottom:calc(env(safe-area-inset-bottom,0px) + 104px);right:calc(env(safe-area-inset-right,0px) + 100px)}
+body.touch.short #tbtns .r5{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);right:calc(env(safe-area-inset-right,0px) + 20px)}
+body.touch.short #tbtns .r6,body.touch.short #tbtns .r7{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
+body.touch.short #tbtns .muse{bottom:calc(env(safe-area-inset-bottom,0px) + 16px)}
+body.touch.short #slots{top:calc(env(safe-area-inset-top,0px) + 56px)}
+body.touch .pad{font-size:15px}
+body.touch .pad .item small,body.touch .pad .fine,body.touch .padhead p,body.touch .ctxbtn small{font-size:13px}
+body.touch .ctxbtn b,body.touch .pad .item b{font-size:15px}
+body.touch .mini{font-size:13px;min-height:38px}
+body.touch .shopsec h3{font-size:12px}
 </style>
 
 <canvas id="cv" aria-label="Game view"></canvas>
@@ -362,7 +408,7 @@ body.short .pad{padding:14px 16px;box-sizing:border-box}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.2.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.3.0</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -380,7 +426,7 @@ body.short .pad{padding:14px 16px;box-sizing:border-box}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.2.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.3.0</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -462,7 +508,7 @@ body.short .pad{padding:14px 16px;box-sizing:border-box}
 </form>
 
 <script>
-const GAME_VERSION='3.2.0';
+const GAME_VERSION='3.3.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -1074,7 +1120,7 @@ function resize(){
   DPR=Math.min(2,window.devicePixelRatio||1);
   W=cv.clientWidth||innerWidth;H=cv.clientHeight||innerHeight;
   cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
-  TB=clamp(Math.min(W,H)/14.5,24,64);TC=Math.round(TB);T=TB*camZ;
+  TB=clamp(Math.min(W,H)/(document.body.classList.contains('touch')?9.5:14.5),24,64);TC=Math.round(TB);T=TB*camZ;
   chunks.clear();
   document.body.classList.toggle('narrow',W<560);
 }
@@ -4451,7 +4497,7 @@ function groanTick(dt){G.grT=(G.grT||0)-dt;if(G.grT>0)return;G.grT=rnd(2.5,5);le
 let mmOn=true;try{const v=localStorage.getItem('dz-mm');if(v!=null)mmOn=v==='1';else mmOn=!matchMedia('(hover: none) and (pointer: coarse)').matches;}catch(e){}
 function toggleMinimap(){mmOn=!mmOn;try{localStorage.setItem('dz-mm',mmOn?'1':'0');}catch(e){}hint(mmOn?'Minimap on (M).':'Minimap off (M).');}
 function drawMinimap(inside){
-  if(!mmOn||mode==='title'||!G)return;const R=Math.min(74,Math.min(W,H)*.12),cx=W-R-18,cy=H-R-18,S=40,k=R/S,p=G.p;
+  if(!mmOn||mode==='title'||!G)return;const tch=usingTouch,R=tch?Math.min(40,Math.min(W,H)*.1):Math.min(74,Math.min(W,H)*.12),cx=W-R-(tch?12:18),cy=tch?R+62:H-R-18,S=40,k=R/S,p=G.p;
   ctx.save();ctx.globalAlpha=.9;ctx.fillStyle='rgba(20,22,27,.78)';ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.fill();ctx.strokeStyle='rgba(238,231,212,.5)';ctx.lineWidth=1.5;ctx.stroke();
   ctx.beginPath();ctx.arc(cx,cy,R-1,0,TAU);ctx.clip();
   const dot=(x,y,r,c,sq)=>{let dx=(x-p.x)*k,dy=(y-p.y)*k;const d=Math.hypot(dx,dy);if(d>R-3){dx*=(R-3)/d;dy*=(R-3)/d;}ctx.fillStyle=c;if(sq)ctx.fillRect(cx+dx-r,cy+dy-r,r*2,r*2);else{ctx.beginPath();ctx.arc(cx+dx,cy+dy,r,0,TAU);ctx.fill();}};
@@ -7222,6 +7268,50 @@ setTimeout(()=>{const b=$('bPSet');if(b&&!$('bPJour')){b.insertAdjacentHTML('bef
   r.push(['Finish Ruth\'s story',10,n/STORY.length,`chapter ${Math.min(STORY.length,n+(S&&!S.done&&S.start?1:0))} of ${STORY.length}`]);return r;};}
 
 /* v3:story end */
+/* v3:mobile start */
+/* ---------- phones: a real touch layout ---------- */
+// On a touch screen the paper status cards, tool buttons and button grid give way to a phone layout: a slim bar
+// along the top, round buttons around the right thumb, one big button that appears only when there's something to
+// use, weapons you tap to switch, a closer camera, and a little aim assist on the right stick.
+function mBuild(){
+  if($('mhud'))return;
+  const h=document.createElement('div');h.id='mhud';h.className='hudpos';
+  h.innerHTML='<div class="mh-l"><b id="mhLv">1</b><div class="mh-bars"><i class="mh-hp"><s id="mhHp"></s></i><i class="mh-dm"><s id="mhDm"></s></i></div></div>'+
+    '<div class="mh-r"><span class="mh-txt"><span id="mhCash"></span><span id="mhAmmo"></span></span><button type="button" id="mhMenu" aria-label="Menu"><i></i><i></i><i></i></button><button type="button" id="mhPause" aria-label="Pause"><b></b><b></b></button></div>';
+  document.body.appendChild(h);
+  const tap=(id,fn)=>$(id).addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(mode!=='play')return;ghostT=performance.now();fn();});
+  tap('mhMenu',openCtx);tap('mhPause',()=>setMode('pause'));
+  $('tbtns').innerHTML='<button type="button" data-act="roll" class="mb r1">Roll</button><button type="button" data-act="melee" class="mb r2">Shove</button>'+
+    '<button type="button" data-act="reload" class="mb r3">Reload</button><button type="button" data-act="skill" class="mb r4">Skill</button><button type="button" data-act="throw" class="mb r5">Throw</button>'+
+    '<button type="button" data-act="meds" class="mb r6">Meds</button><button type="button" data-act="kit" class="mb r7">Kit</button><button type="button" data-act="use" class="mb muse" id="mUse">Use</button>';
+}
+mBuild();
+let mT=0;
+function mTick(dt){
+  if(!usingTouch||!G)return;mT-=dt;if(mT>0)return;mT=.1;
+  const p=G.p,w=p.slots[p.cur],tx=(id,v)=>{const e=$(id);if(e&&e.textContent!==v)e.textContent=v;};
+  tx('mhLv',$('lvNum')?$('lvNum').textContent:'');
+  const hb=$('hpBar'),db=$('demBar');if(hb)$('mhHp').style.width=hb.style.width;if(db)$('mhDm').style.width=db.style.width;
+  tx('mhCash',$('cash')?$('cash').textContent:'');
+  const mag=w&&typeof usesMag==='function'&&usesMag(w)&&!magFree()?`${w.am==null?magOf(w):w.am}/${magOf(w)}`:'';tx('mhAmmo',w&&w.beh==='melee'?'melee':`${mag?mag+' · ':''}${fmt(G.ammo)}`);
+  // the use button: whatever the prompt would have said
+  const pr=$('prompt'),inside=isInside(p.x,p.y),u=$('mUse');let lab='';
+  if(inside)lab='Open the house';else if(pr&&!pr.hidden&&pr.textContent.trim())lab=pr.textContent.trim().replace(/^Tap Use( to)?\s*/i,'').replace(/^E( to)?\s*/,'').split(' · ')[0];
+  if(lab&&!/^(No |Clear |.*needs a room)/.test(lab)){lab=lab.charAt(0).toUpperCase()+lab.slice(1);if(lab.length>34)lab=lab.slice(0,33)+'…';if(u.textContent!==lab)u.textContent=lab;u.classList.add('show');}else u.classList.remove('show');
+}
+{const _u=update;update=function(dt){
+  // a little aim assist on the right stick: it leans onto the nearest one close to where you're pointing
+  if(G&&usingTouch&&mode==='play'&&touch.aim.active&&touch.aim.mag>.2){const p=G.p,a=Math.atan2(touch.aim.dy,touch.aim.dx);let best=null,bs=.4;
+    for(const z of G.zombies){if(z.dying||z.under)continue;const dx=z.x-p.x,dy=z.y-p.y,d=Math.hypot(dx,dy);if(d>13)continue;const da=Math.abs(angDiff(Math.atan2(dy,dx),a)),sc=da+d*.012;if(da<.38&&sc<bs){bs=sc;best=z;}}
+    touch.aim.ang=best?a+angDiff(Math.atan2(best.y-p.y,best.x-p.x),a)*.85:a;}
+  _u(dt);try{mTick(dt);}catch(e){dzErr('mobile',e);}};}
+{const _s=setTouch;setTouch=function(on){const was=usingTouch;_s(on);if(was!==on){resize();mT=0;}};}
+// faint rings where your thumbs go, until you put them there
+{const _d=drawSticks;drawSticks=function(){_d();if(!usingTouch||mode!=='play'||!G)return;ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);ctx.lineWidth=2;
+  if(!touch.move.active){ctx.strokeStyle='rgba(238,231,212,.14)';ctx.beginPath();ctx.arc(Math.max(80,W*.17),H-Math.max(110,H*.2),48,0,TAU);ctx.stroke();ctx.fillStyle='rgba(238,231,212,.1)';ctx.beginPath();ctx.arc(Math.max(80,W*.17),H-Math.max(110,H*.2),18,0,TAU);ctx.fill();}
+  ctx.restore();};}
+
+/* v3:mobile end */
 /* ---------- hordes ---------- */
 // Every minute or so a pack comes at you from one direction, together. The stronger you are, the bigger the pack.
 const DIR8=['east','southeast','south','southwest','west','northwest','north','northeast'];

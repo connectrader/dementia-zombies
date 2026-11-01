@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.1.0
+
+**Co-op is one shared game now**
+- Raids: anyone can open one from the Raids tab and everyone goes in together. The boss gets tougher for each player in the arena, its slams and charges can target anyone, and every telegraph, ring and spiral shows up and lands on everyone. When it falls, each player gets their own share, signature weapon included, and it counts toward everyone's story.
+- Dungeons now work in co-op (fight runs; stealth runs stay single player). When a way down opens, everyone sees it, anyone can open it, and everyone goes down into the same place together. Each player gets their own loot when it's cleared, and when the host climbs out, everyone does.
+- Sieges are shared. Everyone sees the siege banner, the door's strength and the turrets. A siege starts if anyone in the game is near the house. Guests can ring the dinner bell and pay for defences on the shared house from the Fortify tab. Winning pays every player crates and cash; losing costs everyone.
+- Cars: everyone sees who's driving what, including parked cars. Take a car and it's gone from the street for everyone. Walk up to a friend's car and press E to ride along: you go where they go, shoot whatever you like, and take half damage. E hops out.
+- Barrels and car alarms anyone sets off happen for everyone, with real damage and a real horde.
+- Story fights: when a guest reaches a marked place, the fight there happens in the shared world.
+- Enemy spit is visible to guests, and you can see each other's flashlights at night.
+
 ## v3.0.0
 
 **Ruth: a story campaign**

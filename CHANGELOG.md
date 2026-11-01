@@ -1,5 +1,18 @@
 # Changelog
 
+## v3.2.0
+
+**Phones**
+- The game now lays itself out for phones instead of shrinking the desktop layout. Menus fill the screen, cards stack in one column, the home tabs scroll sideways, and buttons are big enough to hit with a thumb.
+- New touch buttons: Reload and Menu (the quick menu, which reaches everything else). Bag and Unmed moved into the menu, and the little tool buttons under your supplies are trimmed to Pause and Bag.
+- Landscape phones get the compact status cards and a tighter button layout that no longer runs into the HUD.
+- Taps no longer fall through into a menu as it opens.
+- Controller button hints only show when you're using a controller. Keyboard rebinding is hidden on touch.
+- Cheat codes are in the quick menu.
+
+**Less explaining**
+- The help screen is now just controls and codes. The title screen is one line. Tutorial pop-ups, rule explanations and the "here's how this works" lines throughout are gone. Figure it out the way the protagonist does.
+
 ## v3.1.1
 
 **Ruth's story, as it was meant to end**

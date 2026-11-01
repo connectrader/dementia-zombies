@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dementia Zombies</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,7 +108,7 @@ body.touch #safe,body.touch #prompt{bottom:calc(env(safe-area-inset-bottom,0px) 
 @media (max-width:620px){.slot{width:auto;flex:1 1 0}#slots{width:calc(100% - 24px)}}
 
 #tbtns{display:none;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 14px);grid-template-columns:repeat(2,58px);gap:8px}
-#tbtns button[data-act=bag],#tbtns button[data-act=throw],#tbtns button[data-act=skill],#tbtns button[data-act=unmed]{height:34px}
+#tbtns button[data-act=throw],#tbtns button[data-act=skill],#tbtns button[data-act=reload],#tbtns button[data-act=menu]{height:38px}
 body.touch #tbtns{display:grid}
 #tbtns button{height:46px;border-radius:6px;border:1px solid rgba(238,231,212,.3);background:rgba(20,22,27,.78);font-size:11px;font-weight:600;color:var(--paper);touch-action:none}
 #tbtns button.melee{grid-column:span 1;height:58px;background:rgba(196,67,59,.85);border-color:transparent;font-family:var(--display);font-size:15px;font-weight:400}
@@ -283,6 +284,29 @@ body.compact #rcol{width:min(150px,38vw)}body.compact #slipR{font-size:11px;padd
 body.compact #slipR .row:has(#kills),body.compact #slipR .row:has(#spT){display:none}
 body.compact .tools button{font-size:10px;padding:3px 6px}
 #slipL .row b,#slipR .row b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:62%}
+
+/* phones */
+body.touch #rcol .tools #bSaves,body.touch #rcol .tools #bCoop,body.touch #rcol .tools #bCodes,body.touch #rcol .tools #bHelp,body.touch #rcol .tools #bSkills{display:none}
+body.touch #rcol .tools button{min-height:36px;padding:0 12px;font-size:12px}
+body.touch #tbtns{gap:8px}
+body.touch #tbtns button{-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+body.touch #tbtns button:active{transform:scale(.94);filter:brightness(1.25)}
+body.touch .pad{-webkit-overflow-scrolling:touch}
+body.touch .ctxbtn,body.touch .mini,body.touch .htabs button,body.touch .btn{min-height:40px}
+body.touch .htabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px;scrollbar-width:none}
+body.touch .htabs::-webkit-scrollbar{display:none}
+body.touch .htabs button{flex:0 0 auto}
+body.touch input[type=range]{height:32px}
+body.short #tbtns{grid-template-columns:repeat(4,54px);gap:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 8px)}
+body.short #tbtns button{height:36px!important;font-size:10.5px}
+body.short #tbtns button.melee{grid-column:span 2;height:44px!important}
+body.short #slipL{max-height:calc(100vh - 24px);overflow:hidden}
+body.short #rcol{width:min(140px,30vw)}
+body.short #toasts{max-width:min(380px,50vw)}
+body.short .overlay{padding:8px max(8px,env(safe-area-inset-right,0px)) 8px max(8px,env(safe-area-inset-left,0px))}
+body.short .pad{padding:14px 16px;box-sizing:border-box}
+@media (max-width:560px){.overlay{padding:0}.pad{box-sizing:border-box;max-width:100%;max-height:100%;height:100%;border-radius:0;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 18px)}.ctxgrid{grid-template-columns:1fr!important}#toasts{max-width:calc(100vw - 24px)}}
+@media (max-width:700px){.codes,.codes tbody,.codes tr,.codes td{display:block;width:auto}.codes tr{padding:6px 0;border-bottom:1px dotted #b9ae92}.codes td{border:0;padding:0;white-space:normal!important}.codes td:first-child{color:var(--ink)}}
 </style>
 
 <canvas id="cv" aria-label="Game view"></canvas>
@@ -328,18 +352,18 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
   <button type="button" data-act="swap">Swap</button>
   <button type="button" data-act="meds">Meds</button>
   <button type="button" data-act="kit">Kit</button>
-  <button type="button" data-act="bag">Bag</button>
   <button type="button" data-act="throw">Throw</button>
   <button type="button" data-act="skill">Skill</button>
-  <button type="button" data-act="unmed">Unmed</button>
+  <button type="button" data-act="reload">Reload</button>
+  <button type="button" data-act="menu">Menu</button>
   <button type="button" data-act="melee" class="melee">Shove</button>
   <button type="button" data-act="roll" class="melee roll">Roll</button>
 </div>
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.1.1</span></p><h1>Dementia Zombies</h1></div></div>
-    <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.2.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <p class="lede">The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
       <button class="btn" id="bStart" type="button">Step outside</button>
@@ -356,7 +380,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.1.1</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.2.0</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -387,39 +411,8 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovHelp" hidden>
   <div class="pad wide">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>How this works</h2><p>The world keeps moving while you're outside: day and night, rain, fog and storms, survivors who fight beside you and can turn, spitters, screamers, bloaters, stalkers, tanks, elites and named hunters. Hard stretches (Horde Surges, Blood Moons, hunts) alternate with easy ones (Calm, Supply Drops, Good Memories that make you unstoppable for 25 seconds). Level comes from kills and only goes up, and it takes a while. Damage, health and cash are tracked on a log scale, so they grow forever without ever hitting infinity. Each dementia stage makes every kill worth +50% more experience. Dementia only goes down with meds. Everything else scales forever.</p></div><button class="x" id="bHelpX" type="button">Close</button></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Controls &amp; codes</h2><p>What your hands do. The rest you'll learn the hard way.</p></div><button class="x" id="bHelpX" type="button">Close</button></div>
     <div class="controls" id="ctlList2"></div>
-    <p class="lede">Gunfire is loud. Every zombie within earshot locks onto you and gets faster for a while. Quiet guns (nail gun, carbine, anything Hushed) and the knife keep the street calm. The more demented you get, the more the zombies look like ordinary people.</p>
-    <p class="lede">Weapons are forged from 97 frames and their variants (over a thousand weapon types, from frying pans and katanas that throw red waves to railguns and blackhole pistols), 36 materials, 16 conditions from Broken to Absolute, 16 elements and up to eight of roughly 385 effects, each with its own look. Early finds are plain; strong effects and rare conditions only show up as your level rises. You also wear gear in ten slots (head, body, hands, legs, feet, amulet, two rings, a trinket and a backpack) across 12 tiers: ten normal ones, then Heirloom pieces that grow with you and Oblivion pieces with a power and a price. Press I for your bag; sell at any house counter. Every level gives one skill point for the four trees (press K). Each tree ends in a capstone with no rank cap. Saves live in six slots, and any run can be exported as a save file or a save code.</p>
-    <p class="lede"><b>Weapons bond with you.</b> Every kill with a weapon raises its bond, and a bonded weapon keeps catching up to your level on its own, so the one you like stays good. Bond milestones give a perk you pick at the workbench (30 perks, from Honed to Part of You), and at bond 10 it earns a nickname. The workbench also tunes, sharpens, re-forges and infuses weapons, upgrades gear, and salvages junk for parts.</p>
-    <p class="lede"><b>The street has a rhythm.</b> Quiet, then Stirring, then Roaming, where fewer but tougher zombies hunt you, and sometimes a Swarm of weak ones you can mow down. Mowing gets tiring: kill too many too fast and experience drops for a bit. Coming home safe pays a made-it-home bonus.</p>
-    <p class="lede"><b>The house is yours, wherever it wanders.</b> Press E inside for 11 rooms: counter, workbench, weapon wall, bedroom (sleep for Well Rested), roommates (survivors you bring home, with 16 jobs), kennel (10 kinds of pet), radio bounties, the memory wall (8 chapters of your story, each a permanent bonus), trophy shelf, garage lab and renovations.</p>
-    <p class="lede"><b>Bosses, crafting, minimap and sound.</b> Every named one has its own trick: Big Earl charges down a red line, the Mailman lobs parcels into circles, the Night Nurse heals the dead around her, Pastor Gene's sermons halve your damage, the Landlord takes rent out of your cash with every hit, the Tall Man steps out right behind you, and Dr. Whitlock's syringes make you forget faster. The Crafting tab at home turns materials into weapons, armor, relics (or exactly the relic you want), quirks, Heirlooms, Oblivion gear, meds, unmeds, throwables and ammo, and renders junk back into materials. <kbd>M</kbd> toggles the minimap. <kbd>N</kbd> toggles sound, and the pause menu sets the volume.</p>
-    <p class="lede"><b>Growth and loot.</b> When you level up or your dementia jumps, the dead don't jump with you. They catch up over a minute or so, while your loot improves at once, so fast growth is a window of strength. The slip shows how far behind they are. The bag screen can also auto-recycle or auto-sell loot below a quality you pick as you walk over it, and recycle everything below a cutoff in one click anywhere. Heirlooms sell and recycle like anything else (sweeps leave them alone unless you tick "Heirlooms count as junk"), and recycling one gives heirloom parts for eight heirloom recipes in the Crafting tab: family heirlooms, bonded heirloom weapons, Mythic relics of your choice, deeper Mementos, family traits and more. Every weapon and piece of gear has a peak: it stops growing at a set number of levels above where it dropped, more for better condition, so sooner or later you trade up. Going down gets riskier each time on a trip, and the fourth time is for real. Every zombie has a chance to drop materials (cloth, bone, teeth, batteries, bile, elite essence, memory dust, void shards) as well as weapons and gear. The bag screen lists what you carry and the exact odds per zombie. Some merchants want materials instead of, or as well as, cash: the Bone Witch, the Scrap King, the Seamstress, the Rag-and-Bone Man, the Relic Peddler and The Stranger.</p>
-    <p class="lede"><b>Relics, quirks and merchants.</b> Two relic slots hold strange keepsakes, 32 of them, from Ellen's Locket (once a trip, a killing blow stops time) to the Jar of Teeth (kills raise zombies on your side) and the Cowbell. Better armor and accessories can roll quirks, 37 of them: Phasing, Frostskin, Corpse-bomb, Pyrewalking, Night-owl, Gambling and more. The counter sells relics and six pieces of gear. Out in the city, wandering merchants set up small safe camps: nothing can hurt you inside the circle, and you heal by the fire. Eleven kinds, from the Traveling Tinker to the Fortune Teller's mystery boxes, an ice cream truck, a hermit who only takes parts, and something called The Stranger.</p>
-    <p class="lede"><b>Unmeds.</b> The opposite of your pills: fog pills, haze tonics, black syrup, Lethe draughts, brainstorms and Oblivion ampoules push your dementia up or make it build faster. Meaner dead, better loot, faster levels. <kbd>U</kbd> takes one, <kbd>J</kbd> switches. The counter's stock, roommates' finds, places, bounties and crates all scale with your dementia now, the same way drops do.</p>
-    <p class="lede"><b>Classes.</b> Pick a main class in the Classes tab at home: 12 to start (Survivor, Gunslinger, Brawler, Medic, Sniper, Demolitionist, Engineer, Bulwark, Scout, Pyromancer, Occultist, Scavenger). Your main class levels with every bit of experience you earn and keeps its level when you switch. Passives grow every level up to 100, where the class is mastered; its skill on <kbd>F</kbd> ranks up every 10 levels, and level 50 unlocks a signature. Take two classes to 25 and an advanced class opens (12 of them, like Gun-Kata, Reaper and Plague Doctor). At level 25 you can also set a secondary class for 35% of its passives. Every class you take to 50 makes all the others stronger.</p>
-    <p class="lede"><b>Playing together.</b> Everyone's ping shows next to their name. If you die in a co-op world you are not out: you drop a tenth of your cash and wake up in the house eight seconds later. Players below the highest level in the world get catch-up help that grows with the gap: more experience, more damage, less damage taken and better loot. Z drops a marker everyone can see, Y opens chat. The host can kick players from the Co-op screen, and a player whose connection drops gets eight seconds to come back before their spot is given up.</p>
-    <p class="lede"><b>Dimensions.</b> From level 20, rifts tear open out in the world. Step in (E) and you are somewhere else for a few minutes: the Goblin Market, the Deep Woods, the Boneyard, the Grey Zone, Nightfall Manor or the Pit, each with its own dead and its own rules, much better loot and more experience, and no house to run to. The way back opens after about a minute and a half. Stay too long and the place throws you out.</p>
-    <p class="lede"><b>Every dimension is its own place.</b> Each one looks different and is the only place certain effects drop. All lifesteal (Vampiric weapons, the Leech on gear and the Blood element) comes from Nightfall Manor. Hellfire and Explosive come from the Pit, Seeking, Phantom and Gravitic from the Grey Zone, Unbroken and Executing from the Boneyard, Fleet and Deadshot from the Deep Woods, Lucky and Scavenging from the Goblin Market. Things you already own keep what they have.</p>
-    <p class="lede"><b>Dungeons.</b> From level 6, a way down opens nearby every few minutes: a root cellar, the storm drains, a hospital basement or a fallout shelter. Each is a fixed set of rooms with a fixed number of the dead, and nothing else comes. A named horror waits in the last room. Clear every one and a chest opens with a pile of loot, cash, parts and experience. Climb back out by the ladder any time. Deeper dungeons (every 40 levels) have more rooms and better chests. From level 8 some ways down are stealth runs: a heist, a ghost run or an assassination.</p>
-    <p class="lede"><b>Settings.</b> Pause → Settings has sound and music volume, screen shake, damage numbers, flashes, reduce motion, camera lean, a compact HUD and a frame-rate counter. Every keyboard key can be moved there too, and the controller has its own screen.</p>
-    <p class="lede"><b>Surviving.</b> The dead wind up before they bite: they rear back and a red wedge shows where the lunge will land. Step out of it, roll through it with <kbd>Space</kbd>, or shove them back with <kbd>V</kbd> or right click, which staggers them and cancels the bite. Rolling and shoving cost stamina (the arc under you). Guns have magazines: <kbd>R</kbd> reloads, and pressing it again while the marker is in the bright band is a perfect reload, which is instant and makes the next magazine hit 15% harder. Miss the band and you fumble.</p>
-    <p class="lede"><b>Night.</b> In daylight the dead thin out. At night they come out in force, and it is dark: you see what your flashlight sees, and their eyes in the dark. <kbd>L</kbd> turns the flashlight off, which makes you harder to spot. Day kills give a little more experience, night gives numbers and better loot. Darkness and camera distance can be changed in Settings.</p>
-    <p class="lede"><b>Ruth.</b> There's a story now: eight chapters about finding your wife, running alongside the endless game. It starts the first time you step outside. The Journal (Pause or the quick menu) keeps track of where you are.</p>
-    <p class="lede"><b>Cars.</b> Some parked cars still run. Walk up and press <kbd>E</kbd> to try one; a dead one can be siphoned for gas. Push the way you want to go and the car turns and drives there; push back to brake. Running the dead over hurts them and the car. Cars burn fuel, take damage from everything, and make a lot of noise. <kbd>E</kbd> gets out.</p>
-    <p class="lede"><b>Sieges.</b> Every third night, and every blood moon, they come for the house if you're near it. Hold the door until the last wave is down for supply crates and cash. Let it break and they take some of your cash. The Fortify tab at home builds a heavier barricade, a spike ring, corner turrets and floodlights, and the dinner bell there starts a siege whenever you like.</p>
-    <p class="lede"><b>Raids.</b> The Raids tab at home sends you into an arena with one of three bosses: The Matron, Sawbones and The Choir, opening at levels 15, 30 and 50. Each has three phases. Red circles slam, red lines are charges, and spit comes in rings and spirals you roll through. Each one drops a signature weapon you can't get anywhere else. In co-op everyone goes in together and the boss gets tougher for each of you.</p>
-    <p class="lede"><b>The street.</b> Red barrels blow up when shot and set off any barrel near them; propane tanks leave the ground burning. Stand clear, they hurt you too. Parked cars can have alarms: hit one and it might start screaming, and every one of the dead nearby goes to it while more arrive. Next to you that's bad news. Down the street it's a lure. A red arc around you shows where a hit came from.</p>
-    <p class="lede"><b>Hordes.</b> Every minute or so a pack comes at you from one direction, and you get a warning saying which way. The stronger you get, the more the dead answer with numbers rather than toughness: bigger crowds, faster spawns, bigger packs, more elites and more traits stacked on them. Single zombies keep getting easier; the answer to the crowd is effects. Piercing, Twin, Arcing, Splitting, Ricocheting and Explosive all get stronger on weapons in better condition.</p>
-    <p class="lede"><b>Soft caps.</b> Bonuses from gear, counter treatments and the endless skills count in full up to a point, then each extra bit is worth less. A weapon or piece of gear you keep tuning, or that keeps up with you through its bond, gains less from every level past where it dropped, so new finds catch up with old favourites.</p>
-    <p class="lede"><b>Loot goblins.</b> They show up in every dimension and now and then at home. They never fight back. They run, and after about 20 seconds they open a portal and escape. Catch one and it bursts with loot: about ten items, or a fortune in cash, weapons, armor, relics or materials depending on the kind. Hitting one spills a little as you chase it.</p>
-    <p class="lede"><b>Crazed survivors.</b> From level 4, armed survivors who lost it come after you with a real weapon for your level. They aim badly, so keep moving. They often drop the weapon they were carrying.</p>
-    <p class="lede"><b>More of the dead.</b> Leapers pounce, hoarders run off with full pockets (catch them), clingers slow you, riot zombies hide behind shields, burrowers travel underground and pop up beside you, hazmats leave toxic puddles, brood mothers spit out crawlers, pyres burn and explode, nurses heal the dead around them (kill them first) and phantoms flicker out of your shots. New elite traits: shielded, explosive, frostbitten, thorned, blinking, summoning and toxic. The game tells you what each one does the first time you meet it.</p>
-    <p class="lede"><b>Streaks.</b> Kills less than 3 seconds apart chain into a streak. Each kill in a streak gives 1% more experience, up to 60%, and big streaks get called out. Early levels come faster while you find your feet.</p>
-    <p class="lede"><b>Controller.</b> Any controller works: Xbox, PlayStation, Switch Pro, 8BitDo and generic USB pads. Left stick moves, right stick aims, the right trigger fires (turn on "Right stick fires" under Pause → Controller for twin-stick style), the left trigger shoves. Bottom face button uses, right face button rolls, left face button reloads, top face button swaps weapons, left bumper throws, right bumper fires your class skill, clicking the left stick sneaks, clicking the right stick picks a throwable. D-pad left and right pick a weapon, up takes meds, down uses a medkit. Unmeds, skills and the flashlight are in the quick menu. Start always opens the pause screen, from play or from any menu. Select (View, Share, Minus) opens the quick menu: every screen, plus actions for wherever you're standing, so nothing needs a button of its own. In menus the D-pad or left stick moves, the bottom button presses, the right button goes back, the bumpers switch tabs at the house and the right stick scrolls. On-screen prompts use your controller's own button names. <b>Pause → Controller</b> shows a live input test, rebinds any button (layouts are saved per controller), and sets aim assist, stick dead zone and vibration. Music volume is in the pause menu.</p>
-    <p class="lede"><b>Party and co-op.</b> Take up to 3 roommates along from the Party tab at home. They follow you, fight with the weapon you hand them, and each class has a trick: medics heal, tanks taunt, grenadiers lob frags, callers bring airstrikes. If you drop, you go down instead of dying while anyone in the party is still standing; they have 30 seconds to reach you. Press <kbd>C</kbd> for co-op: host a game or join one, up to 4 players, and friends take over roommate spots. It runs through claude.ai's live room, so friends need this page shared with them. Co-op is one shared game: anyone can start a siege, a raid or a dungeon and everyone goes; everyone gets their own share of the rewards; you see each other's cars and can hop in a friend's car with <kbd>E</kbd> to ride along and shoot; barrels, alarms and story fights are shared. Stealth runs are single player.</p>
-    <p class="lede"><b>Places and throwables.</b> 22 kinds of place dot the city, each guarded, each with a themed cache that restocks every 4 days. 16 throwables, from molotovs and noisemakers to bear traps, airstrikes and a suitcase nuke. <kbd>G</kbd> throws, <kbd>T</kbd> switches.</p>
     <p class="eyebrow">Cheat codes &middot; press <kbd>`</kbd> or <kbd>Enter</kbd>, or tap Codes</p>
     <p class="fine" style="margin:0 0 8px">Brackets mean the number is optional. Numbers can be plain (250), shorthand (2.5M, 40Qa) or scientific (1e40).</p>
     <div class="tablewrap"><table class="codes" id="codeTable"></table></div>
@@ -469,7 +462,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 </form>
 
 <script>
-const GAME_VERSION='3.1.1';
+const GAME_VERSION='3.2.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -1150,9 +1143,9 @@ const NPCN=['Dolores','Mike','Priya','Walt','June','Hector','Ada','Marcus','Rosa
 const NPCL=['You look lost, friend.','Keep your head down out here.','Have you seen my house? It was right here.','Loud guns bring more of them.','There\'s a house that moves around. I swear it.','They don\'t sleep. Neither do I.','Is it Tuesday?','Don\'t shoot, I\'m friendly!','My daughter\'s out here somewhere.','Stick close, we\'ll clear this block.','Watch the big ones. They hit like trucks.','The quiet ones are the worst.'];
 const DAY=360;
 const EVENTS={
-  surge:{n:'Horde Surge',hard:1,lv:3,w:3,desc:'A migrating horde is pouring through. Hold out for a supply drop.',dur:[60,85]},
-  bloodmoon:{n:'Blood Moon',hard:1,lv:8,w:0,desc:'The dead are far stronger tonight. Double experience and loot.'},
-  hunt:{n:'Hunted',hard:1,lv:10,w:1.5,desc:'Something with a name is on your trail. Kill it for a jackpot.',dur:[150,150]},
+  surge:{n:'Horde Surge',hard:1,lv:3,w:3,desc:'A migrating horde is pouring through.',dur:[60,85]},
+  bloodmoon:{n:'Blood Moon',hard:1,lv:8,w:0,desc:'The dead are far stronger tonight.'},
+  hunt:{n:'Hunted',hard:1,lv:10,w:1.5,desc:'Something with a name is on your trail.',dur:[150,150]},
   calm:{n:'Calm',lv:1,w:2.2,desc:'The dead are slow and scattered. Go hunting.',dur:[50,80]},
   drop:{n:'Supply Drop',lv:2,w:2,desc:'A crate came down nearby. The dead heard it too.',dur:[80,80]},
   memory:{n:'A Good Memory',lv:4,w:1.4,desc:'Something familiar is glowing nearby. Grab it.',dur:[60,60]},
@@ -1546,7 +1539,7 @@ function pullTo(x,y,r){for(const z of G.zombies){if(z.dying)continue;const dx=x-
 function gainXP(x,raw){
   if(!(x>0))return;if(!raw)x*=freshXP()*streakXP();const before=LV;
   G.totalOut+=x;clsXP(x);if(G.trip&&!isInside(G.p.x,G.p.y))G.trip.xp+=x;LV=levelOf(G.totalOut);KL=(LV-1)*GRC;
-  if(LV>before){sfx('level');const g=LV-before;floater(G.p.x,G.p.y-.9,'LEVEL '+fmtI(LV),'lv');toast(`Level ${fmtI(LV)}. +${fmtI(g)} skill point${g>1?'s':''}, press K. The dead will catch up over the next minute or so.`);}
+  if(LV>before){sfx('level');const g=LV-before;floater(G.p.x,G.p.y-.9,'LEVEL '+fmtI(LV),'lv');toast(`Level ${fmtI(LV)}. +${fmtI(g)} skill point${g>1?'s':''}.`);}
 }
 function killZ(z,w){
   if(z.dying)return;
@@ -1630,7 +1623,7 @@ function director(dt){
 function updWeather(dt){
   const W=G.wx;W.t-=dt;
   if(W.t<=0){const r=Math.random(),id=r<.55?'clear':r<.75?'rain':r<.88?'fog':LV>=5?'storm':'rain';
-    if(id!==W.id)toast(id==='clear'?'The sky clears.':id==='rain'?'It starts to rain. Gunfire carries less.':id==='fog'?'Fog rolls in. They can\'t see you as well.':'A storm breaks. Watch for lightning.','haze');
+    if(id!==W.id)toast(id==='clear'?'The sky clears.':id==='rain'?'It starts to rain.':id==='fog'?'Fog rolls in.':'A storm breaks. Watch for lightning.','haze');
     G.wx={id,t:rnd(90,200),k:rnd(4,9)};return;}
   if(W.id==='storm'){W.k=(W.k||6)-dt;if(W.k<=0){W.k=rnd(5,11);const near=Math.random()<.12;let q=null;
     if(near)q={x:G.p.x+rnd(-1.5,1.5),y:G.p.y+rnd(-1.5,1.5)};
@@ -1694,7 +1687,7 @@ function tryFire(inside){
   rate*=melee?1/(1-.06*sk('quickhands')):1+.04*sk('quick');
   p.fireCd=1/rate;
   if(!melee&&w.aps>0&&!G.cheats.ammo&&!rage&&!clsFree()){
-    if(G.ammo<w.aps){hint('Out of ammo. Swap to a melee weapon or shove with V or right click.','bad');p.fireCd=.3;return;}
+    if(G.ammo<w.aps){hint('Out of ammo.','bad');p.fireCd=.3;return;}
     if(!(Math.random()<.05*sk('frugal')+gs().ammo+clsP('ammo')))G.ammo=Math.max(0,G.ammo-w.aps);
   }
   const jam=STATES[w.s].jam||0;
@@ -1808,7 +1801,7 @@ function useMeds(){
   if(G.meds<=0){hint('No dementia meds. The counter at the house sells them.','bad');return;}
   if(G.dementia<1){hint('You feel clear. Save them.');return;}
   G.meds--;if(rel('pills'))healP(.3);const b=G.dementia;G.dementia=Math.max(0,G.dementia-(40+G.dementia*.35)*(1+.1*sk('dose'))*(rel('pills')?1.5:1));
-  toast(`Meds taken. Dementia ${fmt(b)} → ${fmt(G.dementia)}. Your level stays.`,'haze');
+  toast(`Meds taken. Dementia ${fmt(b)} → ${fmt(G.dementia)}.`,'haze');
 }
 function useKit(){
   if(G.medkits<=0){hint('No medkits.','bad');return;}
@@ -1854,13 +1847,13 @@ function update(dt){
     if(!inside){
       G.realOut=(G.realOut||0)+dt;G.dementia=Math.min(1e100,G.dementia+dt*.75*(1+Math.min(LV,1e4)*.004)*(demK()/(demK()+Math.max(0,G.dementia/12-demK())))*(1-.04*sk('lucid'))*(1-gs().dem)*(gs().ob.voidheart?2:1)*homeDem());p.hpF=Math.min(1,p.hpF+Math.min(.015,.004*sk('regrow')+gs().regen+clsRegen())*dt*(gs().ob.nullshell?.5:1));G.peakDem=Math.max(G.peakDem,G.dementia);
       const ti=tier(G.dementia).i;
-      if(ti>G.tierI){G.tierI=ti;if(rel('fmn'))buff('rage',8,1);toast(`You feel ${tier(G.dementia).name.toLowerCase()}. Better loot, and kills now give ×${xpMul().toFixed(1)} experience.`,'haze');}
+      if(ti>G.tierI){G.tierI=ti;if(rel('fmn'))buff('rage',8,1);toast(`You feel ${tier(G.dementia).name.toLowerCase()}.`,'haze');}
       if(!G.lookedHuman&&humanLook()>.5){G.lookedHuman=true;toast('They\'re starting to look like neighbors.','haze');}
       relocCd-=dt;const s=G.house,hd=Math.hypot(s.x+3.5-p.x,s.y+3.5-p.y);
       if(NET.role!=='client'&&!G.dim&&!G.dun&&relocCd<=0&&hd>viewR()*1.6&&!rectOnScreen(s.x-1,s.y-1,9,9)){if(placeHouse(!!rel('number4'))){relocCd=2;toast(pick(FORGET),'haze');}}
       // the world only moves while you're outside
       const wasNight=isNight();if(NET.role!=='client')G.clock+=dt;if(G.clock>=DAY){G.clock-=DAY;G.day++;relDay();toast(`Day ${G.day}.`,'haze');}
-      if(!wasNight&&isNight())toast('Night falls. They\'re coming out. All of them. The loot gets better, and your flashlight is all you\'ve got.','bad');
+      if(!wasNight&&isNight())toast('Night falls. They\'re coming out. All of them.','bad');
       if(wasNight&&!isNight())toast('Sunrise. Most of them drag themselves back into the shade.','haze');
       if(NET.role!=='client'){director(dt);updWeather(dt);}
       G.npcT=(G.npcT==null?60:G.npcT)-dt;if(G.npcT<=0){G.npcT=rnd(80,150);if(NET.role!=='client'&&G.npcs.length<3&&Math.random()<.55)spawnNpc(rnd(TAU),rnd(TAU));}
@@ -2034,7 +2027,7 @@ function update(dt){
       else if(it.kind==='parts'){const n=Math.max(1,Math.round(it.val*(1+clsP('parts'))));G.parts+=n;floater(p.x,p.y-.5,'+'+n+' parts','dot','#c9c0a8');}
       else if(it.kind==='meds'){G.meds++;toast('Dementia meds. Q to take.','haze');}
       else if(it.kind==='crate')openCrate(it);
-      else if(it.kind==='memory'){buff('rage',25,1);healP(1);toast('You remember who you were. For 25 seconds, nothing can stop you.','haze');floater(p.x,p.y-.9,'REMEMBERED','lv');memFound();}
+      else if(it.kind==='memory'){buff('rage',25,1);healP(1);toast('You remember who you were. For a little while, nothing can stop you.','haze');floater(p.x,p.y-.9,'REMEMBERED','lv');memFound();}
     }
   }
   for(let i=parts.length-1;i>=0;i--){const q=parts[i];q.t+=dt;q.x+=q.vx*dt;q.y+=q.vy*dt;if(q.t>q.life)parts.splice(i,1);}
@@ -2582,7 +2575,7 @@ function renderCounter(){
   const gcards=G.shop.gear.map((g,i)=>g?gCard(g,i):sold).join('');
   const sellRows=G.inv.map((o,i)=>`<div class="item"><b><i class="eldot" style="background:${itemCol(o)}"></i>${o.name}</b><small>${itemTierN(o)} · ${isGear(o)?GSLOTN[o.slot]:o.cls+' · DPS '+lfmt(dpsL(o))}</small><button type="button" data-buy="sell:${i}">Sell $${lfmt(itemValL(o))}</button></div>`).join('');
   const rp=pL(150,1.6,G.shop.rs||0);
-  $('shopBody').innerHTML=`<div class="padhead"><span class="rx">Rx</span><div><h2>House No. ${G.houseN} · Counter</h2><p>Stock follows your level and your dementia (item level ${fmtI(dLV())}), so the shelf keeps up with what drops outside. Prices follow what's on the shelf. Each house you find has a different shelf.</p></div><b class="cashbig">$${lfmt(G.cashL)}</b></div>
+  $('shopBody').innerHTML=`<div class="padhead"><span class="rx">Rx</span><div><h2>House No. ${G.houseN} · Counter</h2><p>Item level ${fmtI(dLV())} on the shelf. Every house keeps a different one.</p></div><b class="cashbig">$${lfmt(G.cashL)}</b></div>
   <div class="shopsec"><h3><span>Weapons</span><button type="button" data-buy="restock" ${afford(rp)?'':'disabled'}>Restock · $${lfmt(rp)}</button></h3><div class="wgrid">${cards}</div></div>
   <div class="shopsec"><h3><span>Gear</span></h3><div class="wgrid">${gcards}</div></div>
   <div class="shopsec"><h3><span>Relics · two slots, one strange effect each</span></h3><div class="wgrid">${(G.shop.rel||[]).map((g,i)=>g?relCard(g,i):sold).join('')}</div></div>
@@ -2683,7 +2676,7 @@ const PHASES={
   quiet:{n:'Quiet',m:.35,d:[55,85],msg:'It goes quiet. Good time to scavenge.'},
   stir:{n:'Stirring',m:.7,d:[40,60],msg:'Something is stirring out there.'},
   roam:{n:'Roaming',m:1,d:[55,85],msg:'They\'re roaming the streets now. Fewer of them, but they hit hard.'},
-  swarm:{n:'Swarm',m:3.2,d:[30,45],bad:1,msg:'SWARM. They\'re weak but they\'re everywhere. Go wild. Kills give less experience while it lasts.'}};
+  swarm:{n:'Swarm',m:3.2,d:[30,45],bad:1,msg:'SWARM. They\'re weak but they\'re everywhere. Go wild.'}};
 const phId=()=>G&&G.ph?G.ph.id:'roam';
 const phMul=()=>PHASES[phId()].m;
 const phHp=()=>phId()==='swarm'?.45:LV<3?1.3:1.8;
@@ -2915,7 +2908,7 @@ function siteLoot(s){
   }
   A('parts',2+Math.floor(Math.random()*3));C(1);
 }
-function openSite(s){G.sites[s.id]=G.day;G.siteA=null;siteLoot(s);if(rel('sparekey'))siteLoot(s);if(['pawn','museum','church','nursing'].includes(s.k)&&Math.random()<.6)addItem(s.x,s.y,'gear',0,null,genRelic(dLV()+2,sLuck(),{bump:1}));booms.push({x:s.x,y:s.y,r:2,t:.4,life:.4,col:SITEI[s.k].c});toast(`${SITEI[s.k].n} looted. It restocks in 4 days.`,'haze');btyEv('site',1);}
+function openSite(s){G.sites[s.id]=G.day;G.siteA=null;siteLoot(s);if(rel('sparekey'))siteLoot(s);if(['pawn','museum','church','nursing'].includes(s.k)&&Math.random()<.6)addItem(s.x,s.y,'gear',0,null,genRelic(dLV()+2,sLuck(),{bump:1}));booms.push({x:s.x,y:s.y,r:2,t:.4,life:.4,col:SITEI[s.k].c});toast(`${SITEI[s.k].n} looted.`,'haze');btyEv('site',1);}
 
 // ===== pets =====
 const PETK={
@@ -2934,7 +2927,7 @@ const activePet=()=>{const H=G&&G.home;return H&&H.pet>=0?H.pets[H.pet]||null:nu
 const petOn=k=>{const P=activePet();return!!(P&&!P.down&&P.k===k);};
 const petNeed=l=>Math.round(20*Math.pow(l+1,1.4));
 const petDmgL=P=>LG(16)+(dLV()-1)*GRW+LG(PETK[P.k].dmg)+LG(1+.12*P.lv)+LG(1+mateB('vet')+(partyHas('pack')?.3:0))+(P.k==='owl'&&isNight()?LG(2.5):0);
-function spawnStray(x,y,k){G.stray={k:k||pick(Object.keys(PETK)),x,y,t:150};toast(`A stray ${PETK[G.stray.k].n.toLowerCase()} is watching you. Walk up and press E.`,'haze');}
+function spawnStray(x,y,k){G.stray={k:k||pick(Object.keys(PETK)),x,y,t:150};toast(`A stray ${PETK[G.stray.k].n.toLowerCase()} is watching you.`,'haze');}
 function strayTick(dt){
   if(G.stray){G.stray.t-=dt;if(G.stray.t<=0||Math.hypot(G.stray.x-G.p.x,G.stray.y-G.p.y)>viewR()*3)G.stray=null;return;}
   G.strayT=(G.strayT==null?100:G.strayT)-dt;if(G.strayT>0)return;G.strayT=rnd(140,260);
@@ -3241,7 +3234,7 @@ function benchHTML(){
     <button type="button" class="mini" data-buy="h:gtune:${sl}" ${dis(gap>0&&afford(tc))}>${gap>0?`Tune up · $${lfmt(tc)}`:'Tuned'}</button>
     ${g.tier<9?`<button type="button" class="mini alt" data-buy="h:gup:${sl}" ${dis(canUp&&afford(uc[0])&&G.parts>=uc[1])}>${canUp?`To ${GTIER[g.tier+1].n} · $${lfmt(uc[0])} + ${uc[1]} parts`:'Renovate the bench to upgrade'}</button>`:''}</span></div>`;}).join('');
   const sv=G.inv.map((o,i)=>`<div class="item"><b><i class="eldot" style="background:${itemCol(o)}"></i>${o.name}</b><small>${itemTierN(o)} · ${isGear(o)?GSLOTN[o.slot]:o.cls}</small><button type="button" class="mini alt" data-buy="h:salv:${i}">Salvage · ${salvN(o)} parts</button></div>`).join('');
-  return['Workbench',`Bench level ${hr('bench')} · ${G.parts} parts · work ${Math.round(benchDisc()*100)}% off. Weapons you use bond with you, and keep up with your level as they do.`,
+  return['Workbench',`Bench level ${hr('bench')} · ${G.parts} parts · work ${Math.round(benchDisc()*100)}% off.`,
   `<div class="shopsec"><h3><span>In your hands</span></h3><div class="wgrid">${ws||'<p class="fine">Nothing in your hands.</p>'}</div></div>
   <div class="shopsec"><h3><span>What you're wearing</span></h3>${gr||'<p class="fine" style="margin:0">Nothing worn.</p>'}</div>
   <div class="shopsec"><h3><span>Salvage from your bag</span></h3>${sv||'<p class="fine" style="margin:0">Your bag is empty.</p>'}</div>`];
@@ -3251,7 +3244,7 @@ function wallHTML(){
   const st=H.stash.map((o,i)=>row(o,'',`<button type="button" class="mini" data-buy="h:take:${i}">To bag</button><button type="button" class="mini alt" data-buy="h:wsell:${i}">Sell $${lfmt(itemValL(o))}</button>`)).join('');
   const bg=G.inv.map((o,i)=>row(o,'',`<button type="button" class="mini" data-buy="h:hang:${i}" ${dis(H.stash.length<stashCap())}>Hang it up</button>`)).join('');
   const hd=G.p.slots.map((w,i)=>w?row(w,'',`<button type="button" class="mini" data-buy="h:hangw:${i}" ${dis(H.stash.length<stashCap())}>Hang it up</button>`):'').join('');
-  return['Weapon wall',`${H.stash.length}/${stashCap()} hooks used. Things on the wall stay safe, follow the house wherever it goes, and survive anything you carry.`,
+  return['Weapon wall',`${H.stash.length}/${stashCap()} hooks used. Things on the wall stay safe.`,
   `<div class="shopsec"><h3><span>On the wall</span></h3>${st||'<p class="fine" style="margin:0">Bare wall. Hang favorites here.</p>'}</div>
   <div class="shopsec"><h3><span>In your hands</span></h3>${hd}</div>
   <div class="shopsec"><h3><span>In your bag · ${G.inv.length}/${bagCap()}</span></h3>${bg||'<p class="fine" style="margin:0">Your bag is empty.</p>'}</div>`];
@@ -3260,20 +3253,20 @@ function restTxt(s){return`+${Math.round(30*s)}% experience, bonds grow ${Math.r
 function bedHTML(){
   const H=G.home,can=H.sleptDay!==G.day,s=1+.05*hr('pantry')+mateB('cook')*.5;
   return['Bedroom',can?'The bed is made. You could use the sleep.':'You already slept today. Go out and come back tomorrow.',
-  `<div class="shopsec"><h3><span>Sleep</span></h3><p class="lede" style="margin:0 0 10px">Sleeping heals you, skips the night (or naps through the afternoon), and leaves you <b>Well Rested</b> for ${fmtI(restDur())} seconds outside: ${restTxt(s)}. Sometimes you dream something you'd forgotten.</p>
+  `<div class="shopsec"><h3><span>Sleep</span></h3><p class="lede" style="margin:0 0 10px">Sleep it off. Wake <b>Well Rested</b> for ${fmtI(restDur())} seconds outside: ${restTxt(s)}. Sometimes you dream something you'd forgotten.</p>
   ${restOn()?`<p class="fine">Well Rested: ${Math.ceil(H.rest.t)} seconds left.</p>`:''}
   <button type="button" class="btn" data-buy="h:sleep" ${dis(can)}>${can?'Go to sleep':'Already slept today'}</button></div>`];
 }
 function matesHTML(){
   const H=G.home,list=H.mates.map((m,i)=>`<div class="item"><b>${esc(m.name)} <small>${ROLES[m.role].n} · ${fmtI(m.lv||0)} days here</small></b><small>${ROLES[m.role].d}</small><button type="button" class="mini alt" data-buy="h:kick:${i}">Ask to leave</button></div>`).join('');
-  return['Roommates',`${H.mates.length}/${mateCap()} rooms taken. Find survivors outside, press E to ask them to move in, then walk home with them close.`,
+  return['Roommates',`${H.mates.length}/${mateCap()} rooms taken. The house could use the company.`,
   `<div class="shopsec"><h3><span>Living here</span></h3>${list||'<p class="fine" style="margin:0">Nobody yet. It\'s quiet.</p>'}</div>
   ${H.last?`<div class="shopsec"><h3><span>Last haul</span></h3><p class="fine" style="margin:0">${H.last}</p></div>`:''}
   <div class="shopsec"><h3><span>Jobs a roommate can have</span></h3>${Object.values(ROLES).map(r=>`<div class="item"><b>${r.n}</b><small>${r.d}</small></div>`).join('')}</div>`];
 }
 function petsHTML(){
   const H=G.home,list=H.pets.map((P,i)=>`<div class="item"><b>${P.name} <small>${PETK[P.k].n} · level ${P.lv}${P.down?' · resting':''}${i===H.pet?' · with you':''}</small></b><small>${PETK[P.k].d}</small><span class="bact">${i===H.pet?'':`<button type="button" class="mini" data-buy="h:pet:${i}">Take along</button>`}<button type="button" class="mini alt" data-buy="h:rel:${i}">Find them a home</button></span></div>`).join('');
-  return['Kennel',`${H.pets.length}/${petCap()} pets. Every pet recycles trash weapons and gear lying near you when there's nothing to fight. Strays turn up outside now and then, and the animal shelter always has one. Press E next to a stray to take it in.`,
+  return['Kennel',`${H.pets.length}/${petCap()} pets. They remember you even when you don't.`,
   `<div class="shopsec"><h3><span>Your animals</span></h3>${list||'<p class="fine" style="margin:0">No pets yet.</p>'}</div>
   <div class="shopsec"><h3><span>Animals you might meet</span></h3>${Object.values(PETK).map(D=>`<div class="item"><b>${D.n}</b><small>${D.d}</small></div>`).join('')}</div>`];
 }
@@ -3286,12 +3279,12 @@ function radioHTML(){
 function memHTML(){
   const H=G.home;let i=0;
   const ch=MEMS.map((c,ci)=>{const got=Math.max(0,Math.min(5,H.mem-ci*5));return`<div class="memch"><b>${got>0?c.n:'???'}</b> <small>${got}/5${got===5?' · '+c.bt:''}</small>${c.l.map((l,li)=>li<got?`<p>“${l}”</p>`:'<p class="q">…</p>').join('')}</div>`;}).join('');
-  return['Memories',`${Math.min(H.mem,MEMLINES)}/${MEMLINES} fragments${H.faded?` · ${H.faded} faded ones (+${Math.min(100,H.faded)}% experience)`:''}. Memories glow outside, sit in schools, churches and nursing homes, fall off named ones, and come back in dreams. Every finished chapter is a bonus for good.`,
+  return['Memories',`${Math.min(H.mem,MEMLINES)}/${MEMLINES} fragments${H.faded?` · ${H.faded} faded ones (+${Math.min(100,H.faded)}% experience)`:''}. Piece by piece.`,
   `<div class="shopsec">${ch}</div>`];
 }
 function trophHTML(){
   const H=G.home,ks=Object.keys(H.troph);
-  return['Trophy shelf',`${ks.length} named ones put down. Each new one is +4% damage for good, repeats +1%. Shelf bonus: +${Math.round(trophyDmg()*100)}% damage.`,
+  return['Trophy shelf',`${ks.length} named ones put down. Shelf bonus: +${Math.round(trophyDmg()*100)}% damage.`,
   `<div class="shopsec">${ks.map(k=>`<div class="item"><b>${esc(k)}</b><small>Put down ${H.troph[k]} time${H.troph[k]>1?'s':''}</small></div>`).join('')||'<p class="fine" style="margin:0">Empty. Named ones show up during hunts.</p>'}${H.tp.length?`<p class="fine">${H.tp.length} more waiting to go on the shelf.</p>`:''}</div>`];
 }
 function labHTML(){
@@ -3301,7 +3294,7 @@ function labHTML(){
 }
 function roomsHTML(){
   const rows=ROOMS.map(R=>{const l=hr(R.id),mx=R.max&&l>=R.max,pr=roomCost(R,l);return`<div class="item"><b>${R.n} <small>level ${fmtI(l)}</small></b><small>${R.d(l)}${mx?'':'<br>Next: '+R.d(l+1)}</small><button type="button" data-buy="h:room:${R.id}" ${dis(!mx&&afford(pr))}>${mx?'Done':'$'+lfmt(pr)}</button></div>`;}).join('');
-  return['Renovate',`The house wanders, but everything in it comes along. Prices follow your level.`,`<div class="shopsec">${rows}</div>`];
+  return['Renovate',`The house wanders, but everything in it comes along.`,`<div class="shopsec">${rows}</div>`];
 }
 function sleep(){
   const H=G.home;if(H.sleptDay===G.day)return;H.sleptDay=G.day;G.p.hpF=1;
@@ -3389,7 +3382,7 @@ function hurtMate(m,L){
   if(m.down||m.x==null)return;
   m.hpF-=Math.pow(10,L+LG(1-partyArm())-mateHPL(m));m.hurt=.2;
   if(m.hpF<=0&&rel('dogtags')&&!m.tagT){m.tagT=1;m.hpF=.5;toast(`${m.name} shrugs it off.`,'haze');}
-  if(m.hpF<=0){m.hpF=0;m.down=true;m.bleed=30;m.rv=0;toast(`${m.name} is down. Stand next to them to get them up.`,'bad');}
+  if(m.hpF<=0){m.hpF=0;m.down=true;m.bleed=30;m.rv=0;toast(`${m.name} is down.`,'bad');}
 }
 function partyTick(dt,inside){
   const p=G.p,L=partyActive(),ups=L.filter(m=>!m.down);
@@ -3581,7 +3574,7 @@ function netApplyHost(pr){
     if(pr.p&&isFinite(pr.p.x)){G.p.x=pr.p.x;G.p.y=pr.p.y;const q=findSpot(.8,2.2);if(q){G.p.x=q.x;G.p.y=q.y;}}
     wasInside=isInside(G.p.x,G.p.y);
     NET.evSeen=Array.isArray(pr.ev)&&pr.ev.length?pr.ev[pr.ev.length-1][0]:0;
-    toast(`You're in ${cleanName(pr.p&&pr.p.n)}'s world. Your stuff, your house screens and your loot stay yours.`,'haze');
+    toast(`You're in ${cleanName(pr.p&&pr.p.n)}'s world.`,'haze');
   }
   if(m.seed!==SEED){SEED=m.seed;chunks.clear();siteC.clear();}
   if(!G.house||G.house.x!==m.h[0]||G.house.y!==m.h[1])G.house={x:m.h[0],y:m.h[1],w:7,h:7,dx:3,dy:6,roof:m.h[2]};
@@ -3719,7 +3712,7 @@ function partyHTML(){
     return`<div class="item"><b>${esc(m.name)} <small>${C.n}${rest?' · resting until tomorrow':on?' · in your party':''}</small></b><small>${C.d}<br>${m.w?`Carrying ${esc(m.w.name)} · DPS ${lfmt(dpsL(m.w))}${m.w.ml?' · Bond '+m.w.ml:''}`:'No weapon yet. They grab one on the way out.'}${m.kc?` · ${fmtI(m.kc)} kills`:''}</small>
     <span class="bact"><button type="button" class="mini" data-buy="h:pt:${i}" ${dis(can)}>${on?'Stay home':'Take along'}</button><button type="button" class="mini alt" data-buy="h:pw:${i}" ${dis(!!held)}>Swap weapons with them</button></span></div>`;}).join('');
   const hm=NET.role?`${humans()} player${humans()>1?'s':''} in co-op, so ${cap} spot${cap===1?'':'s'} for roommates. `:'';
-  return['Party',`Up to 4 go out together: you, plus roommates or friends in co-op. ${hm}Party members fight, heal, revive you when you go down, and each class has its own trick. Everyone up gives +5% damage and experience.`,
+  return['Party',`Up to 4 go out together. ${hm}Safer in numbers. Mostly.`,
   `<div class="shopsec"><h3><span>Going out with you · ${going.length}/${cap}</span><button type="button" class="mini alt" data-buy="h:pk">Co-op…</button></h3>${rows||'<p class="fine" style="margin:0">No roommates yet. Bring survivors home to live, then take them along.</p>'}</div>
   <div class="shopsec"><h3><span>Classes</span></h3>${Object.entries(CLS).map(([r,C])=>`<div class="item"><b>${C.n} <small>${ROLES[r].n} at home</small></b><small>${C.d}</small></div>`).join('')}</div>`];
 }
@@ -3734,7 +3727,7 @@ function openCoop(){if(mode==='title'){startGame();}coopBack=mode==='pause'||mod
 function renderCoop(){
   const body=$('coopBody');if(!body)return;
   let lobby=[];if(ROOM)for(const q of ROOM.peers()){if(q.sameTab)continue;const d=q.presence&&q.presence.dz;if(d&&typeof d.code==='string')lobby.push({code:d.code.replace(/[^a-z0-9]/g,'').slice(0,8),n:cleanName(d.n),lv:+d.lv||1,c:Math.min(4,+d.c||1),addr:typeof d.addr==='string'?d.addr:null});}
-  const head=`<div class="padhead"><span class="rx">Rx</span><div><h2>Co-op</h2><p>Up to 4 players. The host's world is shared: the zombies, the clock, the weather, the house. Everyone keeps their own character, bag, house screens and loot. Every kill drops loot for everyone nearby, and anyone can pick a downed friend back up.</p></div><button class="x" type="button" data-co="x">Close</button></div>`;
+  const head=`<div class="padhead"><span class="rx">Rx</span><div><h2>Co-op</h2><p>Up to 4 players. Nobody should forget alone.</p></div><button class="x" type="button" data-co="x">Close</button></div>`;
   const name=`<div class="shopsec"><h3><span>Your name</span></h3><input id="coName" class="coin" maxlength="20" value="${esc(NET.name)}" aria-label="Your name"></div>`;
   let main;
   if(!ROOM)main=`<div class="shopsec"><p class="lede" style="margin:0">Co-op runs through claude.ai's live room, so it needs this page open on claude.ai while you're signed in. Friends need access to this page too: share it with them from the page's Share menu.</p></div>`;
@@ -3921,7 +3914,7 @@ function clsCard(c){
 }
 function clsHTML(){
   const S=G.cls,C=clsCur(),m=mastered();
-  return['Classes',`Main: ${C.n} ${fmtI(clsLv(C.id))}${S.sec?` · secondary: ${CLI[S.sec].n} (35% of its passives, learns at 35%)`:''}. Your main class levels with every bit of experience you earn and keeps its level when you switch. F uses its skill. ${m?`${m} class${m>1?'es':''} at 50+: +${m*3}% damage and health on every class.`:'Every class you take to 50 gives +3% damage and health to all of them.'}`,
+  return['Classes',`Main: ${C.n} ${fmtI(clsLv(C.id))}${S.sec?` · secondary: ${CLI[S.sec].n} (35% of its passives, learns at 35%)`:''}. F uses its skill.${m?` ${m} class${m>1?'es':''} at 50+: +${m*3}% damage and health on every class.`:''}`,
   `<div class="shopsec"><h3><span>Classes</span></h3><div class="wgrid">${PCLS.map(clsCard).join('')}</div></div>
   <div class="shopsec"><h3><span>Advanced classes · take two classes to 25</span></h3><div class="wgrid">${HYB.map(clsCard).join('')}</div></div>`];
 }
@@ -3965,7 +3958,7 @@ function useUnmed(){
 }
 function cycleUnmed(){umInit();const ks=Object.keys(UM).filter(k=>G.um[k]>0);if(!ks.length){hint('No unmeds.','bad');return;}const i=ks.indexOf(G.umSel);G.umSel=ks[(i+1)%ks.length];hint(`${UM[G.umSel].n} ×${G.um[G.umSel]}`);hud();}
 function buyUm(k){const U=UM[k];if(!U||!umOk(k))return;const pr=pL(U.cost);if(!afford(pr))return;G.cashL=lSub(G.cashL,pr);umInit();G.um[k]=(G.um[k]||0)+1;}
-function umShopHTML(){umInit();return`<div class="shopsec"><h3><span>Unmeds · U takes one, J switches</span></h3><p class="fine" style="margin:0 0 6px">The opposite of your prescription. More dementia means meaner dead, better loot and faster levels.</p>${Object.keys(UM).filter(umOk).map(k=>{const U=UM[k],pr=pL(U.cost);return`<div class="item"><b><i class="eldot" style="background:${U.c}"></i>${U.n} <small>×${fmtI(G.um[k]||0)}</small></b><small>${U.d}</small><button type="button" data-buy="umb:${k}" ${afford(pr)?'':'disabled'}>$${lfmt(pr)}</button></div>`;}).join('')}</div>`;}
+function umShopHTML(){umInit();return`<div class="shopsec"><h3><span>Unmeds · U takes one, J switches</span></h3><p class="fine" style="margin:0 0 6px">The opposite of your prescription.</p>${Object.keys(UM).filter(umOk).map(k=>{const U=UM[k],pr=pL(U.cost);return`<div class="item"><b><i class="eldot" style="background:${U.c}"></i>${U.n} <small>×${fmtI(G.um[k]||0)}</small></b><small>${U.d}</small><button type="button" data-buy="umb:${k}" ${afford(pr)?'':'disabled'}>$${lfmt(pr)}</button></div>`;}).join('')}</div>`;}
 function umRandom(){const ks=Object.keys(UM).filter(umOk);let tot=0;for(const k of ks)tot+=1/UM[k].cost;let r=Math.random()*tot;for(const k of ks){r-=1/UM[k].cost;if(r<=0)return k;}return'fog';}
 function drawUmIcon(k,s){const U=UM[k]||UM.fog;ctx.rotate(.5);ctx.fillStyle=U.c;ctx.beginPath();ctx.ellipse(0,0,s*.2,s*.1,0,0,TAU);ctx.fill();ctx.fillStyle='#16161a';ctx.fillRect(-s*.01,-s*.1,s*.02,s*.2);ctx.strokeStyle='rgba(255,95,210,.6)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(0,0,s*.3,0,TAU);ctx.stroke();}
 
@@ -4236,7 +4229,7 @@ function renderCamp(){
     const can=(parts?G.parts>=s.pp:(s.noCash||afford(s.pL)))&&(!s.mt||hasMats(s.mt));
     return`<div class="wcard" style="--rc:${col}"><div class="wtop"><b>${esc(nm)}</b><span class="rar">${tn}</span></div><div class="wstats">${campDesc(s)}</div><button type="button" data-buy="h:cb:${i}" ${can?'':'disabled'}>${parts?s.pp+' parts':s.noCash?'':'$'+lfmt(s.pL)}${s.mt?(parts||!s.noCash?' + ':'')+matTxt(s.mt):''}</button></div>`;}).join('');
   const sells=G.inv.map((o,i)=>`<div class="item"><b><i class="eldot" style="background:${itemCol(o)}"></i>${esc(o.name)}</b><small>${itemTierN(o)} · ${isGear(o)?GSLOTN[o.slot]:o.cls}</small><button type="button" data-buy="h:cs:${i}">Sell $${lfmt(itemValL(o)+LG(mult))}</button></div>`).join('');
-  $('shopBody').innerHTML=`<div class="padhead"><span class="rx">Rx</span><div><h2>${esc(c.name)} · ${M.n}</h2><p>${M.d} Nothing can hurt you inside the circle, and you heal by the fire. Packing up in ${fmtTime(Math.max(0,c.t))}.</p></div><b class="cashbig">$${lfmt(G.cashL)}${parts?` · ${G.parts} parts`:''}</b></div>${M.mats?`<p class="fine" style="margin:-6px 0 12px">You carry ${M.mats.map(k=>`${fmtI(G.mats[k]||0)} ${MTL[k].n}`).join(' · ')}. Zombies drop these; the bag screen shows the odds.</p>`:''}<div hidden></div>
+  $('shopBody').innerHTML=`<div class="padhead"><span class="rx">Rx</span><div><h2>${esc(c.name)} · ${M.n}</h2><p>${M.d} Packing up in ${fmtTime(Math.max(0,c.t))}.</p></div><b class="cashbig">$${lfmt(G.cashL)}${parts?` · ${G.parts} parts`:''}</b></div>${M.mats?`<p class="fine" style="margin:-6px 0 12px">You carry ${M.mats.map(k=>`${fmtI(G.mats[k]||0)} ${MTL[k].n}`).join(' · ')}.</p>`:''}<div hidden></div>
   <div class="shopsec"><h3><span>For sale</span></h3><div class="wgrid">${cards}</div></div>
   <div class="shopsec"><h3><span>Sell from your bag · pays ${Math.round(mult*100)}%</span></h3>${sells||'<p class="fine" style="margin:0">Your bag is empty.</p>'}</div>
   <div class="btns"><button class="btn" type="button" id="bShopX">Back outside</button></div>`;
@@ -4373,7 +4366,7 @@ function matsHTML(){
     return`<tr><td>${t}</td><td>${(Math.min(1,w)*100).toFixed(1)}%</td><td>${(Math.min(1,w*.7)*100).toFixed(1)}%</td><td>${Object.keys(mt).filter(k=>mt[k]>.001).map(k=>`${MTL[k].n} ${(mt[k]*100).toFixed(mt[k]<.1?1:0)}%`).join(', ')}</td></tr>`;}).join('');
   return`<div class="shopsec"><h3><span>Materials · merchants trade for these</span></h3><div class="matgrid">${have}</div>
   <details class="guide"><summary>Drop chances right now</summary><div class="tablewrap"><table class="codes"><tr><th>Zombie</th><th>Weapon</th><th>Gear</th><th>Materials</th></tr>${rows}</table></div>
-  <p class="fine">Elites drop everything twice as often, weapons six times as often, and always carry elite essence. Named ones drop essence and void shards every time. Dementia raises every chance. Police, chefs and the like drop what they wore.</p></details></div>`;
+  </details></div>`;
 }
 // merchants who want materials
 const MATMERCH=[
@@ -4479,14 +4472,14 @@ function drawMinimap(inside){
 // ===== boss signatures =====
 const BOSSK={
   'Patient Zero':{n:'Plague',d:'leaves plague puddles wherever it walks.'},
-  'Mr. Henderson from 4B':{n:'Knock',d:'slams the floor. Get out of the red ring.'},
+  'Mr. Henderson from 4B':{n:'Knock',d:'slams the floor.'},
   'The Night Nurse':{n:'Rounds',d:'heals the dead around her and calls up patients.'},
-  'Big Earl':{n:'Charge',d:'lines up and charges. Step off the line.'},
+  'Big Earl':{n:'Charge',d:'lines up and charges.'},
   'Grandma Rose':{n:'Knitting',d:'calls the grandkids and throws yarn that slows you.'},
-  'The Mailman':{n:'Parcels',d:'lobs packages. Stay out of the circles.'},
+  'The Mailman':{n:'Parcels',d:'lobs packages.'},
   'Coach Dunn':{n:'Whistle',d:'blows the whistle and everything nearby runs at you.'},
-  'The Landlord':{n:'Rent',d:'every hit takes rent out of your cash. Put him down to get it back, with interest.'},
-  'Pastor Gene':{n:'Sermon',d:'preaches, and the dead around him shrug off half your damage.'},
+  'The Landlord':{n:'Rent',d:'takes rent out of your cash with every hit.'},
+  'Pastor Gene':{n:'Sermon',d:'preaches, and the dead around him stop feeling it.'},
   'Uncle Ray':{n:'Cookout',d:'throws hot coals and leaves fire behind him.'},
   'The Tall Man':{n:'Behind You',d:'steps out of nowhere, right behind you.'},
   'Dr. Whitlock':{n:'Injections',d:'throws syringes that make you forget faster.'}};
@@ -4589,7 +4582,7 @@ function craftHTML(){
     const can=hasMats(r.cost)&&G.parts>=(r.parts||0)&&(!ops||ops.length>0);
     return`<div class="item"><b>${r.n}</b><small>${r.d}<br>Needs ${matTxt(r.cost)}${r.parts?`, ${r.parts} parts`:''}</small><span class="bact">${sel}<button type="button" class="mini" data-buy="h:cr:${r.id}" ${dis(can)}>Make</button></span></div>`;};const rows=RECIPES.filter(r=>!r.h).map(recRow).join(''),hrows=RECIPES.filter(r=>r.h).map(recRow).join('');
   const rend=G.inv.map((o,i)=>{const m=RENDER(o),mt={};for(const k in m)if(m[k]>0)mt[k]=m[k];return`<div class="item"><b><i class="eldot" style="background:${itemCol(o)}"></i>${esc(o.name)}</b><small>${itemTierN(o)} · gives ${matTxt(mt)||'a scrap of bone'}</small><button type="button" class="mini alt" data-buy="h:rd:${i}">Render</button></div>`;}).join('');
-  return['Crafting',`${G.parts} parts. Materials come off the dead: the bag screen lists the odds for each kind.`,
+  return['Crafting',`${G.parts} parts. Bone, cloth and whatever else they left behind.`,
   `<div class="shopsec"><h3><span>Materials</span></h3><div class="matgrid">${have}</div></div>
   <div class="shopsec"><h3><span>Recipes</span></h3>${rows}</div>
   <div class="shopsec"><h3><span>Heirloom recipes · made from heirloom parts</span></h3><p class="fine" style="margin:0 0 6px">Recycle an Heirloom (bag screen or below) for heirloom parts. Heirloom weapons give some too.</p>${hrows}</div>
@@ -4673,13 +4666,13 @@ function firstSteps(){
   if(G.fs||G.kills>5||LV>2||NET.role==='client'){G.fs=1;return;}
   G.fs=1;setPhase('stir',true);
   const p=G.p;for(let i=0;i<4;i++){const a=rnd(TAU),d=rnd(8,11);const x=p.x+Math.cos(a)*d,y=p.y+Math.sin(a)*d;if(solid(Math.floor(x),Math.floor(y),false))continue;const z=makeZombie(x,y,'shambler',true);z.hunt=true;G.zombies.push(z);}
-  toast(pad.last==='pad'?`Here they come. Aim with the right stick and hold ${actName('fire')} to shoot. ${actName('melee')} shoves them back, ${actName('roll')} rolls out of the way.`:'Here they come. Aim with the mouse and hold left click to shoot. Right click shoves them back, Space rolls, R reloads.','haze');
+  toast('Here they come.','haze');
 }
 function firstFinds(z){
   if(G.ff==null)G.ff=G.kills>20?3:0;
-  if(G.ff===0&&G.kills>=3){G.ff=1;const w=genWeapon(dLV()+1,2.2);addItem(z.x,z.y,'weapon',0,w);toast('Your first real find. Walk over to it to see how it compares.','haze');}
-  else if(G.ff===1&&G.kills>=12){G.ff=2;addItem(z.x,z.y,'gear',0,null,genGear(dLV()+1,1.6));toast('Something to wear. Walk over it to put it on.','haze');}
-  else if(G.ff===2&&LV>=4&&(G.realOut||0)>=120&&NET.role!=='client'){G.ff=3;const p=G.p,a=rnd(TAU);const e=makeZombie(p.x+Math.cos(a)*11,p.y+Math.sin(a)*11,'brute',true);e.ea=['armored'];e.hunt=true;e.aggro=999;G.zombies.push(e);sfx('boss',.6);toast('A big one has your scent. Elites drop the good stuff.','bad');}
+  if(G.ff===0&&G.kills>=3){G.ff=1;const w=genWeapon(dLV()+1,2.2);addItem(z.x,z.y,'weapon',0,w);toast('Your first real find.','haze');}
+  else if(G.ff===1&&G.kills>=12){G.ff=2;addItem(z.x,z.y,'gear',0,null,genGear(dLV()+1,1.6));toast('Something to wear.','haze');}
+  else if(G.ff===2&&LV>=4&&(G.realOut||0)>=120&&NET.role!=='client'){G.ff=3;const p=G.p,a=rnd(TAU);const e=makeZombie(p.x+Math.cos(a)*11,p.y+Math.sin(a)*11,'brute',true);e.ea=['armored'];e.hunt=true;e.aggro=999;G.zombies.push(e);sfx('boss',.6);toast('A big one has your scent.','bad');}
 }
 
 // ===== low health =====
@@ -4994,8 +4987,8 @@ const hasE=(z,id)=>!!(z.ea&&z.ea.includes(id));
 function zSpecial(z,dt,dist,dx,dy,tp){
   let m=1;const ux=dx/dist,uy=dy/dist;
   if(dist<12&&tp===G.p){const seen=G.seenZ||(G.seenZ={});
-    if(ZDESC[z.type]&&!seen[z.type]&&!z.under){seen[z.type]=1;toast(`New kind of dead: ${z.type.charAt(0).toUpperCase()+z.type.slice(1)}. ${ZDESC[z.type]}`,'haze');}
-    if(z.ea)for(const id of z.ea)if(EDESC[id]&&!seen['e:'+id]){seen['e:'+id]=1;toast(`${ELITEI[id].n} elites ${EDESC[id]}.`,'haze');}}
+    if(ZDESC[z.type]&&!seen[z.type]&&!z.under){seen[z.type]=1;toast(`New kind of dead: ${z.type.charAt(0).toUpperCase()+z.type.slice(1)}.`,'haze');}
+    if(z.ea)for(const id of z.ea)if(EDESC[id]&&!seen['e:'+id]){seen['e:'+id]=1;}}
   switch(z.type){
     case'leaper':if(z.hunt&&dist>2.2&&dist<6&&z.cd<=0){z.cd=rnd(3,4.5);z.kx+=ux*13;z.ky+=uy*13;sfx('swing',.4*sndAt(z.x,z.y));}break;
     case'hoarder':z.hoT=(z.hoT||0)+dt;if(dist<10)m=-1.15;else m=.5;if(Math.random()<dt*3)parts.push({x:z.x+rnd(-.3,.3),y:z.y-.2,vx:0,vy:-.5,t:0,life:.6,c:'#ffd84a',s:2});break;
@@ -5135,7 +5128,7 @@ function drawRaids(){for(const q of raids){const sx=q.x*T-camX,sy=q.y*T-camY,u=1
 
 // ===== weather: snow and ash =====
 WXN.snow='Snow';WXN.ash='Ashfall';
-{const _u=updWeather;updWeather=function(dt){const W=G.wx;if(W.t-dt<=0&&LV>=4&&Math.random()<.22){const id=Math.random()<.55?'snow':'ash';if(id!==W.id)toast(id==='snow'?'Snow starts to fall. Everything slows down.':'Ash drifts down from somewhere. Your mind slips faster, and the loot gets better.','haze');G.wx={id,t:rnd(80,150),k:6};return;}_u(dt);};}
+{const _u=updWeather;updWeather=function(dt){const W=G.wx;if(W.t-dt<=0&&LV>=4&&Math.random()<.22){const id=Math.random()<.55?'snow':'ash';if(id!==W.id)toast(id==='snow'?'Snow starts to fall.':'Ash drifts down from somewhere.','haze');G.wx={id,t:rnd(80,150),k:6};return;}_u(dt);};}
 function drawWx2(){
   const w=G.wx&&G.wx.id;if(w!=='snow'&&w!=='ash')return;const n=w==='snow'?130:90,tt=G.time;
   ctx.fillStyle=w==='snow'?'rgba(240,244,250,.8)':'rgba(120,115,110,.7)';
@@ -5251,7 +5244,7 @@ function spawnRift(k,exit){
   const q=findSpot(exit?6:9,exit?9:14);if(!q)return false;
   G.rift={x:q.x,y:q.y,k:k||riftKind(),t:exit?999:75,exit:!!exit};if(!G.rift.k){G.rift=null;return false;}
   const D=DIMS[G.rift.k];sfx('boss',.4);
-  toast(exit?'The way back is open. Get to the rift.':`A rift tears open nearby: ${D.n}. ${D.d} Better loot, and no house to run home to.`,exit?'haze':'bad');return true;
+  toast(exit?'The way back is open. Get to the rift.':`A rift tears open nearby: ${D.n}. ${D.d} No house to run home to.`,exit?'haze':'bad');return true;
 }
 function enterDim(k){
   const D=DIMS[k];if(!D)return;const p=G.p,i=Object.keys(DIMS).indexOf(k)+1;
@@ -5261,7 +5254,7 @@ function enterDim(k){
   p.x+=ox;p.y+=oy;for(let n=0;n<60&&solid(Math.floor(p.x),Math.floor(p.y),false);n++){p.x+=1;}
   if(D.night)G.clock=300;if(D.fog)G.wx={id:'fog',t:9999,k:6};
   flashT=Math.max(flashT,.8);if(!RM)shake=Math.max(shake,8);sfx('boss',.7);
-  toast(`${D.n}. ${D.d} The way back opens in about a minute and a half.`,'bad');
+  toast(`${D.n}. ${D.d}`,'bad');
   G.dim.gob=D.gob>1?3:Math.random()<.65?1:0;G.dim.gT=rnd(15,40);
   const pt=G.p;for(let n=0;n<6;n++)spawnZombie(null,null,null,false);
 }
@@ -5825,7 +5818,7 @@ function enterDun(th,mode){
       z.dun=1;z.dunBoss=1;z.hunt=false;G.zombies.push(z);n++;}}
   G.dun.total=n;
   flashT=Math.max(flashT,.6);sfx('door');if(!RM)shake=Math.max(shake,4);
-  const P=DUNT[th];toast(`${P.n}. ${P.d} ${n} of them down here, and something with a name at the far end. Leave the way you came whenever you like.`,'bad');
+  const P=DUNT[th];toast(`${P.n}. ${P.d} Something with a name waits at the far end.`,'bad');
 }
 function leaveDun(why){
   const D=G.dun;if(!D)return;const p=G.p;
@@ -5935,7 +5928,7 @@ function rollGearTierD(luck,bump){const D=DIFFS[dIdx()];return clamp(qualRoll(D[
 function diffHTML(){
   const cur=dIdx(),rows=DIFFS.map((D,i)=>{const open=dOpen(i),on=i===cur;
     return`<div class="item"><b>${D[0]}${on?' · current':''}</b><small>${open?`Dead ×${fmt(Math.pow(1.2,i))} health, ×${fmt(Math.pow(1.12,i))} damage · weapons ${STATES[D[2]].n} to ${STATES[D[3]].n}, gear ${GTIER[D[4]].n} to ${GTIER[D[5]].n} · loot +${2*i} levels · +${Math.round(25*i)}% cash · +${Math.round(6*i)}% experience`:`Unlocks at level ${D[1]}`}</small><span class="bact"><button type="button" class="mini${on?'':' alt'}" data-buy="h:diff:${i}"${open&&!on?'':' disabled'}>${on?'Playing':open?'Play this':'Locked'}</button></span></div>`;}).join('');
-  return['Difficulty',`Higher tiers open as you level. The dead get tougher; the loot gets better and higher level. You can drop back down any time.`,`<div class="shopsec"><h3><span>${dName()}</span></h3>${rows}</div>`];
+  return['Difficulty',`How bad do you want it?`,`<div class="shopsec"><h3><span>${dName()}</span></h3>${rows}</div>`];
 }
 {const _b=buy;buy=function(id){if(typeof id==='string'&&id.startsWith('h:diff:')){const i=+id.slice(7);if(i>=0&&i<DIFFS.length&&dOpen(i)){G.diff=i;G.shop=null;G.adO=G.adD=G.adP=0;toast(`${DIFFS[i][0]}. The dead outside will be ${i?'tougher':'back to normal'} from now on.`,'haze');}renderShop();return;}return _b(id);};}
 /* ---------- stealth ---------- */
@@ -5954,7 +5947,7 @@ function sneakL(z,w){
   return LG(m);
 }
 {const _h=hitZ;hitZ=function(z,L,w,o){const b=z&&!z.dying?sneakL(z,w):0;if(b>0&&!(o&&o.proc==='none')){floater(z.x,z.y-.9,'SNEAK ATTACK','dot','#c8b8ff');G.snk=(G.snk||0)+1;}return _h(z,L+b,w,o);};}
-function setSneak(on){if(!G||!G.p)return;const was=!!G.p.sneak;G.p.sneak=!!on;if(was!==G.p.sneak)hint(G.p.sneak?'Sneaking. Slow and quiet; the dead notice you much later.':'Walking normally.','haze');}
+function setSneak(on){if(!G||!G.p)return;const was=!!G.p.sneak;G.p.sneak=!!on;if(was!==G.p.sneak)hint(G.p.sneak?'Sneaking.':'Walking normally.','haze');}
 addEventListener('keydown',e=>{if(e.key==='Shift'&&mode==='play'&&!(e.target&&e.target.tagName==='INPUT'))setSneak(true);});
 addEventListener('keyup',e=>{if(e.key==='Shift')setSneak(false);});
 addEventListener('blur',()=>setSneak(false));
@@ -5980,7 +5973,7 @@ function stealthStock(){
   if(D.mode==='heist')D.vault={x:ox+last.cx+.5,y:oy+last.cy+.5};
   if(D.mode==='ghost')D.goal={x:ox+last.cx+.5,y:oy+last.cy+.5};
   if(D.mode==='hunt'){const k=Math.min(guards.length,3+D.depth);const pool=guards.slice().sort(()=>Math.random()-.5).slice(0,k);for(const z of pool){z.mark=1;z.hpL+=LG(3);z.mhpL=z.hpL;if(!z.ea)z.ea=[pick(eliteOk()).id];}D.marks=k;}
-  const P=DUNT[D.th];toast(`${P.n}, ${SMODE[D.mode].n}. ${SMODE[D.mode].goal} Sneak with ${usingTouch?'the quick menu':pad.last==='pad'?actName('sneak'):'Shift'}; anything that hasn't seen you takes a sneak attack.`,'bad');
+  const P=DUNT[D.th];toast(`${P.n}, ${SMODE[D.mode].n}. ${SMODE[D.mode].goal} Sneak with ${usingTouch?'the quick menu':pad.last==='pad'?actName('sneak'):'Shift'}.`,'bad');
 }
 function guardSees(z,x,y,range){const dx=x-z.x,dy=y-z.y,d=Math.hypot(dx,dy);if(d>range)return 0;let da=Math.atan2(dy,dx)-z.face;da=Math.atan2(Math.sin(da),Math.cos(da));if(Math.abs(da)>GV_A)return 0;return losClear(z.x,z.y,x,y)?1-d/range*.7:0;}
 function stealthAlert(z,why){
@@ -6119,7 +6112,7 @@ addEventListener('error',e=>dzErr('page',e.error||e.message));addEventListener('
 /* ---------- settings ---------- */
 const SET=Object.assign({shake:1,dmg:true,flash:true,motion:false,lead:true,fps:false,compact:'auto'},(()=>{try{return JSON.parse(localStorage.getItem('dz-set')||'{}');}catch(e){return{};}})());
 function setSave(){try{localStorage.setItem('dz-set',JSON.stringify(SET));}catch(e){}setApply();}
-function setApply(){RM=SET.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;document.body.classList.toggle('rm',RM);document.body.classList.toggle('compact',SET.compact==='on'||(SET.compact==='auto'&&W<560));}
+function setApply(){RM=SET.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;document.body.classList.toggle('rm',RM);document.body.classList.toggle('compact',SET.compact==='on'||(SET.compact==='auto'&&(W<560||H<500)));document.body.classList.toggle('short',H<500);}
 let setBack='pause';
 function ensureSetPanel(){
   if($('ovSet'))return;const d=document.createElement('div');d.className='overlay';d.id='ovSet';d.hidden=true;
@@ -6212,7 +6205,7 @@ addEventListener('keydown',e=>{if(!keyCap)return;e.preventDefault();e.stopImmedi
   if(k!=='escape'){const M=keyMap(),def=keyCap;let other=null;for(const a of KEYACTS)if(a[0]!==def&&boundTo(a[0])===k)other=a[0];if(other)M[other]=boundTo(def);M[def]=k;for(const d in M)if(M[d]===d)delete M[d];setSave();}
   keyCap=null;renderSettings();},true);
 {const _r=renderSettings;renderSettings=function(){_r();const body=$('setBody');if(!body)return;
-  body.insertAdjacentHTML('beforeend',`<div class="shopsec"><h3><span>Keyboard</span></h3><p class="fine" style="margin:0 0 6px">Pick an action, then press the key you want. Arrow keys always move too.</p><div class="ctxgrid">${KEYACTS.map(([d,n])=>`<button type="button" class="ctxbtn" data-key="${d===' '?'space':d}"><b>${esc(n)}</b><small>${keyCap===d?'press a key… (Esc cancels)':esc(keyName(boundTo(d)))}${boundTo(d)!==d?' · moved':''}</small></button>`).join('')}</div><div class="bact" style="margin-top:8px"><button type="button" class="mini alt" data-keyreset="1">Reset keys</button></div></div>`);};}
+  if(usingTouch)return;body.insertAdjacentHTML('beforeend',`<div class="shopsec"><h3><span>Keyboard</span></h3><p class="fine" style="margin:0 0 6px">Pick an action, then press the key you want. Arrow keys always move too.</p><div class="ctxgrid">${KEYACTS.map(([d,n])=>`<button type="button" class="ctxbtn" data-key="${d===' '?'space':d}"><b>${esc(n)}</b><small>${keyCap===d?'press a key… (Esc cancels)':esc(keyName(boundTo(d)))}${boundTo(d)!==d?' · moved':''}</small></button>`).join('')}</div><div class="bact" style="margin-top:8px"><button type="button" class="mini alt" data-keyreset="1">Reset keys</button></div></div>`);};}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-key]');if(b){keyCap=b.dataset.key==='space'?' ':b.dataset.key;renderSettings();return;}const r=e.target.closest&&e.target.closest('[data-keyreset]');if(r){SET.keys={};setSave();renderSettings();}});
 /* ---------- survival horror: the feel update ---------- */
 // The camera sits closer and pulls back when a crowd comes. Guns have magazines, recoil and reloads you can nail.
@@ -6269,10 +6262,10 @@ const isSci=w=>w&&(w.cls==='Sci-fi'||w.sci);
 function startReload(){
   const p=G.p,w=p.slots[p.cur];if(!usesMag(w)||p.rl>0||p.rollT>0||mode!=='play')return;
   if(w.am==null)w.am=magOf(w);if(w.am>=magOf(w))return;
-  if(!magFree()&&G.ammo<w.aps){hint(pad.last==='pad'?`Out of ammo. Swap to a melee weapon or shove with ${actName('melee')}.`:'Out of ammo. Swap to a melee weapon or shove with V or right click.','bad');return;}
+  if(!magFree()&&G.ammo<w.aps){hint('Out of ammo.','bad');return;}
   const t=rlBase(w)/(1+.05*sk('quickhands')+.5*Math.min(1,gs().rate||0));
   p.rl=p.rl0=t;p.rlW=w;p.rlTry=false;w.perf=0;sfx('magout');
-  if(!G.tipRL){G.tipRL=1;toast(pad.last==='pad'?`Reloading. Press ${actName('reload')} again while the marker is in the bright band for a perfect reload.`:'Reloading. Press R again while the marker is in the bright band for a perfect reload.','haze');}
+  if(!G.tipRL){G.tipRL=1;}
 }
 function finishReload(perf){
   const p=G.p,w=p.rlW;p.rl=0;p.rlW=null;if(!w)return;w.am=magOf(w);
@@ -6364,7 +6357,7 @@ function zMelee(z,tp,dist,dx,dy,dt){
   if(z.atk>0)return;
   const reach=z.r+PR+.38+(z.type==='runner'||z.type==='stalker'?.3:0)+(BIG(z.type)?.15:0);
   if(dist<reach){const w=z.boss?.45:(ZWU[z.type]||.5);z.wu=w;z.wu0=w;z.wuA=Math.atan2(dy,dx);if(Math.random()<.55)sfxAt('snarl',z.x,z.y);
-    if(tp===G.p&&!G.tipWU&&NET.role!=='client'){G.tipWU=1;toast(pad.last==='pad'?`They wind up before they bite. Step out of the red, roll with ${actName('roll')} or shove with ${actName('melee')}.`:'They wind up before they bite. Step out of the red, roll with Space or shove with V or right click.','haze');}}
+    if(tp===G.p&&!G.tipWU&&NET.role!=='client'){G.tipWU=1;}}
 }
 {const _d=dmgZ;dmgZ=function(z,L,o){
   const live=z&&!z.dying;_d(z,L,o);if(!live||!o||o.dot)return;
@@ -6743,7 +6736,7 @@ function takeCar(tx,ty){
   while(G.vs.length>4){const i=G.vs.findIndex((v,j)=>j!==G.p.drvI);if(i<0)break;G.vs.splice(i,1);if(G.p.drvI!=null&&i<G.p.drvI)G.p.drvI--;}
   return G.vs.length-1;
 }
-function enterVeh(i){const p=G.p,v=G.vs[i];if(!v||v.dead)return;if(p.rollT>0)return;p.drvI=i;p.rl=0;p.rlW=null;sfx('door');hint(v.fuel<=0?'Out of gas. Siphon some from a dead car.':`In the ${VK[v.k].n}. Steer with the direction you push. ${useKey()} gets out.`);}
+function enterVeh(i){const p=G.p,v=G.vs[i];if(!v||v.dead)return;if(p.rollT>0)return;p.drvI=i;p.rl=0;p.rlW=null;sfx('door');hint(v.fuel<=0?'Out of gas. Siphon some from a dead car.':`In the ${VK[v.k].n}. ${useKey()} gets out.`);}
 function exitVeh(quiet){const p=G.p,v=vCur();p.drvI=null;if(!v)return;
   for(const o of[Math.PI/2,-Math.PI/2,Math.PI,0]){const x=v.x+Math.cos(v.a+o)*1,y=v.y+Math.sin(v.a+o)*1;if(!solid(Math.floor(x),Math.floor(y),false)){p.x=x;p.y=y;break;}}
   v.v=0;if(!quiet)sfx('door');}
@@ -6847,7 +6840,7 @@ SFX2.thud=v=>{tone('sine',90,40,.12,.3*v);noise(.08,.18*v,'lowpass',700,150);};S
 HTABS.push(['fort','Fortify']);
 const FORT=[['bar','Barricade','The door takes a beating before it gives. +90 door strength a level.',5,250,2],
   ['spike','Spike ring','Anything clawing at the walls gets cut up, siege or not.',3,400,2.4],
-  ['tur','Corner turrets','A turret per level on the house corners. They fire at anything near the house while you\'re close by.',4,600,2.2],
+  ['tur','Corner turrets','Mounted on the house corners.',4,600,2.2],
   ['flood','Floodlights','The yard stays lit at night.',1,500,1]];
 const fortG=()=>{G.fort=G.fort||{bar:0,spike:0,tur:0,flood:0,won:0,lost:0};return G.fort;};
 const fortView=()=>{const F=fortG();if(NET.role==='client'&&G.fortH){const h=G.fortH;return{bar:h[0]|0,spike:h[1]|0,tur:h[2]|0,flood:h[3]|0,won:F.won,lost:F.lost};}return F;};
@@ -6858,8 +6851,8 @@ function fortHTML(){
   const F=fortView(),sg=G.sg;
   const items=FORT.map(([k,n,d,mx])=>{const lv=F[k],c=lv<mx?fortCost(k,lv):null,ok=c!=null&&G.cashL>=c;
     return`<div class="item"><b>${n} <small>${lv}/${mx}</small></b><small>${d}</small><span class="bact">${c==null?'<span class="fine">Maxed</span>':`<button type="button" class="mini" data-buy="fort:${k}"${ok?'':' disabled'}>$${lfmt(c)}</button>`}</span></div>`;}).join('');
-  const bell=sg?'<p class="fine">A siege is on. Get out there.</p>':`<div class="item"><b>Ring the dinner bell</b><small>Start a siege now. Same waves, same spoils.</small><span class="bact"><button type="button" class="mini" data-buy="fort:bell">Ring it</button></span></div>`;
-  return['Fortify',`Every third night and every blood moon they come for the house. Door strength ${fmtI(doorMax())}. Sieges held ${F.won}, lost ${F.lost}.`,
+  const bell=sg?'<p class="fine">A siege is on. Get out there.</p>':`<div class="item"><b>Ring the dinner bell</b><small>Start a siege now.</small><span class="bact"><button type="button" class="mini" data-buy="fort:bell">Ring it</button></span></div>`;
+  return['Fortify',`They will come for the house. Door strength ${fmtI(doorMax())}. Sieges held ${F.won}, lost ${F.lost}.`,
     `<div class="shopsec"><h3><span>Defences</span></h3>${items}</div><div class="shopsec"><h3><span>Siege</span></h3>${bell}</div>`];
 }
 {const _r=renderShop;renderShop=function(){if(htab!=='fort')return _r();if(!G.home)homeInit();const[t,s,body]=fortHTML();
@@ -6871,7 +6864,7 @@ function fortHTML(){
 function startSiege(bell){
   if(G.sg||G.dun||G.dim||NET.role==='client')return;const F=fortG();
   G.sg={t:0,wave:0,waves:4+Math.min(4,Math.floor(LV/40))+(evId()==='bloodmoon'?1:0),door:doorMax(),nextT:6,bell:!!bell,kills:0};
-  toast(bell?'You ring the bell. Every one of them heard it. Hold the door.':'They\'re coming for the house. Hold the door until the last wave is down.','bad');sfx('boss',.7);flashT=Math.max(flashT,.3);
+  toast(bell?'You ring the bell. Every one of them heard it. Hold the door.':'They\'re coming for the house. Hold the door.','bad');sfx('boss',.7);flashT=Math.max(flashT,.3);
 }
 function siegeWave(){
   const S=G.sg,s=G.house,cx=s.x+s.w/2,cy=s.y+s.h/2,a0=rnd(TAU),mates=(NET.rps?NET.rps.length:0);
@@ -6948,7 +6941,7 @@ function raidHTML(){
   const R=raidG();
   const rows=Object.entries(RAIDB).map(([k,b])=>{const st=R[k]||{},ok=LV>=b.lv;
     return`<div class="item"><b>${b.n} <small>${ok?`from level ${b.lv}`:`opens at level ${b.lv}`}</small></b><small>${b.d}${st.k?` Put down ${st.k} time${st.k>1?'s':''}${st.best?`, best ${fmtTime(st.best)}`:''}.`:''} Drops the ${b.w[0]} signature weapon.</small><span class="bact"><button type="button" class="mini" data-buy="raid:${k}"${ok?'':' disabled'}>Go in</button></span></div>`;}).join('');
-  return['Raids',NET.role?'Everyone in the game goes in together, and the boss gets tougher for each of you. Watch for the red: circles slam, lines charge, spit comes in rings you roll through.':'One boss, one room, three phases. Watch for the red: circles slam, lines charge, and spit comes in rings you roll through.',`<div class="shopsec">${rows}</div>`];
+  return['Raids','One room, one of them, and nowhere to hide.',`<div class="shopsec">${rows}</div>`];
 }
 {const _r=renderShop;renderShop=function(){if(htab!=='raid')return _r();if(!G.home)homeInit();const[t,s,body]=raidHTML();
   $('shopBody').innerHTML=hHead(t,s)+tabsHTML()+body+`<div class="btns"><button class="btn" type="button" id="bShopX">Back outside</button></div>`;};}
@@ -7114,7 +7107,7 @@ function nearRide(){if(!NET.room||G.dun)return null;const p=G.p;let best=null,bd
 {const _s=specInteract;specInteract=function(){const p=G.p;
   if(p.ride){p.ride=null;p.x+=rnd(-1,1);p.y+=1.2;collide(p,PR,false);sfx('door');return true;}
   if(NET.role==='client'&&G.dent&&!G.dun&&Math.hypot(G.dent.x-p.x,G.dent.y-p.y)<1.8){coopReq('dun');hint('Opening the way down for everyone.');return true;}
-  if(!(typeof vCur==='function'&&vCur())){const r=nearRide();if(r){p.ride=r.peer;p.rl=0;sfx('door');hint(`Riding with ${r.n}. Shoot all you like. ${useKey()} hops out.`);return true;}}
+  if(!(typeof vCur==='function'&&vCur())){const r=nearRide();if(r){p.ride=r.peer;p.rl=0;sfx('door');hint(`Riding with ${r.n}.`);return true;}}
   return _s();};}
 {const _h=hurtPlayer;hurtPlayer=function(L,src){if(G&&G.p&&G.p.ride)L+=LG(.5);return _h(L,src);};}
 function rideTick(){const p=G.p;if(!p.ride)return;const s=peerSt(p.ride);if(!s||!Array.isArray(s.st.vh)||G.dun||p.dead||p.down){p.ride=null;hint('You hop out.');return;}
@@ -7382,13 +7375,13 @@ function ctxItems(){
   act.push(['unmed','Take an unmed',actName('unmed')]);act.push(['sneak',G.p.sneak?'Stop sneaking':'Sneak',actName('sneak')]);if(!inside)act.push(['light',G.p.lightOff?'Turn the flashlight on':'Turn the flashlight off',actName('light')]);
   if(p.slots.filter(Boolean).length>1)act.push(['swap','Swap weapon',actName('swap')]);
   if(NET.role){act.push(['marker','Drop a marker where you aim',actName('marker')]);act.push(['chat','Chat','']);}
-  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['jour','Journal',''],['comp','Completion',''],['set','Settings',''],['pad','Controller settings',''],['help','Help and codes',''],['pause','Pause screen',actName('pause')]);
+  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['jour','Journal',''],['comp','Completion',''],['set','Settings',''],['pad','Controller settings',''],['help','Controls and codes',''],['cheat','Enter a code',''],['pause','Pause screen',actName('pause')]);
   if(here.length)out.push(['Here',here]);out.push(['Actions',act],['Menus',go]);return out;
 }
 function renderCtx(){
   const body=$('ctxBody');if(!body)return;
-  $('ctxSub').textContent=`${actName('menu')} or ${actName('roll')} closes it. ${actName('pause')} pauses.`;
-  body.innerHTML=ctxItems().map(([h,list])=>`<div class="shopsec"><h3><span>${esc(h)}</span></h3><div class="ctxgrid">${list.map(([k,n,g])=>`<button type="button" class="ctxbtn" data-cx="${k}"><b>${esc(n)}</b>${g&&!/^—|^$|unbound/i.test(g)?`<small>${esc(g)}</small>`:''}</button>`).join('')}</div></div>`).join('');
+  $('ctxSub').textContent=pad.last==='pad'?`${actName('menu')} or ${actName('roll')} closes it. ${actName('pause')} pauses.`:'';
+  body.innerHTML=ctxItems().map(([h,list])=>`<div class="shopsec"><h3><span>${esc(h)}</span></h3><div class="ctxgrid">${list.map(([k,n,g])=>`<button type="button" class="ctxbtn" data-cx="${k}"><b>${esc(n)}</b>${g&&pad.last==='pad'&&!/^—|^$|unbound/i.test(g)?`<small>${esc(g)}</small>`:''}</button>`).join('')}</div></div>`).join('');
 }
 function openCtx(){
   if(!G||!runActive)return;if(mode==='ctx'){closeCtx();return;}
@@ -7406,6 +7399,7 @@ function ctxRun(k){
   if(k==='pad'){setMode('pause');openPadCfg();return;}
   if(k==='comp'){setMode('pause');openComp();return;}
   if(k==='jour'){setMode('pause');openJour();return;}
+  if(k==='cheat'){setMode('play');openCheat();return;}
   if(k==='set'){setMode('pause');openSettings();return;}
   if(k==='light'){setMode('play');toggleLight();return;}
   if(menus[k]){setMode(ctxBack==='play'&&k!=='saves'?'play':'pause');menus[k]();return;}
@@ -7733,7 +7727,7 @@ $('bRespec').onclick=()=>{
 };
 
 const CTL_DESK=[['WASD / arrows','move'],['Shift (hold)','sneak'],['Mouse','aim'],['Left click','attack'],['Space','dodge roll'],['V / right click','shove'],['R','reload · press again in the bright band for a perfect reload'],['L','flashlight'],['1 2 3 / wheel','switch gun'],['E','take · befriend · recruit · open the house'],['F','class skill'],['M','minimap'],['N','sound on/off'],['G','throw'],['U / J','take / switch unmeds'],['C','co-op'],['T','switch throwable'],['Q','dementia meds'],['X','medkit'],['I / Tab','bag and gear'],['K','skill trees'],['O','save files'],['` or Enter','cheat codes'],['P / Esc','pause'],['H','help']];
-const CTL_TOUCH=[['Left thumb','move'],['Right thumb','aim and attack'],['Shove','push them back'],['Roll','dodge through'],['Use','take · befriend · recruit · open the house'],['Throw','throw the selected grenade'],['Swap','next gun'],['Meds / Kit','dementia meds · medkit'],['Bag · Skills · Saves · Codes','buttons under supplies']];
+const CTL_TOUCH=[['Left thumb','move'],['Right thumb','aim and shoot'],['Shove','push them back'],['Roll','dodge'],['Use','take · talk · open'],['Reload','reload'],['Throw','throw'],['Skill','class skill'],['Swap','next weapon'],['Meds / Kit','meds · medkit'],['Menu','everything else']];
 function renderControls(){const list=(usingTouch?CTL_TOUCH:CTL_DESK).map(([a,b])=>`<div><span>${a}</span><span>${b}</span></div>`).join('');$('ctlList').innerHTML=list;$('ctlList2').innerHTML=list;}
 $('codeTable').innerHTML=Object.values(CHEATS).map(v=>`<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`).join('');
 function showContinue(lv){const b=$('bContinue');b.hidden=false;b.textContent=`Continue · Lv ${fmtI(Number(lv||1))}`;}
@@ -7820,11 +7814,12 @@ cv.addEventListener('pointermove',e=>{
 function endPtr(e){if(e.pointerType==='mouse'){if(e.button===0||e.type==='pointercancel')mouse.down=false;return;}for(const st of [touch.move,touch.aim])if(st.id===e.pointerId){st.active=false;st.id=-1;st.dx=st.dy=st.mag=0;}}
 cv.addEventListener('pointerup',endPtr);cv.addEventListener('pointercancel',endPtr);
 addEventListener('pointerup',e=>{if(e.pointerType==='mouse'&&e.button===0)mouse.down=false;});
+let ghostT=0;document.addEventListener('click',e=>{if(performance.now()-ghostT<500&&e.target.closest&&e.target.closest('.overlay')){e.stopPropagation();e.preventDefault();}},true);
 $('tbtns').addEventListener('pointerdown',e=>{
   const b=e.target.closest('[data-act]');if(!b)return;e.preventDefault();setTouch(true);if(mode!=='play')return;
   const a=b.dataset.act;
   if(a==='bag'){openBag();return;}
-  if(a==='melee')wantMelee=true;else if(a==='roll')wantRoll=true;else if(a==='use')interact();else if(a==='swap')cycleSlot(1);else if(a==='meds')useMeds();else if(a==='kit')useKit();else if(a==='throw')throwNow();else if(a==='skill')useAbility();else if(a==='unmed')useUnmed();
+  if(a==='melee')wantMelee=true;else if(a==='roll')wantRoll=true;else if(a==='reload')reloadPress();else if(a==='menu'){ghostT=performance.now();openCtx();return;}else if(a==='use')interact();else if(a==='swap')cycleSlot(1);else if(a==='meds')useMeds();else if(a==='kit')useKit();else if(a==='throw')throwNow();else if(a==='skill')useAbility();else if(a==='unmed')useUnmed();
 });
 
 $('bCoop').onclick=()=>{if(mode==='coop')setMode(coopBack);else if(mode!=='dead'&&mode!=='cheat')openCoop();};

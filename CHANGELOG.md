@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.0.1
+
+**Balance pass for day and night**
+- How much each kill pays now depends on the time of day. With far fewer of the dead around in daylight, each day kill gives up to double the experience, cash, materials, supplies and drops. With far more around at night, each night kill gives a bit over half. An hour of play is worth about what it was before 2.0, whenever you play it. Night still has better loot quality and the most action.
+- The first few levels keep a normal daytime crowd, so a new run doesn't start in an empty town. The sun starts thinning them out around level 3 and reaches full strength by level 10.
+- Crowds no longer pile up forever. At sunrise the extra dead walk off and leave once they're out of sight, and the night crowd tops out lower (130 instead of 170).
+- Fixed: you could get trapped at home at night. Time stands still inside, so a crowd camped at the door never left. Now, while you're inside, the dead around the house drift off down to a handful.
+- Bites hit harder (×1.6) now that you can see them coming and step out of the way. Standing still in a crowd costs about what it did before 2.0, and dodging pays off.
+
 ## v2.0.0
 
 **Survival horror**

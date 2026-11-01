@@ -338,7 +338,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v2.0.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v1.9.1</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -356,7 +356,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v2.0.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v1.9.1</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -464,7 +464,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 </form>
 
 <script>
-const GAME_VERSION='2.0.0';
+const GAME_VERSION='1.9.1';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -1949,7 +1949,7 @@ function update(dt){
   let target=(4+Math.min(LV,1e6)*.08+Math.min(d,1e4)*.04+G.heat*.3)*(inside?1:phMul())*partyCrowd()*(rel('cowbell')?1.5:1)*(G.dim&&DIMS[G.dim.k]?DIMS[G.dim.k].crowd:1);
   target*=sunK();if(e==='bloodmoon')target*=1.6;if(e==='calm')target*=.5;if(e==='surge')target+=35;
   const prs=Math.min(3,G.adP||0);target*=1+Math.min(3,prs*1.8);
-  target=Math.min(Math.min(170,(hardEv()||phId()==='swarm'?95:28)*Math.max(1,sunK()*.8)*Math.min(2.2,partyCrowd())*(1+Math.min(2.5,prs*1.4))),target);if(inside&&!(NET.rps&&NET.rps.length))target*=.5;if(G.cheats.hush||G.dun)target=0;
+  target=Math.min(Math.min(130,(hardEv()||phId()==='swarm'?95:28)*Math.max(1,sunK()*.8)*Math.min(2.2,partyCrowd())*(1+Math.min(2.5,prs*1.4))),target);if(inside&&!(NET.rps&&NET.rps.length))target*=.5;if(G.cheats.hush||G.dun)target=0;
   if(spawnT<=0&&alive<target&&NET.role!=='client'){spawnZombie(null,null,null,e==='surge'||e==='bloodmoon');spawnT=(inside?1.2:e==='surge'||phId()==='swarm'?.12:Math.max(.15,.6-Math.min(d,1e4)*.002))/(1+Math.min(1.5,G.adP||0))/Math.max(.65,Math.sqrt(sunK()));}
 
   if(playing&&NET.role!=='client'){updNpcs(dt);}
@@ -6217,9 +6217,26 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 if(SET.zoom==null)SET.zoom='normal';if(SET.dark==null)SET.dark='full';if(SET.hudfade==null)SET.hudfade=true;
 const nightK=()=>{if(!G)return 0;const c=G.clock;return c<20?1:c<45?1-(c-20)/25:c<200?0:c<240?(c-200)/40:1;};
 // how many of the dead are out: about 0.4× in full sun, about 3.2× deep in the night
-const sunK=()=>{if(!G||G.dun)return 1;const n=nightK(),s=n*n*(3-2*n);return .4+2.8*s;};
-// a quiet day kill is worth a bit more, a night kill a bit less, so the night pays in volume and loot, not speed
-const nightXP=()=>G&&!G.dun?Math.min(2,1/sunK()):1;
+// the first few levels keep a normal daytime crowd so a new run isn't empty; the sun thins them from about level 3 to 10
+const dayK=()=>.4+.6*clamp((10-LV)/7,0,1);
+const sunK=()=>{if(!G||G.dun)return 1;const n=nightK(),s=n*n*(3-2*n),d=dayK();return d+(3.2-d)*s;};
+// Balance: how much one kill is worth. Most players kill about as fast as they can whatever the crowd, so day kills
+// pay up to double (there are far fewer of them) and night kills less (there are far more). Experience, cash,
+// materials, supplies and item drops all follow it, which keeps an hour of play worth about what it was.
+const lootK=()=>{if(!G||G.dun)return 1;const n=nightK(),s=n*n*(3-2*n),d=Math.min(2,1/dayK());return d+(.6-d)*s;};
+const nightXP=lootK;
+let DROPK=null;
+{const _d=dropLoot;dropLoot=function(z,w){if(!G||!z||z.boss||G.dun)return _d(z,w);DROPK=lootK();try{return _d(z,w);}finally{DROPK=null;}};}
+{const _a=addItem;addItem=function(x,y,kind,val,w,g){
+  const k=DROPK;if(k==null||kind==='crate'||kind==='memory')return _a(x,y,kind,val,w,g);
+  if(kind==='cash')return _a(x,y,kind,val+LG(k),w,g);
+  if(k<1){if(Math.random()>k)return;return _a(x,y,kind,val,w,g);}
+  _a(x,y,kind,val,w,g);
+  if(Math.random()<k-1){DROPK=null;try{
+    if(kind==='weapon')_a(x,y,'weapon',0,genWeapon(dLV(),dropLuck()));
+    else if(kind==='gear')_a(x,y,'gear',0,null,genGear(dLV(),dropLuck()));
+    else _a(x,y,kind,val,w,g);}finally{DROPK=k;}}
+};}
 
 /* ===== camera ===== */
 function camTick(dt){
@@ -6334,7 +6351,7 @@ function zMelee(z,tp,dist,dx,dy,dt){
       z.wu=0;z.atk=.85;const fast=z.type==='runner'||z.type==='stalker'||z.type==='crazed',big=BIG(z.type)||!!z.boss,im=fast?4.2:big?2.2:3.2;
       z.kx+=Math.cos(z.wuA)*im;z.ky+=Math.sin(z.wuA)*im;z.lgT=.2;
       const ex=tp.x-z.x,ey=tp.y-z.y,ed=Math.hypot(ex,ey);
-      if(ed<z.r+PR+.72+(big?.2:0)&&Math.abs(angDiff(Math.atan2(ey,ex),z.wuA))<1.2)zHit(tp,z);
+      if(ed<z.r+PR+.72+(big?.2:0)&&Math.abs(angDiff(Math.atan2(ey,ex),z.wuA))<1.2)zHit(tp,z,z.dmgL+LG(1.6));
       else if(tp===G.p)sfxAt('whiff',z.x,z.y);
     }
     return;
@@ -6560,10 +6577,13 @@ let hfdSig='',hfdT=0,hfdLast=0,hfdHp=1,dayCull=0;
   for(const z of G.zombies){if(z.fl>0)z.fl-=dt;if(z.stag>0)z.stag-=dt;if(z.dying>0&&!z.cpx){z.cpx=1;mkCorpse(z);}}
   if(mode==='play'||mode==='title')camTick(dt);
   groundTick(dt);
-  // the sun sends the stragglers home
-  dayCull-=dt;if(dayCull<=0&&mode==='play'&&NET.role!=='client'&&!G.dun){dayCull=.4;const n=nightK();if(n<.25){let alive=0;for(const z of G.zombies)if(!z.dying)alive++;
-    const cap=12+Math.min(30,LV*.06)+Math.min(30,(G.adP||0)*10);
-    if(alive>cap){let far=null,fd=12;for(const z of G.zombies){if(z.dying||z.boss||z.ea||z.site||z.guard||z.dun)continue;const d=Math.hypot(z.x-q.x,z.y-q.y);if(d>fd){fd=d;far=z;}}if(far)G.zombies.splice(G.zombies.indexOf(far),1);}}}
+  // the sun sends the stragglers home, and nobody camps your door while you're inside (time stands still in there)
+  dayCull-=dt;if(dayCull<=0&&mode==='play'&&NET.role!=='client'&&!G.dun){dayCull=.4;const n=nightK(),inH=isInside(q.x,q.y);let alive=0;for(const z of G.zombies)if(!z.dying&&!(z.fearT>0&&!z.hunt))alive++;
+    const base=12+Math.min(30,LV*.06)+Math.min(30,(G.adP||0)*10),cap=inH?Math.min(20,8+LV*.02):n<.25?base:n>.75?Math.min(130,base*3.2):1e9;
+    if(alive>cap){const cand=[];for(const z of G.zombies){if(z.dying||z.boss||z.ea||z.site||z.guard||z.dun||z.type==='goblin')continue;const d=Math.hypot(z.x-q.x,z.y-q.y);if(d<5)continue;
+        const sx=z.x*T-camX,sy=z.y*T-camY;cand.push([d,z,sx>-40&&sy>-40&&sx<W+40&&sy<H+40]);}
+      cand.sort((a,b)=>b[0]-a[0]);let k=Math.min(3,Math.ceil((alive-cap)/10));
+      for(const[,z,vis]of cand){if(k<=0)break;if(!vis){G.zombies.splice(G.zombies.indexOf(z),1);k--;}else if(!(z.fearT>0)){z.fearT=9;z.hunt=false;z.aggro=0;k--;}}}}
   // the status cards fade back while nothing on them changes
   hfdT-=dt;if(hfdT<=0){hfdT=.25;const inside=isInside(q.x,q.y);
     const sig=[G.ammo,G.meds,G.medkits,LV,Math.floor(G.dementia/8),typeof spAvail==='function'?spAvail():0,q.cur].join('|');

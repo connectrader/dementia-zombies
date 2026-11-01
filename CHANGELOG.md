@@ -1,5 +1,35 @@
 # Changelog
 
+## v3.0.0
+
+**Ruth: a story campaign**
+- Eight chapters about finding your wife, Ruth, who walked out the night it started. The story runs alongside the endless game and starts the first time you step outside.
+- Each chapter is one thing to do out in the world, and each uses a different part of the game: reaching a marked place and clearing what's waiting there, getting a car running, holding the house through a siege, clearing a dungeon, and putting down the three raid bosses. Every chapter pays out supply crates and cash, and the last one pays out two jackpot weapons.
+- New Journal (Pause or the quick menu) keeps the whole story straight, chapter by chapter, with what to do next and how far along you are.
+- Finishing the story is now part of Completion (10%; level 240 and classes give up 5% each to make room).
+
+**Vehicles**
+- Some parked cars still run. Walk up and press E to try one. A dead one can be siphoned for gas and sometimes has something in the glovebox.
+- Four kinds: sedan, pickup, van and muscle car, each with its own speed, handling, toughness and ramming power.
+- Steering is by direction, so it works the same on keyboard and controller: push the way you want to go, push back to brake.
+- Run the dead over (it hurts, and scales with speed and your power). Everything you hit, and everything that bites you, damages the car instead of you. Wrecks catch fire and blow up, so get clear.
+- Fuel runs down as you drive. Headlights cut through the dark. Cars are loud. Up to four kept cars stay where you left them.
+
+**Fortify and siege**
+- Every third night, and every blood moon, the dead come for the house itself if you're near it. They come in waves from two sides and go for the door. Hold it until the last wave is down for supply crates and cash. Let it break and they take 15% of your cash.
+- New Fortify tab at home: barricade (door strength), spike ring (cuts up anything at the walls, any time), up to four corner turrets that fire while you're close by, and floodlights for the yard at night.
+- Ring the dinner bell in the Fortify tab to start a siege whenever you want.
+
+**Boss raids**
+- New Raids tab at home with three arena bosses: The Matron (level 15), Sawbones (level 30) and The Choir (level 50).
+- Three phases each, with attacks you learn by their tells: red circles slam, red lines are charges, and spit comes in rings and spirals you roll through. Adds join in, and the boss speeds up as the phases go.
+- The boss's health is set from your damage when you go in, so a fight runs a minute or two at any level.
+- Each boss drops a dungeon's worth of loot, two crates, cash and a signature weapon you can't get anywhere else, carrying that boss's own effects.
+- Raids are single player for now.
+
+**And more**
+- Thunderstorms at night: lightning lights the whole street for a moment, then the thunder rolls in.
+
 ## v2.1.0
 
 **The world fights back**

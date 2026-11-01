@@ -338,7 +338,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v2.1.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.0.0</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -356,7 +356,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v2.1.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.0.0</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -406,6 +406,10 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
     <p class="lede"><b>Settings.</b> Pause → Settings has sound and music volume, screen shake, damage numbers, flashes, reduce motion, camera lean, a compact HUD and a frame-rate counter. Every keyboard key can be moved there too, and the controller has its own screen.</p>
     <p class="lede"><b>Surviving.</b> The dead wind up before they bite: they rear back and a red wedge shows where the lunge will land. Step out of it, roll through it with <kbd>Space</kbd>, or shove them back with <kbd>V</kbd> or right click, which staggers them and cancels the bite. Rolling and shoving cost stamina (the arc under you). Guns have magazines: <kbd>R</kbd> reloads, and pressing it again while the marker is in the bright band is a perfect reload, which is instant and makes the next magazine hit 15% harder. Miss the band and you fumble.</p>
     <p class="lede"><b>Night.</b> In daylight the dead thin out. At night they come out in force, and it is dark: you see what your flashlight sees, and their eyes in the dark. <kbd>L</kbd> turns the flashlight off, which makes you harder to spot. Day kills give a little more experience, night gives numbers and better loot. Darkness and camera distance can be changed in Settings.</p>
+    <p class="lede"><b>Ruth.</b> There's a story now: eight chapters about finding your wife, running alongside the endless game. It starts the first time you step outside. The Journal (Pause or the quick menu) keeps track of where you are.</p>
+    <p class="lede"><b>Cars.</b> Some parked cars still run. Walk up and press <kbd>E</kbd> to try one; a dead one can be siphoned for gas. Push the way you want to go and the car turns and drives there; push back to brake. Running the dead over hurts them and the car. Cars burn fuel, take damage from everything, and make a lot of noise. <kbd>E</kbd> gets out.</p>
+    <p class="lede"><b>Sieges.</b> Every third night, and every blood moon, they come for the house if you're near it. Hold the door until the last wave is down for supply crates and cash. Let it break and they take some of your cash. The Fortify tab at home builds a heavier barricade, a spike ring, corner turrets and floodlights, and the dinner bell there starts a siege whenever you like.</p>
+    <p class="lede"><b>Raids.</b> The Raids tab at home sends you into an arena with one of three bosses: The Matron, Sawbones and The Choir, opening at levels 15, 30 and 50. Each has three phases. Red circles slam, red lines are charges, and spit comes in rings and spirals you roll through. Each one drops a signature weapon you can't get anywhere else. Raids are single player for now.</p>
     <p class="lede"><b>The street.</b> Red barrels blow up when shot and set off any barrel near them; propane tanks leave the ground burning. Stand clear, they hurt you too. Parked cars can have alarms: hit one and it might start screaming, and every one of the dead nearby goes to it while more arrive. Next to you that's bad news. Down the street it's a lure. A red arc around you shows where a hit came from.</p>
     <p class="lede"><b>Hordes.</b> Every minute or so a pack comes at you from one direction, and you get a warning saying which way. The stronger you get, the more the dead answer with numbers rather than toughness: bigger crowds, faster spawns, bigger packs, more elites and more traits stacked on them. Single zombies keep getting easier; the answer to the crowd is effects. Piercing, Twin, Arcing, Splitting, Ricocheting and Explosive all get stronger on weapons in better condition.</p>
     <p class="lede"><b>Soft caps.</b> Bonuses from gear, counter treatments and the endless skills count in full up to a point, then each extra bit is worth less. A weapon or piece of gear you keep tuning, or that keeps up with you through its bond, gains less from every level past where it dropped, so new finds catch up with old favourites.</p>
@@ -465,7 +469,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 </form>
 
 <script>
-const GAME_VERSION='2.1.0';
+const GAME_VERSION='3.0.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -6317,7 +6321,7 @@ function inputVec(){
   let mx=0,my=0;if(keys.has('w')||keys.has('arrowup'))my--;if(keys.has('s')||keys.has('arrowdown'))my++;if(keys.has('a')||keys.has('arrowleft'))mx--;if(keys.has('d')||keys.has('arrowright'))mx++;
   if(touch.move.active){mx=touch.move.dx;my=touch.move.dy;}if(pad.on&&pad.last==='pad'&&pad.m>0){mx=pad.mx;my=pad.my;}return[mx,my];
 }
-const moveMul=()=>{const p=G&&G.p;if(!p)return 1;return(p.rollT>0?.1:1)*((p.st??1)<.05?.85:1);};
+const moveMul=()=>{const p=G&&G.p;if(!p)return 1;return(p.drvI!=null?0:1)*(p.rollT>0?.1:1)*((p.st??1)<.05?.85:1);};
 function tryRoll(){
   const p=G.p;if(p.down||p.dead||p.rollT>0||(p.rollCd||0)>0)return;
   const st=p.st??1;if(st<.12){floater(p.x,p.y-.6,'winded','dot','#c9c0a8');return;}
@@ -6465,9 +6469,9 @@ function drawDying(z,hl){
 let dkC=null,dkG=null;
 function darkAmt(){
   if(!G||SET.dark==='off'||mode==='title')return 0;const p=G.p;if(isInside(p.x,p.y))return 0;let a;
-  if(G.dun)a=G.dun.mode&&G.dun.mode!=='fight'?.5:.8;
+  if(G.dun)a=G.dun.raid?.42:G.dun.mode&&G.dun.mode!=='fight'?.5:.8;
   else{const n=nightK(),s=n*n*(3-2*n);a=.88*s+(G.wx&&G.wx.id==='storm'?.06*s:0);if(evId()==='bloodmoon')a*=.85;}
-  return Math.min(.93,a*(SET.dark==='soft'?.6:1));
+  return Math.min(.93,a*(SET.dark==='soft'?.6:1))*(1-.85*(typeof ltA!=='undefined'?ltA:0));
 }
 const darkK=()=>1-Math.min(1,darkAmt()*1.15)*.85;
 const lightDet=()=>{if(!G)return 1;const n=Math.max(nightK(),G.dun?.8:0);if(n<.3)return 1;return G.p.lightOff?1-.35*n:1+.12*n;};
@@ -6582,7 +6586,7 @@ let hfdSig='',hfdT=0,hfdLast=0,hfdHp=1,dayCull=0;
   // the sun sends the stragglers home, and nobody camps your door while you're inside (time stands still in there)
   dayCull-=dt;if(dayCull<=0&&mode==='play'&&NET.role!=='client'&&!G.dun){dayCull=.4;const n=nightK(),inH=isInside(q.x,q.y);let alive=0;for(const z of G.zombies)if(!z.dying&&!(z.fearT>0&&!z.hunt))alive++;
     const base=12+Math.min(30,LV*.06)+Math.min(30,(G.adP||0)*10),cap=inH?Math.min(20,8+LV*.02):n<.25?base:n>.75?Math.min(130,base*3.2):1e9;
-    if(alive>cap){const cand=[];for(const z of G.zombies){if(z.dying||z.boss||z.ea||z.site||z.guard||z.dun||z.type==='goblin')continue;const d=Math.hypot(z.x-q.x,z.y-q.y);if(d<5)continue;
+    if(alive>cap){const cand=[];for(const z of G.zombies){if(z.dying||z.boss||z.ea||z.site||z.guard||z.dun||z.sg||z.type==='goblin')continue;const d=Math.hypot(z.x-q.x,z.y-q.y);if(d<5)continue;
         const sx=z.x*T-camX,sy=z.y*T-camY;cand.push([d,z,sx>-40&&sy>-40&&sx<W+40&&sy<H+40]);}
       cand.sort((a,b)=>b[0]-a[0]);let k=Math.min(3,Math.ceil((alive-cap)/10));
       for(const[,z,vis]of cand){if(k<=0)break;if(!vis){G.zombies.splice(G.zombies.indexOf(z),1);k--;}else if(!(z.fearT>0)){z.fearT=9;z.hunt=false;z.aggro=0;k--;}}}}
@@ -6703,6 +6707,416 @@ SFX2.alarm=v=>{tone('square',880,880,.2,.05*v);tone('square',660,660,.2,.05*v,.2
 SFX2.dry=v=>{tone('square',1800,1600,.025,.05*v);noise(.02,.06*v,'highpass',3000,2500);};
 SFX2GAP.alarm=380;SFX2GAP.dry=250;
 
+/* v3:vehicles start */
+/* ---------- vehicles ---------- */
+// Some parked cars still have keys in them. Get in and the street is yours: plough through crowds, outrun the night,
+// cross town fast. Cars take damage from everything they hit and everything that bites them, burn fuel, and are loud.
+// Steering is by direction: push the way you want to go and the car turns and drives there; push back to brake and reverse.
+const VK={sedan:{n:'sedan',max:11,acc:9,hp:100,turn:2.6,ram:1,len:1.55,wid:.78},pickup:{n:'pickup',max:9.5,acc:7.5,hp:170,turn:2.2,ram:1.5,len:1.75,wid:.86},
+  muscle:{n:'muscle car',max:14,acc:12,hp:75,turn:3,ram:.9,len:1.6,wid:.76},van:{n:'van',max:8.5,acc:6.5,hp:220,turn:1.9,ram:1.8,len:1.9,wid:.9}};
+const VCOL=['#6b3b36','#3e4f6b','#6b6450','#4b4d50','#5a6b55','#7a6a3a','#8a8a86','#2f3a2f'];
+const vKey=(tx,ty)=>tx+','+ty;
+function vInfo(tx,ty){const h=hash2(tx,ty,61),h2=hash2(tx,ty,62);return{runs:h2<.4,kind:h<.18?'muscle':h<.45?'pickup':h<.6?'van':'sedan',col:VCOL[(hash2(tx,ty,63)*VCOL.length)|0]};}
+{const _w=worldTile;worldTile=function(tx,ty){const t=_w(tx,ty);if(t===7&&G&&G.vtk&&G.vtk[vKey(tx,ty)])return 2;return t;};}
+const vCur=()=>{const p=G&&G.p;return p&&p.drvI!=null&&G.vs?G.vs[p.drvI]:null;};
+function nearCarTile(){const p=G.p;if(G.dun||G.dim)return null;let best=null,bd=1.7;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const tx=Math.floor(p.x)+dx,ty=Math.floor(p.y)+dy;if(shTile(tx,ty)>=0)continue;if(worldTile(tx,ty)!==7)continue;const d=Math.hypot(tx+.5-p.x,ty+.5-p.y);if(d<bd){bd=d;best={tx,ty};}}return best;}
+function nearVeh(){const p=G.p;if(!G.vs)return-1;let bi=-1,bd=1.6;G.vs.forEach((v,i)=>{if(v.dead)return;const d=Math.hypot(v.x-p.x,v.y-p.y);if(d<bd){bd=d;bi=i;}});return bi;}
+function takeCar(tx,ty){
+  const I=vInfo(tx,ty),K=VK[I.kind];G.vs=G.vs||[];G.vtk=G.vtk||{};G.vtk[vKey(tx,ty)]=1;chunks.clear();
+  const a=worldTile(tx-1,ty)===2||worldTile(tx+1,ty)===2?0:Math.PI/2;
+  G.vs.push({x:tx+.5,y:ty+.5,a:a+(Math.random()<.5?0:Math.PI),v:0,k:I.kind,col:I.col,hp:K.hp,mhp:K.hp,fuel:rnd(35,80)});
+  while(G.vs.length>4){const i=G.vs.findIndex((v,j)=>j!==G.p.drvI);if(i<0)break;G.vs.splice(i,1);if(G.p.drvI!=null&&i<G.p.drvI)G.p.drvI--;}
+  return G.vs.length-1;
+}
+function enterVeh(i){const p=G.p,v=G.vs[i];if(!v||v.dead)return;if(p.rollT>0)return;p.drvI=i;p.rl=0;p.rlW=null;sfx('door');hint(v.fuel<=0?'Out of gas. Siphon some from a dead car.':`In the ${VK[v.k].n}. Steer with the direction you push. ${useKey()} gets out.`);}
+function exitVeh(quiet){const p=G.p,v=vCur();p.drvI=null;if(!v)return;
+  for(const o of[Math.PI/2,-Math.PI/2,Math.PI,0]){const x=v.x+Math.cos(v.a+o)*1,y=v.y+Math.sin(v.a+o)*1;if(!solid(Math.floor(x),Math.floor(y),false)){p.x=x;p.y=y;break;}}
+  v.v=0;if(!quiet)sfx('door');}
+{const _p=specPrompt;specPrompt=function(){
+  const E=useKey(),v=vCur();if(v)return`${E} to get out · ${VK[v.k].n} ${Math.ceil(v.hp)}/${v.mhp} · fuel ${Math.ceil(v.fuel)}%`;
+  const i=nearVeh();if(i>=0){const w=G.vs[i];return w.fuel<=0?`${E} to get in (no fuel)`:`${E} to drive the ${VK[w.k].n}`;}
+  const r=_p();if(r)return r;
+  const c=nearCarTile();if(c){const k=vKey(c.tx,c.ty);G.vtry=G.vtry||{};const t=G.vtry[k];return t==='dead'?(G.vsip&&G.vsip[k]?null:`${E} to siphon its gas`):`${E} to try the car`;}
+  return null;};}
+{const _s=specInteract;specInteract=function(){
+  if(vCur()){exitVeh();return true;}
+  const i=nearVeh();if(i>=0){enterVeh(i);return true;}
+  if(_s())return true;
+  const c=nearCarTile();if(c){const k=vKey(c.tx,c.ty);G.vtry=G.vtry||{};G.vsip=G.vsip||{};
+    if(G.vtry[k]==='dead'){if(G.vsip[k])return false;G.vsip[k]=1;const v=G.vs&&G.vs.find(x=>!x.dead);
+      if(v){v.fuel=Math.min(100,v.fuel+40);toast(`You siphon the tank. The ${VK[v.k].n} is at ${Math.round(v.fuel)}% fuel.`,'haze');}
+      else{G.fuelCan=Math.min(100,(G.fuelCan||0)+40);toast('You siphon the tank into a can. It\'ll go in the next car you take.','haze');}
+      sfx('pick');return true;}
+    const I=vInfo(c.tx,c.ty);
+    if(!I.runs){G.vtry[k]='dead';hint('Dead battery. You could siphon its gas.','bad');sfx('fumble');
+      if(Math.random()<.35){const q=G.p;addItem(q.x,q.y,Math.random()<.5?'ammo':'cash',Math.random()<.5?Math.round(rnd(15,40)):LG(8)+(dLV()-1)*GRC);toast('Something in the glovebox.','haze');}
+      return true;}
+    G.vtry[k]='ok';const vi=takeCar(c.tx,c.ty);const v=G.vs[vi];if(G.fuelCan){v.fuel=Math.min(100,v.fuel+G.fuelCan);G.fuelCan=0;}
+    toast(`The ${VK[v.k].n} turns over. ${Math.round(v.fuel)}% in the tank.`,'haze');enterVeh(vi);return true;}
+  return false;};}
+// everything that would hurt you hurts the car instead
+{const _h=hurtPlayer;hurtPlayer=function(L,src){const v=vCur();if(v&&mode==='play'){const fr=Math.pow(10,Math.min(2,L-maxHPL()));v.hp-=clamp(fr*45,.5,30);v.hitT=.15;if(v.hp<=0)vehWreck(v);return;}return _h(L,src);};}
+{const _t=tryFire;tryFire=function(inside){if(vCur())return;return _t(inside);};}
+{const _m=doMelee;doMelee=function(){if(vCur())return;return _m();};}
+{const _r=tryRoll;tryRoll=function(){if(vCur())return;return _r();};}
+function vehWreck(v){if(v.dead)return;v.dead=1;v.v=0;const p=G.p;if(vCur()===v){exitVeh(true);floater(p.x,p.y-.7,'bailed out','hurt');}
+  hint(`The ${VK[v.k].n} is done. Get clear.`,'bad');v.fuse=2;}
+let vSndT=0,vNoiseT=0;
+function vehTick(dt){
+  if(!G||!G.vs)return;const p=G.p,cur=vCur();
+  if(cur&&(G.dun||G.dim||p.dead||p.down)){exitVeh(true);}
+  for(let i=G.vs.length-1;i>=0;i--){const v=G.vs[i];
+    if(v.dead){v.fuse-=dt;if(Math.random()<dt*14)parts.push({x:v.x+rnd(-.4,.4),y:v.y+rnd(-.3,.3),vx:rnd(-.4,.4),vy:rnd(-1.6,-.6),t:0,life:.6,c:Math.random()<.5?'#ff7a2e':'#3a3430',s:5});
+      if(v.fuse<=0){burst(v.x,v.y,3,pBase()+LG(5),null,null,'none','#ff6a2a',true);makeNoise(v.x,v.y,24);flashT=Math.max(flashT,.35);if(!RM)shake=Math.max(shake,12);sfx('boom');
+        const d=Math.hypot(p.x-v.x,p.y-v.y);if(d<3.3&&mode==='play'&&!vCur())hurtPlayer(maxHPL()+LG(Math.max(.1,.45*(1-d/3.3))),null);
+        addSplat(v.x,v.y,'#1c1612',1.2);G.vs.splice(i,1);if(p.drvI!=null&&i<p.drvI)p.drvI--;}continue;}
+    if(v.hitT>0)v.hitT-=dt;
+    if(v.hp<v.mhp*.3&&Math.random()<dt*6)parts.push({x:v.x+Math.cos(v.a)*.6,y:v.y+Math.sin(v.a)*.6,vx:rnd(-.3,.3),vy:rnd(-1.2,-.4),t:0,life:.9,c:'rgba(60,60,60,.6)',s:6});
+    const K=VK[v.k],drive=v===cur&&mode==='play';
+    if(drive){let[mx,my]=inputVec();const m=Math.min(1,Math.hypot(mx,my));
+      if(m>.15&&v.fuel>0){const want=Math.atan2(my,mx),df=angDiff(want,v.a);
+        if(Math.abs(df)>2.3&&v.v>1.5){v.v-=K.acc*1.5*dt*m;}
+        else if(Math.abs(df)>2.3){v.a+=Math.sign(df)*K.turn*.9*dt;v.v=Math.max(v.v,0)+K.acc*.25*dt*m;}
+        else{const sgn=v.v<-.5?-1:1;v.a+=clamp(df*sgn,-1,1)*K.turn*dt*Math.min(1,.25+Math.abs(v.v)/4);if(Math.abs(df)<1.6)v.v+=K.acc*dt*m*Math.cos(df)*(1+(1-Math.min(1,Math.abs(v.v)/K.max)));}
+        v.fuel=Math.max(0,v.fuel-dt*.9*m);if(v.fuel<=0)hint('Out of gas.','bad');}
+      p.aim=v.a;}
+    v.v*=Math.pow(drive?.55:.2,dt);if(Math.abs(v.v)>K.max)v.v=Math.sign(v.v)*K.max;
+    if(Math.abs(v.v)>.05){const nx=v.x+Math.cos(v.a)*v.v*dt,ny=v.y+Math.sin(v.a)*v.v*dt,fx=nx+Math.cos(v.a)*K.len*.5*Math.sign(v.v),fy=ny+Math.sin(v.a)*K.len*.5*Math.sign(v.v);
+      if(solid(Math.floor(fx),Math.floor(fy),false)||solid(Math.floor(nx),Math.floor(ny),false)){const sp=Math.abs(v.v);if(sp>3){v.hp-=sp*1.6;sfx('crash');if(!RM&&drive)shake=Math.max(shake,sp*.7);rumble(.6,.3,120);for(let k=0;k<6;k++)parts.push({x:fx,y:fy,vx:rnd(-2,2),vy:rnd(-2,2),t:0,life:.4,c:'#cfcac0',s:3});if(v.hp<=0)vehWreck(v);}v.v=-v.v*.25;}
+      else{v.x=nx;v.y=ny;}}
+    // the dead in the way
+    const sp=Math.abs(v.v);if(sp>2.2)for(const z of G.zombies){if(z.dying||(z.vhT||0)>G.time)continue;const dx=z.x-v.x,dy=z.y-v.y;
+      const along=dx*Math.cos(v.a)+dy*Math.sin(v.a),side=-dx*Math.sin(v.a)+dy*Math.cos(v.a);if(Math.abs(along)>K.len*.5+z.r||Math.abs(side)>K.wid*.5+z.r)continue;
+      z.vhT=G.time+.45;const big=BIG(z.type)||z.boss;hitZ(z,pBase()+LG(.25*sp*K.ram),null,{vx:Math.cos(v.a)*Math.sign(v.v),vy:Math.sin(v.a)*Math.sign(v.v),kb:big?1:2+sp*.25,proc:'none'});
+      v.hp-=big?(z.boss?12:5):.8;v.v*=big?.35:.93;sfxAt('thud',z.x,z.y);if(!RM&&drive)shake=Math.max(shake,big?5:1.5);if(v.hp<=0){vehWreck(v);break;}}
+    if(drive){p.x=v.x;p.y=v.y;
+      vNoiseT-=dt;if(vNoiseT<=0&&sp>1){vNoiseT=.5;makeNoise(v.x,v.y,6+sp*1.2);}
+      vSndT-=dt;if(vSndT<=0){vSndT=.12;sfx('engine',.4+sp/K.max*.6);}}
+  }
+}
+{const _u=update;update=function(dt){_u(dt);try{vehTick(dt);}catch(e){dzErr('veh',e);}};}
+const moveVeh=()=>vCur()?0:1;
+function drawVeh(v){
+  const K=VK[v.k],sx=v.x*T-camX,sy=v.y*T-camY;if(sx<-90||sy<-90||sx>W+90||sy>H+90)return;const L=K.len*T,Wd=K.wid*T;
+  ctx.save();ctx.translate(sx,sy);ctx.rotate(v.a);
+  ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(-L/2+3,-Wd/2+4,L,Wd);
+  ctx.fillStyle=v.dead?'#2a2622':v.hitT>0?'#e8d0c0':v.col;ctx.beginPath();ctx.roundRect?ctx.roundRect(-L/2,-Wd/2,L,Wd,Wd*.22):ctx.rect(-L/2,-Wd/2,L,Wd);ctx.fill();
+  ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(-L*.22,-Wd*.42,L*.5,Wd*.84);
+  ctx.fillStyle=v.dead?'#1a1a1a':'#9fb6c8';ctx.fillRect(L*.1,-Wd*.38,L*.12,Wd*.76);ctx.fillStyle=v.dead?'#1a1a1a':'#6f8494';ctx.fillRect(-L*.3,-Wd*.36,L*.08,Wd*.72);
+  if(v.k==='pickup'){ctx.fillStyle='rgba(0,0,0,.3)';ctx.fillRect(-L/2+L*.04,-Wd*.4,L*.32,Wd*.8);}
+  if(v.k==='muscle'){ctx.fillStyle='rgba(255,255,255,.55)';ctx.fillRect(-L/2,-Wd*.08,L,Wd*.06);ctx.fillRect(-L/2,Wd*.02,L,Wd*.06);}
+  ctx.fillStyle=v.dead?'#333':'#fff2b0';ctx.fillRect(L/2-L*.05,-Wd*.42,L*.05,Wd*.2);ctx.fillRect(L/2-L*.05,Wd*.22,L*.05,Wd*.2);
+  ctx.fillStyle='#c4302a';ctx.fillRect(-L/2,-Wd*.42,L*.04,Wd*.18);ctx.fillRect(-L/2,Wd*.24,L*.04,Wd*.18);
+  ctx.restore();
+  if(!v.dead&&v!==vCur()&&Math.hypot(v.x-G.p.x,v.y-G.p.y)<8){const f=v.hp/v.mhp;ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(sx-T*.5,sy-T*.75,T,4);ctx.fillStyle=f<.3?'#d9534f':'#e7a23b';ctx.fillRect(sx-T*.5,sy-T*.75,T*f,4);}
+}
+{const _d=drawPlayer;drawPlayer=function(){if(G.vs&&!G.dun)for(const w of G.vs)drawVeh(w);const v=vCur();if(v){const p=G.p,sx=p.x*T-camX,sy=p.y*T-camY;
+    ctx.font='600 11px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(10,10,14,.85)';
+    const f=Math.ceil(v.fuel),t=`${Math.round(Math.abs(v.v)*7)} mph · fuel ${f}%`;ctx.strokeText(t,sx,sy+T*1.05);ctx.fillStyle=f<15?'#ff6a5c':'#eee7d4';ctx.fillText(t,sx,sy+T*1.05);
+    const hf=v.hp/v.mhp;ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(sx-T*.6,sy+T*.75,T*1.2,4);ctx.fillStyle=hf<.3?'#d9534f':'#9fd38a';ctx.fillRect(sx-T*.6,sy+T*.75,T*1.2*hf,4);return;}
+  return _d();};}
+{const _l=wfbLights;wfbLights=function(W2){_l(W2);if(!G.vs)return;for(const v of G.vs){if(v.dead)continue;const K=VK[v.k];if(v!==vCur())continue;W2(v.x,v.y,1.8,.6);
+  coneHole(dkG,v.x+Math.cos(v.a)*K.len*.5,v.y+Math.sin(v.a)*K.len*.5,v.a,13,.34,24,.95);W2(v.x-Math.cos(v.a)*K.len*.5,v.y-Math.sin(v.a)*K.len*.5,.9,.4);}};}
+SFX2.engine=v=>{tone('sawtooth',55+v*70,50+v*60,.14,.035);};SFX2GAP.engine=100;
+SFX2.crash=v=>{noise(.35,.5*v,'lowpass',1400,120);tone('square',110,50,.2,.12*v);};SFX2GAP.crash=200;
+SFX2.thud=v=>{tone('sine',90,40,.12,.3*v);noise(.08,.18*v,'lowpass',700,150);};SFX2GAP.thud=60;
+
+/* v3:vehicles end */
+/* v3:siege start */
+/* ---------- fortify and siege ---------- */
+// Every third night, and every blood moon, the dead come for the house itself if you're anywhere near it. They come
+// in waves from two sides and go for the door. Hold the door until the last wave is down and you get the spoils;
+// let it break and they ransack the place. The new Fortify tab at home builds the defence: a heavier barricade,
+// a spike ring, turrets on the corners and floodlights for the yard. You can also ring the dinner bell to start a
+// siege whenever you like, for the same rewards.
+HTABS.push(['fort','Fortify']);
+const FORT=[['bar','Barricade','The door takes a beating before it gives. +90 door strength a level.',5,250,2],
+  ['spike','Spike ring','Anything clawing at the walls gets cut up, siege or not.',3,400,2.4],
+  ['tur','Corner turrets','A turret per level on the house corners. They fire at anything near the house while you\'re close by.',4,600,2.2],
+  ['flood','Floodlights','The yard stays lit at night.',1,500,1]];
+const fortG=()=>{G.fort=G.fort||{bar:0,spike:0,tur:0,flood:0,won:0,lost:0};return G.fort;};
+const doorMax=()=>120+90*fortG().bar;
+const fortCost=(k,lv)=>{const F=FORT.find(f=>f[0]===k);return pL(F[4],F[5],lv);};
+const doorPt=()=>{const s=G.house;return{x:s.x+s.dx+.5,y:s.y+s.dy+(s.dy===s.h-1?1.3:-.3)};};
+function fortHTML(){
+  const F=fortG(),sg=G.sg;
+  const items=FORT.map(([k,n,d,mx])=>{const lv=F[k],c=lv<mx?fortCost(k,lv):null,ok=c!=null&&G.cashL>=c;
+    return`<div class="item"><b>${n} <small>${lv}/${mx}</small></b><small>${d}</small><span class="bact">${c==null?'<span class="fine">Maxed</span>':`<button type="button" class="mini" data-buy="fort:${k}"${ok?'':' disabled'}>$${lfmt(c)}</button>`}</span></div>`;}).join('');
+  const bell=sg?'<p class="fine">A siege is on. Get out there.</p>':`<div class="item"><b>Ring the dinner bell</b><small>Start a siege now. Same waves, same spoils.</small><span class="bact"><button type="button" class="mini" data-buy="fort:bell">Ring it</button></span></div>`;
+  return['Fortify',`Every third night and every blood moon they come for the house. Door strength ${fmtI(doorMax())}. Sieges held ${F.won}, lost ${F.lost}.`,
+    `<div class="shopsec"><h3><span>Defences</span></h3>${items}</div><div class="shopsec"><h3><span>Siege</span></h3>${bell}</div>`];
+}
+{const _r=renderShop;renderShop=function(){if(htab!=='fort')return _r();if(!G.home)homeInit();const[t,s,body]=fortHTML();
+  $('shopBody').innerHTML=hHead(t,s)+tabsHTML()+body+`<div class="btns"><button class="btn" type="button" id="bShopX">Back outside</button></div>`;};}
+{const _b=buy;buy=function(id){if(!id.startsWith('fort:'))return _b(id);const k=id.slice(5),F=fortG();
+  if(k==='bell'){if(!G.sg){setMode('play');startSiege(true);}return;}
+  const D=FORT.find(f=>f[0]===k);if(!D||F[k]>=D[3])return;const c=fortCost(k,F[k]);if(G.cashL<c){hint('Not enough cash.','bad');return;}
+  G.cashL=lSub(G.cashL,c);F[k]++;sfx('craft');toast(`${D[1]} is now level ${F[k]}.`,'haze');renderShop();hud();};}
+function startSiege(bell){
+  if(G.sg||G.dun||G.dim||NET.role==='client')return;const F=fortG();
+  G.sg={t:0,wave:0,waves:4+Math.min(4,Math.floor(LV/40))+(evId()==='bloodmoon'?1:0),door:doorMax(),nextT:6,bell:!!bell,kills:0};
+  toast(bell?'You ring the bell. Every one of them heard it. Hold the door.':'They\'re coming for the house. Hold the door until the last wave is down.','bad');sfx('boss',.7);flashT=Math.max(flashT,.3);
+}
+function siegeWave(){
+  const S=G.sg,s=G.house,cx=s.x+s.w/2,cy=s.y+s.h/2,a0=rnd(TAU),mates=(NET.rps?NET.rps.length:0);
+  const n=Math.round((8+Math.min(26,LV*.1))*(1+.45*mates)*(1+S.wave*.22));
+  for(let i=0;i<n;i++){const a=(i%2?a0:a0+Math.PI+rnd(-.6,.6))+rnd(-.35,.35),d=rnd(15,21);let x=cx+Math.cos(a)*d,y=cy+Math.sin(a)*d;
+    if(solid(Math.floor(x),Math.floor(y),true))continue;const big=S.wave===S.waves-1&&i<2;
+    const z=makeZombie(x,y,big?'brute':null,!big);if(big){z.ea=['armored'];z.hpL+=LG(3);z.mhpL=z.hpL;}z.sg=1;z.hunt=true;z.aggro=999;G.zombies.push(z);}
+  S.wave++;S.nextT=S.wave<S.waves?24:0;sfx('warn');hint(`Wave ${S.wave} of ${S.waves}.`,'bad');
+}
+let sgAI=0,spkT=0;
+function siegeTick(dt){
+  if(!G||NET.role==='client')return;const F=fortG(),p=G.p,s=G.house;
+  // nightfall: every third day or a blood moon, if you're near home
+  const nk=nightK();if(G.sgN==null)G.sgN=nk;
+  if(G.sgN<.5&&nk>=.5&&!G.sg&&!G.dun&&!G.dim){const hd=Math.hypot(s.x+3.5-p.x,s.y+3.5-p.y);if((G.day%3===0||evId()==='bloodmoon')&&hd<45)startSiege(false);else if(G.day%3===0)hint('A siege tonight would have hit the house. You were too far away to see it.','haze');}
+  G.sgN=nk;
+  // defences that work all the time
+  spkT-=dt;if(spkT<=0&&F.spike>0){spkT=.5;for(const z of G.zombies){if(z.dying)continue;if(z.x>s.x-1.3&&z.x<s.x+s.w+1.3&&z.y>s.y-1.3&&z.y<s.y+s.h+1.3){hitZ(z,pBase()+LG(.35*F.spike),null,{proc:'none'});if(Math.random()<.3)parts.push({x:z.x,y:z.y,vx:rnd(-1,1),vy:rnd(-1,1),t:0,life:.3,c:'#7a1a1e',s:3});}}}
+  if(F.tur>0&&!G.dun&&!G.dim&&(G.sg||Math.hypot(s.x+3.5-p.x,s.y+3.5-p.y)<18)){
+    G.turCd=G.turCd||[0,0,0,0];G.turA=G.turA||[0,0,0,0];
+    for(let i=0;i<F.tur;i++){const c=turPos(i);G.turCd[i]-=dt;if(G.turCd[i]>0)continue;let b=null,bd=9;
+      for(const z of G.zombies){if(z.dying||z.under)continue;const d=Math.hypot(z.x-c.x,z.y-c.y);if(d<bd){bd=d;b=z;}}
+      if(!b)continue;G.turCd[i]=.32;G.turA[i]=Math.atan2(b.y-c.y,b.x-c.x);hitZ(b,pDps()-LG(6),null,{vx:b.x-c.x,vy:b.y-c.y,proc:'none',critP:.05,critM:2});
+      beams.push({pts:[c.x+Math.cos(G.turA[i])*.35,c.y+Math.sin(G.turA[i])*.35,b.x,b.y],t:.06,life:.06,col:'#ffd282',w:1.5});flashes.push({x:c.x+Math.cos(G.turA[i])*.4,y:c.y+Math.sin(G.turA[i])*.4,t:.05,col:'#ffd282'});sfxAt('mg',c.x,c.y,.35);}}
+  const S=G.sg;if(!S)return;
+  if(G.dun||G.dim){G.sg=null;F.lost++;toast('You left the house to them. They tore the place apart.','bad');G.cashL+=LG(.85);return;}
+  S.t+=dt;S.nextT-=dt;if(S.nextT<=0&&S.wave<S.waves)siegeWave();
+  const D=doorPt();
+  sgAI-=dt;if(sgAI<=0){sgAI=.3;for(const z of G.zombies){if(!z.sg||z.dying)continue;const dp=Math.hypot(z.x-p.x,z.y-p.y);
+    if(dp<4.5&&!p.dead&&!isInside(p.x,p.y)){z.lureT=0;}else{z.lureT=1;z.lx=D.x+rnd(-.6,.6);z.ly=D.y+rnd(-.3,.3);}}}
+  for(const z of G.zombies){if(!z.sg||z.dying)continue;if(Math.hypot(z.x-D.x,z.y-D.y)<1.5){z.dT=(z.dT||rnd(0,.9))-dt;if(z.dT<=0){z.dT=.9;S.door-=BIG(z.type)?4:z.ea?2:1;S.hitT=.12;sfxAt('thud',D.x,D.y,.6);
+      for(let k=0;k<2;k++)parts.push({x:D.x+rnd(-.3,.3),y:D.y+rnd(-.2,.2),vx:rnd(-1.5,1.5),vy:rnd(-1.5,1.5),t:0,life:.4,c:'#8a6236',s:3});}}}
+  if(S.hitT>0)S.hitT-=dt;
+  let left=0;for(const z of G.zombies)if(z.sg&&!z.dying)left++;S.left=left;
+  if(S.door<=0){G.sg=null;F.lost++;for(const z of G.zombies)if(z.sg){z.sg=0;z.lureT=0;}G.cashL+=LG(.85);
+    toast('They broke the door in. By the time you\'re back inside, 15% of your cash is gone.','bad');sfx('down');if(!RM)shake=Math.max(shake,8);return;}
+  if(S.wave>=S.waves&&(left===0||S.t>S.waves*24+70)){G.sg=null;F.won++;for(const z of G.zombies)if(z.sg){z.sg=0;z.lureT=0;}
+    const n=1+Math.floor(S.waves/2)+(S.bell?0:1);for(let i=0;i<n;i++)addItem(D.x+rnd(-1.5,1.5),D.y+rnd(.5,2),'crate',0);
+    G.cashL=lAdd(G.cashL,LG(200*S.waves)+KL);
+    toast(`The house held. ${n} supply crate${n>1?'s':''} by the door, and the street is yours till morning.`,'haze');sfx('level');flashT=Math.max(flashT,.3);
+    if(typeof sgDone==='function')sgDone();}
+}
+const turPos=i=>{const s=G.house,c=[[s.x-.25,s.y-.25],[s.x+s.w+.25,s.y-.25],[s.x+s.w+.25,s.y+s.h+.25],[s.x-.25,s.y+s.h+.25]][i];return{x:c[0],y:c[1]};};
+{const _u=update;update=function(dt){_u(dt);if(mode==='play')try{siegeTick(dt);}catch(e){dzErr('siege',e);}};}
+function drawFort(){
+  if(!G||G.dun||G.dim)return;const F=fortG(),s=G.house;
+  if(F.spike>0){ctx.strokeStyle='rgba(140,140,130,.85)';ctx.lineWidth=2;const x0=(s.x-.55)*T-camX,y0=(s.y-.55)*T-camY,w=(s.w+1.1)*T,h=(s.h+1.1)*T,st=T*.32,L=T*.16*(1+F.spike*.25);
+    ctx.beginPath();for(let x=0;x<=w;x+=st){ctx.moveTo(x0+x,y0);ctx.lineTo(x0+x,y0-L);ctx.moveTo(x0+x,y0+h);ctx.lineTo(x0+x,y0+h+L);}for(let y=0;y<=h;y+=st){ctx.moveTo(x0,y0+y);ctx.lineTo(x0-L,y0+y);ctx.moveTo(x0+w,y0+y);ctx.lineTo(x0+w+L,y0+y);}ctx.stroke();}
+  for(let i=0;i<F.tur;i++){const c=turPos(i),sx=c.x*T-camX,sy=c.y*T-camY,a=(G.turA||[])[i]||0;ctx.fillStyle='#3a3d42';ctx.fillRect(sx-T*.22,sy-T*.22,T*.44,T*.44);ctx.save();ctx.translate(sx,sy);ctx.rotate(a);ctx.fillStyle='#6b6f76';ctx.fillRect(0,-T*.06,T*.38,T*.12);ctx.restore();ctx.fillStyle='#e7a23b';ctx.beginPath();ctx.arc(sx,sy,T*.07,0,TAU);ctx.fill();}
+  const S=G.sg;if(S){const D=doorPt(),sx=D.x*T-camX,sy=D.y*T-camY,f=clamp(S.door/doorMax(),0,1);ctx.fillStyle='rgba(0,0,0,.65)';ctx.fillRect(sx-T*.8,sy-T*1.05,T*1.6,6);ctx.fillStyle=f<.3?'#ff4a3a':'#e7a23b';ctx.fillRect(sx-T*.8,sy-T*1.05,T*1.6*f,6);
+    if(S.hitT>0){ctx.strokeStyle='rgba(255,90,60,.8)';ctx.lineWidth=3;ctx.strokeRect(sx-T*.55,sy-T*.6,T*1.1,T*1.1);}}
+}
+{const _d=drawCamp;drawCamp=function(){_d();drawFort();};}
+{const _l=wfbLights;wfbLights=function(W2){_l(W2);if(G.dun||G.dim)return;const F=fortG(),s=G.house;if(F.flood)W2(s.x+s.w/2,s.y+s.h/2,11,.85);for(let i=0;i<F.tur;i++){const c=turPos(i);W2(c.x,c.y,1.2,.5);}};}
+{const _d=drawFeel;drawFeel=function(){_d();const S=G&&G.sg;if(!S||mode==='title')return;ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);const x=W/2,y=H-(W<600?190:150);
+  ctx.textAlign='center';ctx.font=`22px ${DISPLAY}`;ctx.lineWidth=5;ctx.strokeStyle='rgba(10,10,14,.85)';const t=S.wave<S.waves||S.left?`SIEGE · WAVE ${S.wave}/${S.waves}`:'SIEGE';ctx.strokeText(t,x,y);ctx.fillStyle='#ff6a5c';ctx.fillText(t,x,y);
+  ctx.font='600 11px "IBM Plex Mono",monospace';ctx.lineWidth=3;const s2=`door ${Math.max(0,Math.ceil(S.door))}/${doorMax()} · ${S.left||0} left${S.wave<S.waves?` · next wave ${Math.ceil(S.nextT)}s`:''}`;ctx.strokeText(s2,x,y+18);ctx.fillStyle='#eee7d4';ctx.fillText(s2,x,y+18);
+  const f=clamp(S.door/doorMax(),0,1);ctx.fillStyle='rgba(10,10,14,.7)';ctx.fillRect(x-90,y+28,180,5);ctx.fillStyle=f<.3?'#ff4a3a':'#e7a23b';ctx.fillRect(x-90,y+28,180*f,5);ctx.restore();};}
+
+/* v3:siege end */
+/* v3:raids start */
+/* ---------- boss raids ---------- */
+// The Raids tab at home opens an arena with one of three raid bosses. Each has three phases and a set of attacks with
+// tells you can learn: red circles that slam down, lines it charges along, rings and spirals of spit to roll through,
+// and adds. Health is set from your damage when you go in, so a fight runs a minute or two at any level.
+// The kill pays out a dungeon's worth of loot plus a signature weapon you can only get from that boss.
+const RAIDB={
+  matron:{n:'The Matron',th:'hospital',col:'#d88aa8',lv:15,d:'Ran the ward. Still does. Slams, calls her patients, and fills the room with spit.',pat:['slam','summon','ring','slam','ring'],p3:['spiral','slam'],w:['Matron\'s',{vampiric:.04,legion:.4}]},
+  sawbones:{n:'Sawbones',th:'bunker',col:'#c4433b',lv:30,d:'Fast, and he never stops cutting. Charges in straight lines and slams where he lands.',pat:['charge','slam','charge','ring'],p3:['charge','spiral','charge'],w:['Sawbones\'',{cuts:.12,explosive:.6}]},
+  choir:{n:'The Choir',th:'sewer',col:'#9a8ad8',lv:50,d:'Many mouths, one song. Spirals, rings, and screamers that keep coming.',pat:['ring','spiral','summon','ring'],p3:['spiral','spiral','summon'],w:['Choir',{chain:.6,echo:.25}]}};
+HTABS.push(['raid','Raids']);
+const raidG=()=>{G.raid=G.raid||{};return G.raid;};
+function raidHTML(){
+  const R=raidG();
+  const rows=Object.entries(RAIDB).map(([k,b])=>{const st=R[k]||{},ok=LV>=b.lv;
+    return`<div class="item"><b>${b.n} <small>${ok?`from level ${b.lv}`:`opens at level ${b.lv}`}</small></b><small>${b.d}${st.k?` Put down ${st.k} time${st.k>1?'s':''}${st.best?`, best ${fmtTime(st.best)}`:''}.`:''} Drops the ${b.w[0]} signature weapon.</small><span class="bact"><button type="button" class="mini" data-buy="raid:${k}"${ok&&!NET.role?'':' disabled'}>Go in</button></span></div>`;}).join('');
+  return['Raids',NET.role?'Raids are single player for now. Leave co-op to take one on.':'One boss, one room, three phases. Watch for the red: circles slam, lines charge, and spit comes in rings you roll through.',`<div class="shopsec">${rows}</div>`];
+}
+{const _r=renderShop;renderShop=function(){if(htab!=='raid')return _r();if(!G.home)homeInit();const[t,s,body]=raidHTML();
+  $('shopBody').innerHTML=hHead(t,s)+tabsHTML()+body+`<div class="btns"><button class="btn" type="button" id="bShopX">Back outside</button></div>`;};}
+{const _b=buy;buy=function(id){if(!id.startsWith('raid:'))return _b(id);const k=id.slice(5);if(!RAIDB[k]||LV<RAIDB[k].lv||NET.role)return;setMode('play');enterRaid(k);};}
+function raidGrid(){
+  const w=44,h=32,gr=new Uint8Array(w*h);
+  for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++)gr[y*w+x]=1;
+  for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++)if(x<10&&(y<12||y>19))gr[y*w+x]=0;
+  for(let y=1;y<h-1;y++)if(y<14||y>17)gr[y*w+10]=0;
+  for(const[px,py]of[[18,8],[18,23],[34,8],[34,23],[26,5],[26,26]])for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)gr[(py+dy)*w+px+dx]=2;
+  return{w,h,gr,rooms:[{x:2,y:12,w:7,h:8,cx:5,cy:15},{x:11,y:2,w:31,h:28,cx:27,cy:16}]};
+}
+function enterRaid(k){
+  if(G.dim||G.dun||NET.role)return;const B=RAIDB[k],p=G.p;if(typeof vCur==='function'&&vCur())exitVeh(true);
+  dunGrid=raidGrid();const ox=9600000+Math.floor(Math.random()*200)*120,oy=9000000;
+  G.dun={th:B.th,seed:0,depth:4,ox,oy,ret:{x:p.x,y:p.y},t:0,total:1,cleared:false,mode:'fight',raid:k};
+  G.dent=null;G.rift=null;G.zombies=[];G.npcs=[];G.stray=null;G.camp=null;G.ev=null;eproj.length=0;raids.length=0;chunks.clear();
+  p.x=ox+5.5;p.y=oy+15.5;G.dun.exit={x:ox+5.5,y:oy+15.5};p.hpF=1;
+  const z=makeZombie(ox+30.5,oy+16,'brute',true);z.boss=B.n;z.raidK=k;z.dun=1;z.hunt=false;z.r=1.1;z.zc=B.col;z.ea=[];
+  z.hpL=pDps()+LG(45);z.mhpL=z.hpL;z.dmgL=maxHPL()+LG(.2);z.spd=2.1;G.zombies.push(z);
+  G.rd={k,z,phase:1,cd:3,tel:[],t:0,dmgB:maxHPL(),act:null,spin:0};
+  flashT=Math.max(flashT,.6);sfx('boss');if(!RM)shake=Math.max(shake,6);
+  toast(`${B.n}. ${B.d} Walk in when you're ready. The way out is behind you.`,'bad');
+}
+function raidAdd(R,n){const z0=R.z;for(let i=0;i<n;i++){const a=rnd(TAU),x=z0.x+Math.cos(a)*rnd(2,4),y=z0.y+Math.sin(a)*rnd(2,4);if(solid(Math.floor(x),Math.floor(y),true))continue;
+  const t=R.k==='choir'?'screamer':R.k==='matron'?pick(['shambler','crawler','runner']):'runner';const z=makeZombie(x,y,t,true);z.dun=1;z.hunt=true;z.raidAdd=1;z.hpL=R.z.mhpL-LG(40);z.mhpL=z.hpL;G.zombies.push(z);G.dun.total++;booms.push({x,y,r:.8,t:.3,life:.3,col:'#a070ff'});}}
+function raidShots(R,n,a0,sp,col){const z=R.z;for(let i=0;i<n;i++){const a=a0+i/n*TAU;eproj.push({x:z.x+Math.cos(a)*.9,y:z.y+Math.sin(a)*.9,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:3.5,L:R.dmgB+LG(.12),col});}sfxAt('snarl',z.x,z.y);}
+function raidTick(dt){
+  const R=G.rd;if(!R)return;const D=G.dun,p=G.p,z=R.z,B=RAIDB[R.k];
+  if(!D||!D.raid){G.rd=null;return;}
+  if(z.dying||!G.zombies.includes(z)){
+    const st=raidG()[R.k]=raidG()[R.k]||{k:0,best:0};st.k++;st.best=st.best?Math.min(st.best,R.t):R.t;
+    for(const o of G.zombies)if(o.raidAdd&&!o.dying)killZ(o,null);
+    toast(`${B.n} is finally still. ${fmtTime(R.t)}. Everything she was carrying is in the middle of the room.`.replace(' she ',R.k==='sawbones'?' he ':R.k==='choir'?' they ':' she '),'haze');
+    G.rd=null;if(typeof raidDone==='function')raidDone(R.k);return;}
+  if(!z.hunt&&Math.hypot(p.x-z.x,p.y-z.y)<14){z.hunt=true;hint(`${B.n} has seen you.`,'bad');}
+  if(!z.hunt)return;
+  R.t+=dt;const f=hpFrac(z),ph=f>.66?1:f>.33?2:3;
+  if(ph>R.phase){R.phase=ph;flashT=Math.max(flashT,.4);if(!RM)shake=Math.max(shake,8);sfx('boss',.8);toast(ph===2?`${B.n} gets angry.`:`${B.n} stops holding back.`,'bad');raidAdd(R,ph===2?4:6);z.spd*=1.15;}
+  for(let i=R.tel.length-1;i>=0;i--){const t=R.tel[i];t.t-=dt;if(t.t>0)continue;R.tel.splice(i,1);
+    if(t.k==='circle'){booms.push({x:t.x,y:t.y,r:t.r,t:.35,life:.35,col:'#ff4a3a'});if(!RM)shake=Math.max(shake,5);sfx('boom',.6);
+      if(Math.hypot(p.x-t.x,p.y-t.y)<t.r+PR)hurtPlayer(R.dmgB+LG(.3),null);}
+    else if(t.k==='line'){R.act={k:'dash',a:t.a,left:t.len/18,x0:z.x,y0:z.y,hit:false};}}
+  if(R.act&&R.act.k==='dash'){const A=R.act,v=18*dt;z.stag=.2;const nx=z.x+Math.cos(A.a)*v,ny=z.y+Math.sin(A.a)*v;
+    if(solid(Math.floor(nx),Math.floor(ny),true)){A.left=0;}else{z.x=nx;z.y=ny;}A.left-=dt;
+    if(!A.hit&&Math.hypot(p.x-z.x,p.y-z.y)<z.r+PR+.15){A.hit=true;hurtPlayer(R.dmgB+LG(.35),z);}
+    if(Math.random()<.6)parts.push({x:z.x,y:z.y,vx:rnd(-1,1),vy:rnd(-1,1),t:0,life:.4,c:B.col,s:5});
+    if(A.left<=0){R.act=null;R.tel.push({k:'circle',x:z.x,y:z.y,r:2.6,t:.5,t0:.5});}}
+  if(R.act&&R.act.k==='spiral'){const A=R.act;A.left-=dt;A.cd-=dt;z.stag=.15;if(A.cd<=0){A.cd=.09;R.spin+=.38;for(let j=0;j<3;j++){const a=R.spin+j*TAU/3;eproj.push({x:z.x+Math.cos(a)*.9,y:z.y+Math.sin(a)*.9,vx:Math.cos(a)*6.5,vy:Math.sin(a)*6.5,life:3.5,L:R.dmgB+LG(.1),col:B.col});}}if(A.left<=0)R.act=null;}
+  R.cd-=dt;if(R.cd>0||R.act||R.tel.length)return;
+  const list=ph===3?B.p3.concat(B.pat):B.pat,a=list[(R.n=(R.n||0)+1)%list.length],fast=ph===3?.7:ph===2?.85:1;
+  if(a==='slam'){const n=ph;for(let i=0;i<n;i++){const ox=i?rnd(-3,3):0,oy=i?rnd(-3,3):0;R.tel.push({k:'circle',x:p.x+ox,y:p.y+oy,r:2.4,t:.95*fast,t0:.95*fast});}z.stag=.9*fast;R.cd=1.6*fast;}
+  else if(a==='charge'){const ang=Math.atan2(p.y-z.y,p.x-z.x);R.tel.push({k:'line',x:z.x,y:z.y,a:ang,len:16,w:1.6,t:.8*fast,t0:.8*fast});z.stag=.85*fast;R.cd=2.2*fast;}
+  else if(a==='ring'){raidShots(R,ph===1?16:ph===2?22:28,rnd(TAU),5.5+ph*.6,B.col);if(ph>1)setTimeout(()=>{if(G.rd===R&&!z.dying)raidShots(R,ph===2?22:28,rnd(TAU),5,B.col);},450);R.cd=2*fast;}
+  else if(a==='spiral'){R.act={k:'spiral',left:2.6,cd:0};R.cd=1.8*fast;}
+  else if(a==='summon'){raidAdd(R,2+ph*2);R.cd=2.4*fast;}
+}
+{const _u=update;update=function(dt){_u(dt);if(mode==='play')try{raidTick(dt);}catch(e){dzErr('raid',e);}};}
+{const _r=dunReward;dunReward=function(){_r();const D=G.dun;if(!D||!D.raid)return;const B=RAIDB[D.raid],r=dunGrid.rooms[1],x=D.ox+r.cx+.5,y=D.oy+r.cy+.5;
+  const w=genWeapon(dLV()+8,dropLuck()+4,{bump:3});w.name=`${B.w[0]} ${w.name.split(' ').slice(-1)[0]}`;w.f=Object.assign(w.f||{},B.w[1]);w.sig=D.raid;addItem(x,y-1,'weapon',0,w);
+  for(let i=0;i<2;i++)addItem(x+rnd(-2,2),y+rnd(-2,2),'crate',0);G.cashL=lAdd(G.cashL,LG(1500)+KL);};}
+function drawRaid(){const R=G.rd;if(!R)return;
+  for(const t of R.tel){const q=1-t.t/t.t0;ctx.save();
+    if(t.k==='circle'){const sx=t.x*T-camX,sy=t.y*T-camY;ctx.globalAlpha=.18+.3*q;ctx.fillStyle='#ff3a2a';ctx.beginPath();ctx.arc(sx,sy,t.r*T,0,TAU);ctx.fill();ctx.globalAlpha=.9;ctx.strokeStyle='#ff6a4a';ctx.lineWidth=2;ctx.beginPath();ctx.arc(sx,sy,t.r*T*q,0,TAU);ctx.stroke();ctx.beginPath();ctx.arc(sx,sy,t.r*T,0,TAU);ctx.stroke();}
+    else{const sx=t.x*T-camX,sy=t.y*T-camY;ctx.translate(sx,sy);ctx.rotate(t.a);ctx.globalAlpha=.15+.35*q;ctx.fillStyle='#ff3a2a';ctx.fillRect(0,-t.w*T/2,t.len*T,t.w*T);ctx.globalAlpha=.9;ctx.fillStyle='#ff6a4a';ctx.fillRect(0,-t.w*T/2,t.len*T*q,3);ctx.fillRect(0,t.w*T/2-3,t.len*T*q,3);}
+    ctx.restore();}}
+{const _d=drawSplats;drawSplats=function(dt){_d(dt);if(G&&G.rd)drawRaid();};}
+{const _d=drawFeel;drawFeel=function(){_d();const R=G&&G.rd;if(!R||mode==='title'||!R.z.hunt)return;const B=RAIDB[R.k],f=clamp(hpFrac(R.z),0,1);ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);
+  const w=Math.min(560,W-40),x=W/2-w/2,y=W<600?H*.18:96;ctx.fillStyle='rgba(10,10,14,.75)';ctx.fillRect(x-2,y-2,w+4,14);ctx.fillStyle=B.col;ctx.fillRect(x,y,w*f,10);
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.fillRect(x+w*.33,y,2,10);ctx.fillRect(x+w*.66,y,2,10);
+  ctx.textAlign='center';ctx.font=`20px ${DISPLAY}`;ctx.lineWidth=5;ctx.strokeStyle='rgba(10,10,14,.9)';const t=`${B.n.toUpperCase()} · PHASE ${R.phase}`;ctx.strokeText(t,W/2,y-10);ctx.fillStyle='#f1e9d6';ctx.fillText(t,W/2,y-10);ctx.restore();};}
+
+/* v3:raids end */
+/* v3:story start */
+/* ---------- the story: Ruth ---------- */
+// Eight chapters that run alongside the endless game. You're looking for Ruth, who walked out the night it started.
+// Each chapter is one thing to do out in the world, and each one uses a different part of the game: a place to reach,
+// a car, a siege, a dungeon, the raids. The Journal (Pause or the quick menu) keeps the story straight for you,
+// because you won't.
+const STORY=[
+  {t:'The Note on the Fridge',k:'goto',d:24,lbl:'the notebook',sp:6,
+   i:'There\'s a note on the fridge in your handwriting. "RUTH WENT TO FIND HELP. YOU WROTE IT ALL DOWN. THE NOTEBOOK IS IN THE CAR BY THE MAILBOXES." You don\'t remember writing it.',
+   o:'Find the notebook. It\'s marked on your screen.',
+   e:'The notebook is full. Pages and pages in your hand, most of it the same sentence: find Ruth. The last page has a list. You start at the top.'},
+  {t:'Wheels',k:'drive',d:250,
+   i:'"You can\'t walk it. Find a car that still runs. Keys are usually in the visor."',
+   o:'Get a car running and drive it 250 metres.',
+   e:'The engine sounds like an argument. It\'s the best thing you\'ve heard in days. Somewhere on the drive you remember her laughing at the way you parallel park.'},
+  {t:'Hold the Door',k:'siege',
+   i:'"They come for the house on the bad nights. Board it up. Don\'t let them in. Her things are in there."',
+   o:'Hold the house through a siege. Build defences in the Fortify tab at home, or ring the dinner bell there to bring one on.',
+   e:'The door held. In the morning you find her reading glasses on the mantel, folded, waiting. You put them in your shirt pocket.'},
+  {t:'St. Agnes',k:'dun',
+   i:'"She worked nights at St. Agnes. Thirty-one years. If she went for help, she went where she knew."',
+   o:'Go down into a dungeon and clear it. A way down opens nearby now and then.',
+   e:'Her name is on a roster taped to a wall down there, in her handwriting. Night shift, every night, for a week after it started. Then nothing.'},
+  {t:'The Matron',k:'raid',arg:'matron',lv:15,
+   i:'"The Matron ran her ward. Ruth said she was the only one who ever scared her. She\'ll know where Ruth went."',
+   o:'Put down The Matron. Raids tab at home, from level 15.',
+   e:'The Matron wore Ruth\'s badge on a lanyard. Not her own. You take it back. On the back, in pen: "Gone to the water tower. Tell him I love him."'},
+  {t:'The Water Tower',k:'goto',d:70,lbl:'the water tower',sp:16,boss:1,
+   i:'"The water tower on the edge of town. She used to say you could see the whole world from up there, if you didn\'t mind the climb."',
+   o:'Reach the water tower and clear what\'s waiting there.',
+   e:'Someone camped up here. A blanket, a thermos, a crossword with your handwriting in the margins. She kept your crosswords. The last clue is filled in: "Sawbones. Bunker. Don\'t."'},
+  {t:'Sawbones',k:'raid',arg:'sawbones',lv:30,
+   i:'"Don\'t." You go anyway. You were never good at being told.',
+   o:'Put down Sawbones. Raids tab at home, from level 30.',
+   e:'Sawbones had a list of names. Hers was crossed out, and next to it: "Choir took her." You read it four times before it stops meaning nothing.'},
+  {t:'The Choir',k:'raid',arg:'choir',lv:50,
+   i:'"Many mouths, one song." You know that song. You danced to it at your wedding.',
+   o:'Put down The Choir. Raids tab at home, from level 50.',
+   e:'When the singing stops, it\'s quiet for the first time in a long time. Her locket is on the floor where they stood. Inside, a photo of two kids on a pier, sunburnt, grinning. You remember. For a minute, you remember all of it. You write it down, every word, before it goes.'}];
+const storyG=()=>{G.story=G.story||{ch:0,p:0,mk:null,done:false,start:false};return G.story;};
+let stCard=null;
+function storyBegin(i){const S=storyG(),C=STORY[i];S.ch=i;S.p=0;S.mk=null;S.sp=0;S.pos=null;S.wait=false;S.nextAt=null;
+  S.base=C.k==='raid'?((G.raid&&G.raid[C.arg]&&G.raid[C.arg].k)||0):C.k==='siege'?((G.fort&&G.fort.won)||0):C.k==='dun'?(G.dunClears||0):0;
+  if(C.k==='goto'){const q=findSpot(C.d*.8,C.d*1.2)||findSpot(12,C.d);if(q)S.mk={x:q.x,y:q.y};}
+  stCard={t:6,n:i+1,title:C.t,line:C.o};sfx('bond');toast(`Chapter ${i+1}: ${C.t}. ${C.o}`,'haze');}
+function storyDone(){const S=storyG(),C=STORY[S.ch],p=G.p;
+  const n=1+Math.floor(S.ch/2);for(let i=0;i<n;i++)addItem(p.x+rnd(-1.5,1.5),p.y+rnd(-1.5,1.5),'crate',0);
+  G.cashL=lAdd(G.cashL,LG(400*(S.ch+1))+KL);
+  if(S.ch===STORY.length-1){for(let i=0;i<2;i++)addItem(p.x+rnd(-1,1),p.y+rnd(-1,1),'weapon',0,jackpot(dropLuck()+3));S.done=true;}
+  stCard={t:7,n:S.ch+1,title:C.t,line:'Chapter done. It\'s in the journal.',end:S.done};sfx('level');flashT=Math.max(flashT,.25);
+  toast(C.e,'haze');
+  S.wait=true;S.nextAt=G.time+9;}
+function storyTick(dt){
+  if(!G||mode!=='play')return;const S=storyG(),p=G.p;
+  if(!S.start){if(!isInside(p.x,p.y)&&(G.realOut||0)>40&&!G.dun&&!G.dim){S.start=true;storyBegin(0);}return;}
+  if(S.wait){if(G.time>=(S.nextAt||0)){if(S.done){S.wait=false;toast('That\'s the end of Ruth\'s story. The town is still out there, and so are you.','haze');}else storyBegin(S.ch+1);}if(stCard){stCard.t-=dt;if(stCard.t<=0)stCard=null;}return;}
+  if(S.done)return;const C=STORY[S.ch];
+  if(C.k==='goto'){if(!S.mk&&!G.dun&&!G.dim){const q=findSpot(C.d*.8,C.d*1.2);if(q)S.mk={x:q.x,y:q.y};}
+    if(S.mk&&!G.dun&&!G.dim){const d=Math.hypot(S.mk.x-p.x,S.mk.y-p.y);
+      if(!S.sp&&d<3){S.sp=1;if(NET.role!=='client'){for(let i=0;i<C.sp;i++){const a=rnd(TAU),r=rnd(6,10),x=S.mk.x+Math.cos(a)*r,y=S.mk.y+Math.sin(a)*r;if(solid(Math.floor(x),Math.floor(y),true))continue;const z=makeZombie(x,y,null,false);z.st=1;z.hunt=true;z.aggro=999;G.zombies.push(z);}
+          if(C.boss){const n=G.zombies.length;spawnBoss();for(let i=n;i<G.zombies.length;i++)G.zombies[i].st=1;}}
+        hint('Something heard you. Clear them out.','bad');}
+      if(S.sp===1){let left=0;for(const z of G.zombies)if(z.st&&!z.dying)left++;S.left=left;if(left===0){S.sp=2;S.mk=null;storyDone();}}}}
+  else if(C.k==='drive'){const v=typeof vCur==='function'&&vCur();if(v){if(S.pos){S.p+=Math.hypot(v.x-S.pos.x,v.y-S.pos.y);}S.pos={x:v.x,y:v.y};if(S.p>=C.d)storyDone();}else S.pos=null;}
+  else if(C.k==='raid'){const r=G.raid&&G.raid[C.arg];if(r&&r.k>(S.base||0))storyDone();}
+  else if(C.k==='siege'){if(((G.fort&&G.fort.won)||0)>(S.base||0))storyDone();}
+  else if(C.k==='dun'){if((G.dunClears||0)>(S.base||0))storyDone();}
+  if(stCard){stCard.t-=dt;if(stCard.t<=0)stCard=null;}
+}
+{const _r=dunReward;dunReward=function(){_r();if(G.dun&&!G.dun.raid)G.dunClears=(G.dunClears||0)+1;};}
+{const _u=update;update=function(dt){_u(dt);try{storyTick(dt);}catch(e){dzErr('story',e);}};}
+{const _h=drawHomeArrow;drawHomeArrow=function(inside){_h(inside);const S=G&&G.story;if(!S||!S.mk||S.done||S.wait||G.dun||G.dim||mode==='title')return;
+  const sx=S.mk.x*T-camX,sy=S.mk.y*T-camY;if(sx>20&&sy>20&&sx<W-20&&sy<H-20){const q=.5+.5*Math.sin(G.time*3);ctx.strokeStyle=`rgba(185,168,255,${.5+.4*q})`;ctx.lineWidth=3;ctx.beginPath();ctx.arc(sx,sy,T*(1+q*.4),0,TAU);ctx.stroke();
+    ctx.font='600 11px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(10,10,14,.85)';const l=STORY[S.ch].lbl||'';ctx.strokeText(l,sx,sy-T*1.6);ctx.fillStyle='#c3b8ff';ctx.fillText(l,sx,sy-T*1.6);}
+  else edgeArrow(S.mk.x,S.mk.y,STORY[S.ch].lbl||'story','#b9a8ff',0);};}
+{const _l=wfbLights;wfbLights=function(W2){_l(W2);const S=G.story;if(S&&S.mk&&!S.done&&!G.dun&&!G.dim)W2(S.mk.x,S.mk.y,2.2,.6);};}
+{const _d=drawFeel;drawFeel=function(){_d();if(!stCard||!G||mode==='title')return;const c=stCard,a=Math.min(1,c.t/1,(c.end?7:6)-c.t);ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);ctx.globalAlpha=Math.max(0,a);
+  const x=W/2,y=H*.36;ctx.textAlign='center';ctx.font='600 12px "IBM Plex Mono",monospace';ctx.lineWidth=4;ctx.strokeStyle='rgba(10,10,14,.9)';const e=c.end?'THE END':`CHAPTER ${c.n}`;ctx.strokeText(e,x,y-30);ctx.fillStyle='#c3b8ff';ctx.fillText(e,x,y-30);
+  let fs=34;ctx.font=`${fs}px ${DISPLAY}`;const tw=ctx.measureText(c.title.toUpperCase()).width;if(tw>W-32){fs=Math.floor(fs*(W-32)/tw);ctx.font=`${fs}px ${DISPLAY}`;}ctx.lineWidth=7;ctx.strokeText(c.title.toUpperCase(),x,y);ctx.fillStyle='#f1e9d6';ctx.fillText(c.title.toUpperCase(),x,y);
+  ctx.font='600 12px "IBM Plex Mono",monospace';ctx.lineWidth=4;ctx.strokeText(c.line,x,y+24);ctx.fillStyle='#eee7d4';ctx.fillText(c.line,x,y+24);ctx.restore();};}
+// the journal
+function ensureJour(){if($('ovJour'))return;const d=document.createElement('div');d.className='overlay';d.id='ovJour';d.hidden=true;
+  d.innerHTML='<div class="pad"><div class="padhead"><span class="rx">Rx</span><div><h2>Journal</h2><p id="jourSub"></p></div><button class="x" type="button" data-jr="x">Close</button></div><div id="jourBody"></div></div>';
+  document.body.appendChild(d);panels.jour=d;d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-jr]'))closeJour();});}
+let jourBack='pause';
+function openJour(){if(!G)return;jourBack=mode==='play'?'play':'pause';ensureJour();const S=storyG();
+  $('jourSub').textContent=S.done?'Ruth\'s story is finished. You wrote it all down.':!S.start?'It starts the first time you step outside.':`Chapter ${S.ch+1} of ${STORY.length}`;
+  const rows=STORY.map((C,i)=>{if(!S.start||i>S.ch)return'';const cur=i===S.ch&&!S.done&&!S.wait;
+    const prog=cur?(C.k==='drive'?` · ${Math.floor(S.p)}/${C.d} m`:C.k==='goto'&&S.sp===1?` · ${S.left||0} left`:C.k==='raid'&&LV<C.lv?` · opens at level ${C.lv}`:''):'';
+    return`<div class="item"><b>${i+1}. ${esc(C.t)}${cur?' <small>now</small>':''}</b><small>${esc(C.i)}</small>${cur?`<small><b>${esc(C.o)}${prog}</b></small>`:`<small>${esc(C.e)}</small>`}</div>`;}).join('');
+  $('jourBody').innerHTML=`<div class="shopsec">${rows||'<p class="fine">Nothing yet.</p>'}</div>`;setMode('jour');}
+function closeJour(){setMode(jourBack==='play'?'play':'pause');}
+setTimeout(()=>{const b=$('bPSet');if(b&&!$('bPJour')){b.insertAdjacentHTML('beforebegin','<button class="btn alt" id="bPJour" type="button">Journal</button>');$('bPJour').onclick=openJour;}},0);
+{const _c=compRows;compRows=function(){const r=_c();const S=G&&G.story;const n=S?(S.done?STORY.length:S.ch):0;
+  for(const row of r){if(row[0]==='Reach level 240')row[1]=15;if(row[0]==='Take every class to level 40')row[1]=10;}
+  r.push(['Finish Ruth\'s story',10,n/STORY.length,`chapter ${Math.min(STORY.length,n+(S&&!S.done&&S.start?1:0))} of ${STORY.length}`]);return r;};}
+
+/* v3:story end */
+/* v3:extras start */
+/* ---------- storms ---------- */
+// Lightning in a night storm lights the whole street for a heartbeat, then the thunder rolls in.
+let ltT=4,ltA=0,ltQ=[];
+function stormTick(dt){
+  ltA=Math.max(0,ltA-dt*2.2);for(let i=ltQ.length-1;i>=0;i--){ltQ[i].t-=dt;if(ltQ[i].t<=0){const e=ltQ.splice(i,1)[0];if(e.k==='f'){ltA=Math.max(ltA,e.a);}else sfx('thunder',e.a);}}
+  if(!G||G.dun||G.dim||mode!=='play'||!(G.wx&&G.wx.id==='storm'))return;
+  ltT-=dt;if(ltT<=0){ltT=rnd(5,14);ltA=1;ltQ.push({t:.12,k:'f',a:.5},{t:.2,k:'f',a:.9},{t:rnd(.4,2.2),k:'s',a:rnd(.5,1)});if(SET.flash)flashT=Math.max(flashT,.12);}
+}
+{const _u=update;update=function(dt){_u(dt);try{stormTick(dt);}catch(e){dzErr('storm',e);}};}
+SFX2.thunder=v=>{noise(1.8,.45*v,'lowpass',500,50);tone('sine',55,28,1.4,.25*v);noise(.4,.2*v,'lowpass',1400,200);};SFX2GAP.thunder=600;
+
+/* v3:extras end */
 /* ---------- hordes ---------- */
 // Every minute or so a pack comes at you from one direction, together. The stronger you are, the bigger the pack.
 const DIR8=['east','southeast','south','southwest','west','northwest','north','northeast'];
@@ -6856,7 +7270,7 @@ function ctxItems(){
   act.push(['unmed','Take an unmed',actName('unmed')]);act.push(['sneak',G.p.sneak?'Stop sneaking':'Sneak',actName('sneak')]);if(!inside)act.push(['light',G.p.lightOff?'Turn the flashlight on':'Turn the flashlight off',actName('light')]);
   if(p.slots.filter(Boolean).length>1)act.push(['swap','Swap weapon',actName('swap')]);
   if(NET.role){act.push(['marker','Drop a marker where you aim',actName('marker')]);act.push(['chat','Chat','']);}
-  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['comp','Completion',''],['set','Settings',''],['pad','Controller settings',''],['help','Help and codes',''],['pause','Pause screen',actName('pause')]);
+  go.push(['bag','Bag and gear',actName('bag')],['skills','Skill trees',actName('skills')],['map',mmOn?'Hide the minimap':'Show the minimap',''],['coop','Co-op',''],['saves','Save files',''],['jour','Journal',''],['comp','Completion',''],['set','Settings',''],['pad','Controller settings',''],['help','Help and codes',''],['pause','Pause screen',actName('pause')]);
   if(here.length)out.push(['Here',here]);out.push(['Actions',act],['Menus',go]);return out;
 }
 function renderCtx(){
@@ -6879,6 +7293,7 @@ function ctxRun(k){
   if(k==='pause'){setMode('pause');return;}
   if(k==='pad'){setMode('pause');openPadCfg();return;}
   if(k==='comp'){setMode('pause');openComp();return;}
+  if(k==='jour'){setMode('pause');openJour();return;}
   if(k==='set'){setMode('pause');openSettings();return;}
   if(k==='light'){setMode('play');toggleLight();return;}
   if(menus[k]){setMode(ctxBack==='play'&&k!=='saves'?'play':'pause');menus[k]();return;}
@@ -7251,6 +7666,7 @@ addEventListener('keydown',e=>{
     if(mode==='play')setMode('pause');else if(mode==='pause'||mode==='shop')setMode('play');
     else if(mode==='ctx')closeCtx();
     else if(mode==='comp')closeComp();
+    else if(mode==='jour')closeJour();
     else if(mode==='settings')closeSettings();
     else if(mode==='help')closeHelp();else if(mode==='skills')closeSkills();else if(mode==='saves')closeSaves();else if(mode==='bag')closeBag();else if(mode==='coop')setMode(coopBack);else if(mode==='pad')closePadCfg();
     return;}

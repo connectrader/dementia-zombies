@@ -1,5 +1,35 @@
 # Changelog
 
+## v2.0.0
+
+**Survival horror**
+- The camera sits much closer, so you're in the fight instead of watching tokens. It pulls back on its own when a crowd closes in or a named horror shows up, and eases back in when things calm down.
+- Night is dark. You see what your flashlight sees (walls block it), plus a little around you, muzzle flashes, fires, explosions and the porch light at home. Out in the dark you'll see their eyes. Dungeons are dark too.
+- `L` turns the flashlight off: you see less, but at night you're much harder to spot.
+- In daylight the dead thin out to well under half. At night they come out in force, about three times as many, faster. At sunrise most of them drag themselves back into the shade. Day kills give more experience, night gives numbers and better loot, so the overall pace is about the same.
+- Positional groans: you hear where they are, left or right, near or far, and something distant now and then at night.
+
+**The dead fight differently**
+- Every bite has a wind-up. They rear back, a red wedge shows where the lunge will land, and they flash just before it hits. Step out of it, roll through it or shove them off it. Runners wind up fast, brutes and tanks slow.
+- Every hit makes them flinch and knocks them back. When they die they fall the way the last hit pushed them and stay down. Heavy hits and crits blow pieces off.
+- Bodies, blood, gibs and spent brass stay on the ground for a while.
+- The red rings around every hunting zombie are gone. Elites and bosses keep theirs.
+
+**Your toolkit**
+- Dodge roll (`Space`, B on a controller, Roll on touch): a quick roll you can't be hit during.
+- Shove (`V` or right click, the left trigger, Shove on touch): pushes them back hard, staggers them and cancels a bite that's winding up.
+- Rolling and shoving cost stamina, shown as the arc under you. Run dry and your shove is weak.
+- Guns have magazines. `R` reloads (X on a controller), and a gun reloads on its own when empty. Press `R` again while the marker is in the bright band for a **perfect reload**: instant, and the next magazine hits 15% harder. Miss it and you fumble and lose half a second. Each round hits harder to make up for the reload time, so damage over time is unchanged.
+- Recoil: the gun kicks, the view nudges, and your shots spread as you hold the trigger, less while sneaking. Muzzle flashes light up the dark, and shells fly out and bounce.
+- The round count shows next to you when you're running low.
+
+**Controls that moved**
+- Keyboard: `Space` rolls (it used to stab), `V` or right click shoves, `R` reloads, the medkit moved to `X`, `L` is the flashlight. Everything can still be rebound in Settings.
+- Controller: B rolls, X reloads, D-pad up takes meds, D-pad down uses a medkit, clicking the right stick picks a throwable. Unmeds, skills and the flashlight are in the quick menu. If you rebound your controller before, check Pause → Controller.
+
+**Settings**
+- Camera distance (close, normal, far), darkness (full, soft, off), and fading the status cards while nothing on them changes (on by default).
+
 ## v1.9.0
 
 **Polish**

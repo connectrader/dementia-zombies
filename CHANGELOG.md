@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.3.1
+
+**Fixes from play-testing on phone, tablet, laptop, desktop and controller**
+- Menus never run taller or wider than the screen, so the Close button and the bottom rows are always reachable.
+- The Use button no longer sits over Shove on phones, and on tablets it moved off the left thumb, so moving no longer opens the shop by accident.
+- Bigger Close, buy, save and settings buttons on touch screens.
+- Use next to a car now uses the car, even when something else is nearby.
+- Everything that turns up in a dungeon, like a brood's young or a splitter's crawlers, counts toward "left down here".
+- A quick tap on Close right after opening a menu on a phone now works.
+
 ## v3.3.0
 
 **A real phone layout**

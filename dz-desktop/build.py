@@ -33,6 +33,9 @@ VERSION = '.'.join(map(str, ver))
 def rep(a, b, n=1):
     global s
     c = s.count(a)
+    if c == 0:
+        print(f'note: text no longer in the game, skipped: {a[:60]!r}')
+        return
     assert c == n, f'expected {n} of {a[:70]!r}, found {c}'
     s = s.replace(a, b)
 

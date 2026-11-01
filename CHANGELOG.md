@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.1.0
+
+**The world fights back**
+- Red barrels and propane tanks sit on sidewalks and in lots. Shoot one and it goes up, hitting hard enough to clear a crowd at any level. Explosions set off any barrel near them, so a street can chain. Propane leaves the ground burning for a few seconds. They hurt you too, so roll out or stay back. Burning ground and lit barrels light up the dark.
+- Car alarms. Hit a parked car and there's a chance its alarm goes off: lights flashing, horn going, every one of the dead within earshot heads to it, and a fresh pack arrives. Anything already on top of you keeps coming, so it's bad news next to you and a lure down the street.
+- A red arc around you shows which way a hit came from, so the dark can't hide who's biting you.
+- Pulling the trigger on an empty gun with no ammo left clicks.
+- In co-op, barrels and alarms the host sets off show up for everyone.
+
 ## v2.0.1
 
 **Balance pass for day and night**

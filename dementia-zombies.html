@@ -338,7 +338,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v2.0.1</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v2.1.0</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -356,7 +356,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v2.0.1</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v2.1.0</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -406,6 +406,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
     <p class="lede"><b>Settings.</b> Pause → Settings has sound and music volume, screen shake, damage numbers, flashes, reduce motion, camera lean, a compact HUD and a frame-rate counter. Every keyboard key can be moved there too, and the controller has its own screen.</p>
     <p class="lede"><b>Surviving.</b> The dead wind up before they bite: they rear back and a red wedge shows where the lunge will land. Step out of it, roll through it with <kbd>Space</kbd>, or shove them back with <kbd>V</kbd> or right click, which staggers them and cancels the bite. Rolling and shoving cost stamina (the arc under you). Guns have magazines: <kbd>R</kbd> reloads, and pressing it again while the marker is in the bright band is a perfect reload, which is instant and makes the next magazine hit 15% harder. Miss the band and you fumble.</p>
     <p class="lede"><b>Night.</b> In daylight the dead thin out. At night they come out in force, and it is dark: you see what your flashlight sees, and their eyes in the dark. <kbd>L</kbd> turns the flashlight off, which makes you harder to spot. Day kills give a little more experience, night gives numbers and better loot. Darkness and camera distance can be changed in Settings.</p>
+    <p class="lede"><b>The street.</b> Red barrels blow up when shot and set off any barrel near them; propane tanks leave the ground burning. Stand clear, they hurt you too. Parked cars can have alarms: hit one and it might start screaming, and every one of the dead nearby goes to it while more arrive. Next to you that's bad news. Down the street it's a lure. A red arc around you shows where a hit came from.</p>
     <p class="lede"><b>Hordes.</b> Every minute or so a pack comes at you from one direction, and you get a warning saying which way. The stronger you get, the more the dead answer with numbers rather than toughness: bigger crowds, faster spawns, bigger packs, more elites and more traits stacked on them. Single zombies keep getting easier; the answer to the crowd is effects. Piercing, Twin, Arcing, Splitting, Ricocheting and Explosive all get stronger on weapons in better condition.</p>
     <p class="lede"><b>Soft caps.</b> Bonuses from gear, counter treatments and the endless skills count in full up to a point, then each extra bit is worth less. A weapon or piece of gear you keep tuning, or that keeps up with you through its bond, gains less from every level past where it dropped, so new finds catch up with old favourites.</p>
     <p class="lede"><b>Loot goblins.</b> They show up in every dimension and now and then at home. They never fight back. They run, and after about 20 seconds they open a portal and escape. Catch one and it bursts with loot: about ten items, or a fortune in cash, weapons, armor, relics or materials depending on the kind. Hitting one spills a little as you chase it.</p>
@@ -464,7 +465,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 </form>
 
 <script>
-const GAME_VERSION='2.0.1';
+const GAME_VERSION='2.1.0';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -6500,6 +6501,7 @@ function drawDark(){
   for(const it of G.items){if(it.kind==='crate'||it.kind==='memory')W2(it.x,it.y,2.3,.65);else if(it.kind==='weapon'&&it.w&&it.w.s>=7)W2(it.x,it.y,1.2,.45);}
   for(const n of G.npcs)W2(n.x,n.y,1.5,.45);
   if(G.rift)W2(G.rift.x,G.rift.y,3,.8);
+  if(typeof wfbLights!=='undefined')wfbLights(W2);
   ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(dkC,0,0);ctx.restore();
   // eyes in the dark
   if(a<.3)return;ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);
@@ -6598,6 +6600,108 @@ let hfdSig='',hfdT=0,hfdLast=0,hfdHp=1,dayCull=0;
     ${row('Darkness','How dark night and dungeons get. Your flashlight cuts through it.',opt('dark','full','Full')+opt('dark','soft','Soft')+opt('dark','off','Off'))}
     ${row('Fade the status cards','They fade back while nothing on them changes.',opt('hudfade',true,'On')+opt('hudfade',false,'Off'))}`;
   const first=b.querySelector('.shopsec:nth-of-type(2)');if(first)first.after(sec);else b.appendChild(sec);};}
+
+/* ---------- the world fights back: barrels, propane, car alarms, hit warnings ---------- */
+// Red barrels and propane tanks sit on sidewalks and lots. Shoot one and it goes up, taking the crowd (and maybe you)
+// with it; explosions set off any barrel nearby, so a street can chain. Propane leaves the ground burning.
+// Parked cars have alarms. Hit one and it may start screaming: every one of the dead around comes to it, and more
+// arrive. That's a problem when you're next to it and a tool when you're not: shoot a car down the street and the
+// crowd goes there instead of to you.
+let bxList=[],bxScanT=0,bxPend=[],alarms=[],hitDirs=[],dryT=0;
+const bxKey=(tx,ty)=>tx+','+ty;
+function bxKind(tx,ty){
+  if(shTile(tx,ty)>=0)return 0;const t=worldTile(tx,ty);const h=hash2(tx,ty,97);
+  if(t===3)return h<.008?1:h<.012?2:0;if(t===0||t===1)return h<.0016?1:h<.0024?2:0;return 0;
+}
+function bxScan(){
+  bxList=[];if(!G||G.dun)return;const p=G.p,R=19,cx=Math.floor(p.x),cy=Math.floor(p.y),d=G.bxd||{};
+  for(let ty=cy-R;ty<=cy+R;ty++)for(let tx=cx-R;tx<=cx+R;tx++){const k=bxKind(tx,ty);if(!k)continue;const key=bxKey(tx,ty);if(d[key])continue;bxList.push({tx,ty,x:tx+.5,y:ty+.5,k,key});}
+}
+function bxGone(key){G.bxd=G.bxd||{};G.bxdQ=G.bxdQ||[];if(G.bxd[key])return;G.bxd[key]=1;G.bxdQ.push(key);if(G.bxdQ.length>500)delete G.bxd[G.bxdQ.shift()];}
+function bxBoom(q,remote){
+  if(q.gone)return;q.gone=1;bxGone(q.key);const p=G.p,R=q.k===2?2.3:2.9,col=q.k===2?'#ffb050':'#ff6a2a';
+  if(!remote){const L=pBase()+LG(q.k===2?4:6.5);burst(q.x,q.y,R,L,null,null,'none',col,true);
+    if(q.k===2)pools.push({x:q.x,y:q.y,r:2.2,t:7,el:'fire',L:L-LG(3),col:'#ff8a3a',tick:0});
+    makeNoise(q.x,q.y,24);if(NET.role==='host')netEv(['bx',q.tx,q.ty]);}
+  else{booms.push({x:q.x,y:q.y,r:R,t:.4,life:.4,col});if(q.k===2)pools.push({x:q.x,y:q.y,r:2.2,t:7,el:'fire',L:LZ,col:'#ff8a3a',tick:0,fake:1});}
+  for(let i=0;i<14;i++){const a=rnd(TAU),v=rnd(2,7);parts.push({x:q.x,y:q.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:0,life:rnd(.3,.7),c:i%3?'#ff9a3a':'#3a2a22',s:rnd(3,6)});}
+  addSplat(q.x,q.y,'#1c1612',.9);flashT=Math.max(flashT,.3);if(!RM)shake=Math.max(shake,11);sfx('boom');rumble(.8,.5,250);
+  const d=Math.hypot(p.x-q.x,p.y-q.y);
+  if(mode==='play'&&!p.dead&&d<R+.3&&!isInside(p.x,p.y)){const h0=p.hpF;hurtPlayer(maxHPL()+LG(Math.max(.08,.42*(1-d/(R+.3)))),null);if(p.hpF<h0)hitDirs.push({a:Math.atan2(q.y-p.y,q.x-p.x),t:.9,k:1});}
+}
+{const _b=burst;burst=function(x,y,r,...a){const res=_b(x,y,r,...a);
+  if(G&&isFinite(x)&&isFinite(y))for(const q of bxList)if(!q.gone&&!q.lit&&Math.hypot(q.x-x,q.y-y)<(isFinite(r)?r:1)+.35){q.lit=1;bxPend.push({q,t:rnd(.1,.2)});}
+  return res;};}
+function carHit(tx,ty){
+  if(!G||G.dun)return;const key=bxKey(tx,ty);G.alm=G.alm||{};if(G.alm[key])return;
+  if(Math.random()>.3){G.alm[key]=-1;return;}G.alm[key]=1;startAlarm(tx+.5,ty+.5,false);
+}
+function startAlarm(x,y,remote){
+  if(alarms.some(a=>Math.hypot(a.x-x,a.y-y)<1.5))return;
+  alarms.push({x,y,t:12,b:0,l:0});
+  hint('A car alarm. Every one of them heard that.','bad');
+  if(!remote&&NET.role!=='client'){
+    netEv(['al',Math.round(x*10),Math.round(y*10)]);makeNoise(x,y,30);
+    const n=Math.round(6+Math.min(18,LV*.08)*Math.min(2,sunK()));
+    for(let i=0;i<n;i++){if(spawnZombie(null,null,null,true)){const z=G.zombies[G.zombies.length-1];z.lureT=2;z.lx=x;z.ly=y;}}
+  }
+}
+{const _e=netEvent;netEvent=function(e){const t=e[1];
+  if(t==='bx'){const tx=e[2],ty=e[3];const q=bxList.find(b=>b.tx===tx&&b.ty===ty);if(q)bxBoom(q,true);else bxGone(bxKey(tx,ty));return;}
+  if(t==='al'){startAlarm(e[2]/10,e[3]/10,true);return;}
+  return _e(e);};}
+function wfbTick(dt){
+  if(!G)return;bxScanT-=dt;if(bxScanT<=0){bxScanT=.5;bxScan();}
+  if(mode==='play'){
+    // shots into barrels and cars
+    for(const b of bullets){if(b.k==='w'||b.life<=0)continue;
+      for(const q of bxList){if(q.gone||q.lit)continue;if(Math.abs(b.x-q.x)<.42&&Math.abs(b.y-q.y)<.42){q.lit=1;bxPend.push({q,t:0});if(b.k!=='f')b.life=0;break;}}
+      if(b.k==='f'||G.dun)continue;
+      const nx=Math.floor(b.x+b.vx*dt),ny=Math.floor(b.y+b.vy*dt);if(shTile(nx,ny)<0&&worldTile(nx,ny)===7)carHit(nx,ny);}
+  }
+  for(let i=bxPend.length-1;i>=0;i--){const e=bxPend[i];e.t-=dt;if(e.t<=0){bxPend.splice(i,1);bxBoom(e.q,NET.role==='client');}}
+  for(let i=alarms.length-1;i>=0;i--){const a=alarms[i];a.t-=dt;if(a.t<=0){alarms.splice(i,1);continue;}
+    a.b-=dt;if(a.b<=0){a.b=.45;sfxAt('alarm',a.x,a.y);}
+    a.l-=dt;if(a.l<=0&&NET.role!=='client'){a.l=1;makeNoise(a.x,a.y,26);const p=G.p;
+      for(const z of G.zombies){if(z.dying||z.boss||z.guard)continue;if(Math.hypot(z.x-a.x,z.y-a.y)>34)continue;if(Math.hypot(z.x-p.x,z.y-p.y)<5)continue;z.lureT=1.5;z.lx=a.x+rnd(-1,1);z.ly=a.y+rnd(-1,1);z.hunt=true;}}}
+  for(let i=hitDirs.length-1;i>=0;i--){hitDirs[i].t-=dt;if(hitDirs[i].t<=0)hitDirs.splice(i,1);}
+  dryT-=dt;
+}
+{const _u=update;update=function(dt){_u(dt);try{wfbTick(dt);}catch(e){dzErr('wfb',e);}};}
+function drawWfb(){
+  if(!G)return;
+  for(const q of bxList){if(q.gone)continue;const sx=q.x*T-camX,sy=q.y*T-camY;if(sx<-40||sy<-40||sx>W+40||sy>H+40)continue;const r=T*(q.k===2?.22:.3);
+    ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(sx+2,sy+r*.4,r*1.05,r*.6,0,0,TAU);ctx.fill();
+    if(q.k===1){ctx.fillStyle='#8f2219';ctx.beginPath();ctx.arc(sx,sy,r,0,TAU);ctx.fill();ctx.strokeStyle='#c4433b';ctx.lineWidth=Math.max(1.5,r*.18);ctx.beginPath();ctx.arc(sx,sy,r*.78,0,TAU);ctx.stroke();
+      ctx.fillStyle='#f2c94a';ctx.beginPath();ctx.moveTo(sx,sy-r*.42);ctx.lineTo(sx+r*.38,sy+r*.28);ctx.lineTo(sx-r*.38,sy+r*.28);ctx.closePath();ctx.fill();ctx.fillStyle='#8f2219';ctx.fillRect(sx-r*.05,sy-r*.18,r*.1,r*.26);}
+    else{ctx.fillStyle='#d9d6cc';ctx.beginPath();ctx.arc(sx,sy,r,0,TAU);ctx.fill();ctx.strokeStyle='#9a978e';ctx.lineWidth=Math.max(1,r*.15);ctx.stroke();ctx.fillStyle='#3f6fb0';ctx.beginPath();ctx.arc(sx,sy,r*.38,0,TAU);ctx.fill();}
+    if(q.lit){ctx.fillStyle='rgba(255,220,120,.8)';ctx.beginPath();ctx.arc(sx,sy,r*1.2,0,TAU);ctx.fill();}}
+  const on=Math.floor(G.time*4)%2===0;
+  for(const a of alarms){if(!on)continue;const sx=a.x*T-camX,sy=a.y*T-camY;if(sx<-60||sy<-60||sx>W+60||sy>H+60)continue;
+    ctx.save();ctx.globalCompositeOperation='lighter';ctx.fillStyle='rgba(255,180,60,.85)';for(const o of[-.32,.32]){ctx.beginPath();ctx.arc(sx+o*T,sy-T*.22,T*.11,0,TAU);ctx.arc(sx+o*T,sy+T*.22,T*.11,0,TAU);ctx.fill();}
+    const g=ctx.createRadialGradient(sx,sy,0,sx,sy,T*1.6);g.addColorStop(0,'rgba(255,170,60,.35)');g.addColorStop(1,'rgba(255,170,60,0)');ctx.fillStyle=g;ctx.fillRect(sx-T*1.6,sy-T*1.6,T*3.2,T*3.2);ctx.restore();}
+}
+{const _d=drawSplats;drawSplats=function(dt){_d(dt);if(G)drawWfb();};}
+function wfbLights(W2){
+  for(const q of bxList)if(q.lit&&!q.gone)W2(q.x,q.y,1.4,.7);
+  for(const q of pools)if(q.el==='fire')W2(q.x,q.y,q.r+1.3,Math.min(.85,q.t*.5));
+  const on=Math.floor(G.time*4)%2===0;for(const a of alarms)W2(a.x,a.y,on?3:1.6,on?.8:.4);
+}
+// where the hit came from, so the dark doesn't hide it
+{const _h=hurtPlayer;hurtPlayer=function(L,src){const p=G&&G.p,h0=p?p.hpF:1;const r=_h(L,src);
+  if(p&&src&&src.x!=null&&p.hpF<h0-.001)hitDirs.push({a:Math.atan2(src.y-p.y,src.x-p.x),t:.9,k:Math.min(1,(h0-p.hpF)*6+.35)});if(hitDirs.length>8)hitDirs.shift();return r;};}
+{const _d=drawFeel;drawFeel=function(){_d();if(!G||mode==='title'||!hitDirs.length)return;const p=G.p,sx=p.x*T-camX,sy=p.y*T-camY,R=Math.min(W,H)*.2;
+  ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);ctx.lineCap='round';
+  for(const h of hitDirs){const a=Math.min(1,h.t/.9);ctx.globalAlpha=a*h.k;ctx.strokeStyle='#ff3b2f';ctx.lineWidth=7;ctx.beginPath();ctx.arc(sx,sy,R,h.a-.32,h.a+.32);ctx.stroke();
+    ctx.globalAlpha=a*h.k*.5;ctx.lineWidth=14;ctx.beginPath();ctx.arc(sx,sy,R,h.a-.18,h.a+.18);ctx.stroke();}
+  ctx.restore();};}
+// pulling the trigger on nothing
+{const _t=tryFire;tryFire=function(inside){const p=G.p,w=p.slots[p.cur];
+  if(!inside&&usesMag(w)&&!magFree()&&(w.am!=null&&w.am<=0)&&!(p.rl>0)&&G.ammo<w.aps&&p.fireCd<=0&&dryT<=0){dryT=.35;sfx('dry');}
+  return _t(inside);};}
+SFX2.alarm=v=>{tone('square',880,880,.2,.05*v);tone('square',660,660,.2,.05*v,.22);};
+SFX2.dry=v=>{tone('square',1800,1600,.025,.05*v);noise(.02,.06*v,'highpass',3000,2500);};
+SFX2GAP.alarm=380;SFX2GAP.dry=250;
 
 /* ---------- hordes ---------- */
 // Every minute or so a pack comes at you from one direction, together. The stronger you are, the bigger the pack.

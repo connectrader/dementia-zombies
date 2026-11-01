@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.1.1
+
+**Ruth's story, as it was meant to end**
+- The story is rewritten around its real ending. The clues are there from the first chapter: a pill bottle with the label peeled off, someone else's handwriting saying "You promised you wouldn't drive," a card from a recovery clinic, your name on an intake roster, a dealer's ledger. In the last chapter you find out what the "dementia" really was, and why the dead looked more like people the further gone you were.
+- After the last chapter, for a while, you see them as they are. The Journal opens on the ending so you can read it properly.
+
 ## v3.1.0
 
 **Co-op is one shared game now**

@@ -338,7 +338,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovTitle">
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.1.0</span></p><h1>Dementia Zombies</h1></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><p class="eyebrow">Infinite top-down survival · <span class="ver">v3.1.1</span></p><h1>Dementia Zombies</h1></div></div>
     <p class="lede">Every kill makes you stronger, slowly. Every second outside makes you forget. The world out there keeps moving: day and night, weather, survivors, hordes, and things with names. Your dementia climbs the longer you stay out, which makes the dead hungrier, the loot better, and every kill worth more experience. The house is always somewhere close. You just won't remember where.</p>
     <div class="controls" id="ctlList"></div>
     <div class="btns">
@@ -356,7 +356,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 
 <div class="overlay" id="ovPause" hidden>
   <div class="pad">
-    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.1.0</span></p></div></div>
+    <div class="padhead"><span class="rx">Rx</span><div><h2>Paused</h2><p>The dead are waiting politely. <span class="ver">v3.1.1</span></p></div></div>
     <p class="fine updnote" id="updNote" hidden></p>
     <div class="btns">
       <button class="btn" id="bResume" type="button">Resume</button>
@@ -469,7 +469,7 @@ body.compact .tools button{font-size:10px;padding:3px 6px}
 </form>
 
 <script>
-const GAME_VERSION='3.1.0';
+const GAME_VERSION='3.1.1';
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -1300,7 +1300,7 @@ const spSpent=()=>{let s=0;for(const k in G.skills)s+=G.skills[k];return s;};
 const spAvail=()=>Math.max(0,(LV-1)+(G.bonusSP||0)-spSpent());
 const reqMet=n=>!n.req||sk(n.req[0])>=n.req[1];
 const canBuy=n=>spAvail()>=1&&reqMet(n)&&(n.max===0||sk(n.id)<n.max);
-const humanLook=()=>smooth(30,170,G.dementia);
+const humanLook=()=>(G&&G.story&&G.story.revT>0)?1:smooth(30,170,G.dementia);
 // each dementia tier adds +50% level speed, blended smoothly through the tier
 // Dementia counts as extra levels for the dead and the loot, but the further it runs ahead of your own level, the less each point adds.
 const demK=()=>6+Math.min(LV,1e6)*.25;
@@ -7024,104 +7024,6 @@ function drawRaid(){const R=G.rd||G.rdc;if(!R)return;
   ctx.textAlign='center';ctx.font=`20px ${DISPLAY}`;ctx.lineWidth=5;ctx.strokeStyle='rgba(10,10,14,.9)';const t=`${B.n.toUpperCase()} · PHASE ${RP}`;ctx.strokeText(t,W/2,y-10);ctx.fillStyle='#f1e9d6';ctx.fillText(t,W/2,y-10);ctx.restore();};}
 
 /* v3:raids end */
-/* v3:story start */
-/* ---------- the story: Ruth ---------- */
-// Eight chapters that run alongside the endless game. You're looking for Ruth, who walked out the night it started.
-// Each chapter is one thing to do out in the world, and each one uses a different part of the game: a place to reach,
-// a car, a siege, a dungeon, the raids. The Journal (Pause or the quick menu) keeps the story straight for you,
-// because you won't.
-const STORY=[
-  {t:'The Note on the Fridge',k:'goto',d:24,lbl:'the notebook',sp:6,
-   i:'There\'s a note on the fridge in your handwriting. "RUTH WENT TO FIND HELP. YOU WROTE IT ALL DOWN. THE NOTEBOOK IS IN THE CAR BY THE MAILBOXES." You don\'t remember writing it.',
-   o:'Find the notebook. It\'s marked on your screen.',
-   e:'The notebook is full. Pages and pages in your hand, most of it the same sentence: find Ruth. The last page has a list. You start at the top.'},
-  {t:'Wheels',k:'drive',d:250,
-   i:'"You can\'t walk it. Find a car that still runs. Keys are usually in the visor."',
-   o:'Get a car running and drive it 250 metres.',
-   e:'The engine sounds like an argument. It\'s the best thing you\'ve heard in days. Somewhere on the drive you remember her laughing at the way you parallel park.'},
-  {t:'Hold the Door',k:'siege',
-   i:'"They come for the house on the bad nights. Board it up. Don\'t let them in. Her things are in there."',
-   o:'Hold the house through a siege. Build defences in the Fortify tab at home, or ring the dinner bell there to bring one on.',
-   e:'The door held. In the morning you find her reading glasses on the mantel, folded, waiting. You put them in your shirt pocket.'},
-  {t:'St. Agnes',k:'dun',
-   i:'"She worked nights at St. Agnes. Thirty-one years. If she went for help, she went where she knew."',
-   o:'Go down into a dungeon and clear it. A way down opens nearby now and then.',
-   e:'Her name is on a roster taped to a wall down there, in her handwriting. Night shift, every night, for a week after it started. Then nothing.'},
-  {t:'The Matron',k:'raid',arg:'matron',lv:15,
-   i:'"The Matron ran her ward. Ruth said she was the only one who ever scared her. She\'ll know where Ruth went."',
-   o:'Put down The Matron. Raids tab at home, from level 15.',
-   e:'The Matron wore Ruth\'s badge on a lanyard. Not her own. You take it back. On the back, in pen: "Gone to the water tower. Tell him I love him."'},
-  {t:'The Water Tower',k:'goto',d:70,lbl:'the water tower',sp:16,boss:1,
-   i:'"The water tower on the edge of town. She used to say you could see the whole world from up there, if you didn\'t mind the climb."',
-   o:'Reach the water tower and clear what\'s waiting there.',
-   e:'Someone camped up here. A blanket, a thermos, a crossword with your handwriting in the margins. She kept your crosswords. The last clue is filled in: "Sawbones. Bunker. Don\'t."'},
-  {t:'Sawbones',k:'raid',arg:'sawbones',lv:30,
-   i:'"Don\'t." You go anyway. You were never good at being told.',
-   o:'Put down Sawbones. Raids tab at home, from level 30.',
-   e:'Sawbones had a list of names. Hers was crossed out, and next to it: "Choir took her." You read it four times before it stops meaning nothing.'},
-  {t:'The Choir',k:'raid',arg:'choir',lv:50,
-   i:'"Many mouths, one song." You know that song. You danced to it at your wedding.',
-   o:'Put down The Choir. Raids tab at home, from level 50.',
-   e:'When the singing stops, it\'s quiet for the first time in a long time. Her locket is on the floor where they stood. Inside, a photo of two kids on a pier, sunburnt, grinning. You remember. For a minute, you remember all of it. You write it down, every word, before it goes.'}];
-const storyG=()=>{G.story=G.story||{ch:0,p:0,mk:null,done:false,start:false};return G.story;};
-let stCard=null;
-function storyBegin(i){const S=storyG(),C=STORY[i];S.ch=i;S.p=0;S.mk=null;S.sp=0;S.pos=null;S.wait=false;S.nextAt=null;
-  S.base=C.k==='raid'?((G.raid&&G.raid[C.arg]&&G.raid[C.arg].k)||0):C.k==='siege'?((G.fort&&G.fort.won)||0):C.k==='dun'?(G.dunClears||0):0;
-  if(C.k==='goto'){const q=findSpot(C.d*.8,C.d*1.2)||findSpot(12,C.d);if(q)S.mk={x:q.x,y:q.y};}
-  stCard={t:6,n:i+1,title:C.t,line:C.o};sfx('bond');toast(`Chapter ${i+1}: ${C.t}. ${C.o}`,'haze');}
-function storyDone(){const S=storyG(),C=STORY[S.ch],p=G.p;
-  const n=1+Math.floor(S.ch/2);for(let i=0;i<n;i++)addItem(p.x+rnd(-1.5,1.5),p.y+rnd(-1.5,1.5),'crate',0);
-  G.cashL=lAdd(G.cashL,LG(400*(S.ch+1))+KL);
-  if(S.ch===STORY.length-1){for(let i=0;i<2;i++)addItem(p.x+rnd(-1,1),p.y+rnd(-1,1),'weapon',0,jackpot(dropLuck()+3));S.done=true;}
-  stCard={t:7,n:S.ch+1,title:C.t,line:'Chapter done. It\'s in the journal.',end:S.done};sfx('level');flashT=Math.max(flashT,.25);
-  toast(C.e,'haze');
-  S.wait=true;S.nextAt=G.time+9;}
-function storyTick(dt){
-  if(!G||mode!=='play')return;const S=storyG(),p=G.p;
-  if(!S.start){if(!isInside(p.x,p.y)&&(G.realOut||0)>40&&!G.dun&&!G.dim){S.start=true;storyBegin(0);}return;}
-  if(S.wait){if(G.time>=(S.nextAt||0)){if(S.done){S.wait=false;toast('That\'s the end of Ruth\'s story. The town is still out there, and so are you.','haze');}else storyBegin(S.ch+1);}if(stCard){stCard.t-=dt;if(stCard.t<=0)stCard=null;}return;}
-  if(S.done)return;const C=STORY[S.ch];
-  if(C.k==='goto'){if(!S.mk&&!G.dun&&!G.dim){const q=findSpot(C.d*.8,C.d*1.2);if(q)S.mk={x:q.x,y:q.y};}
-    if(S.mk&&!G.dun&&!G.dim){const d=Math.hypot(S.mk.x-p.x,S.mk.y-p.y);
-      if(!S.sp&&d<3){S.sp=1;S.spT=G.time;if(NET.role==='client')coopReq('stp',Math.round(S.mk.x*10),Math.round(S.mk.y*10),C.sp,C.boss?1:0);if(NET.role!=='client'){for(let i=0;i<C.sp;i++){const a=rnd(TAU),r=rnd(6,10),x=S.mk.x+Math.cos(a)*r,y=S.mk.y+Math.sin(a)*r;if(solid(Math.floor(x),Math.floor(y),true))continue;const z=makeZombie(x,y,null,false);z.st=1;z.hunt=true;z.aggro=999;G.zombies.push(z);}
-          if(C.boss){const n=G.zombies.length;spawnBoss();for(let i=n;i<G.zombies.length;i++)G.zombies[i].st=1;}}
-        hint('Something heard you. Clear them out.','bad');}
-      if(S.sp===1){let left=0;if(NET.role==='client'){for(const z of G.zombies)if(!z.dying&&Math.hypot(z.x-S.mk.x,z.y-S.mk.y)<12)left++;if(G.time-(S.spT||0)<5)left=Math.max(left,1);}else for(const z of G.zombies)if(z.st&&!z.dying)left++;S.left=left;if(left===0){S.sp=2;S.mk=null;storyDone();}}}}
-  else if(C.k==='drive'){const v=(typeof vCur==='function'&&vCur())||(G.p.ride?G.p:null);if(v){if(S.pos){S.p+=Math.hypot(v.x-S.pos.x,v.y-S.pos.y);}S.pos={x:v.x,y:v.y};if(S.p>=C.d)storyDone();}else S.pos=null;}
-  else if(C.k==='raid'){const r=G.raid&&G.raid[C.arg];if(r&&r.k>(S.base||0))storyDone();}
-  else if(C.k==='siege'){if(((G.fort&&G.fort.won)||0)>(S.base||0))storyDone();}
-  else if(C.k==='dun'){if((G.dunClears||0)>(S.base||0))storyDone();}
-  if(stCard){stCard.t-=dt;if(stCard.t<=0)stCard=null;}
-}
-{const _r=dunReward;dunReward=function(){_r();if(G.dun&&!G.dun.raid)G.dunClears=(G.dunClears||0)+1;};}
-{const _u=update;update=function(dt){_u(dt);try{storyTick(dt);}catch(e){dzErr('story',e);}};}
-{const _h=drawHomeArrow;drawHomeArrow=function(inside){_h(inside);const S=G&&G.story;if(!S||!S.mk||S.done||S.wait||G.dun||G.dim||mode==='title')return;
-  const sx=S.mk.x*T-camX,sy=S.mk.y*T-camY;if(sx>20&&sy>20&&sx<W-20&&sy<H-20){const q=.5+.5*Math.sin(G.time*3);ctx.strokeStyle=`rgba(185,168,255,${.5+.4*q})`;ctx.lineWidth=3;ctx.beginPath();ctx.arc(sx,sy,T*(1+q*.4),0,TAU);ctx.stroke();
-    ctx.font='600 11px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(10,10,14,.85)';const l=STORY[S.ch].lbl||'';ctx.strokeText(l,sx,sy-T*1.6);ctx.fillStyle='#c3b8ff';ctx.fillText(l,sx,sy-T*1.6);}
-  else edgeArrow(S.mk.x,S.mk.y,STORY[S.ch].lbl||'story','#b9a8ff',0);};}
-{const _l=wfbLights;wfbLights=function(W2){_l(W2);const S=G.story;if(S&&S.mk&&!S.done&&!G.dun&&!G.dim)W2(S.mk.x,S.mk.y,2.2,.6);};}
-{const _d=drawFeel;drawFeel=function(){_d();if(!stCard||!G||mode==='title')return;const c=stCard,a=Math.min(1,c.t/1,(c.end?7:6)-c.t);ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);ctx.globalAlpha=Math.max(0,a);
-  const x=W/2,y=H*.36;ctx.textAlign='center';ctx.font='600 12px "IBM Plex Mono",monospace';ctx.lineWidth=4;ctx.strokeStyle='rgba(10,10,14,.9)';const e=c.end?'THE END':`CHAPTER ${c.n}`;ctx.strokeText(e,x,y-30);ctx.fillStyle='#c3b8ff';ctx.fillText(e,x,y-30);
-  let fs=34;ctx.font=`${fs}px ${DISPLAY}`;const tw=ctx.measureText(c.title.toUpperCase()).width;if(tw>W-32){fs=Math.floor(fs*(W-32)/tw);ctx.font=`${fs}px ${DISPLAY}`;}ctx.lineWidth=7;ctx.strokeText(c.title.toUpperCase(),x,y);ctx.fillStyle='#f1e9d6';ctx.fillText(c.title.toUpperCase(),x,y);
-  ctx.font='600 12px "IBM Plex Mono",monospace';ctx.lineWidth=4;ctx.strokeText(c.line,x,y+24);ctx.fillStyle='#eee7d4';ctx.fillText(c.line,x,y+24);ctx.restore();};}
-// the journal
-function ensureJour(){if($('ovJour'))return;const d=document.createElement('div');d.className='overlay';d.id='ovJour';d.hidden=true;
-  d.innerHTML='<div class="pad"><div class="padhead"><span class="rx">Rx</span><div><h2>Journal</h2><p id="jourSub"></p></div><button class="x" type="button" data-jr="x">Close</button></div><div id="jourBody"></div></div>';
-  document.body.appendChild(d);panels.jour=d;d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-jr]'))closeJour();});}
-let jourBack='pause';
-function openJour(){if(!G)return;jourBack=mode==='play'?'play':'pause';ensureJour();const S=storyG();
-  $('jourSub').textContent=S.done?'Ruth\'s story is finished. You wrote it all down.':!S.start?'It starts the first time you step outside.':`Chapter ${S.ch+1} of ${STORY.length}`;
-  const rows=STORY.map((C,i)=>{if(!S.start||i>S.ch)return'';const cur=i===S.ch&&!S.done&&!S.wait;
-    const prog=cur?(C.k==='drive'?` · ${Math.floor(S.p)}/${C.d} m`:C.k==='goto'&&S.sp===1?` · ${S.left||0} left`:C.k==='raid'&&LV<C.lv?` · opens at level ${C.lv}`:''):'';
-    return`<div class="item"><b>${i+1}. ${esc(C.t)}${cur?' <small>now</small>':''}</b><small>${esc(C.i)}</small>${cur?`<small><b>${esc(C.o)}${prog}</b></small>`:`<small>${esc(C.e)}</small>`}</div>`;}).join('');
-  $('jourBody').innerHTML=`<div class="shopsec">${rows||'<p class="fine">Nothing yet.</p>'}</div>`;setMode('jour');}
-function closeJour(){setMode(jourBack==='play'?'play':'pause');}
-setTimeout(()=>{const b=$('bPSet');if(b&&!$('bPJour')){b.insertAdjacentHTML('beforebegin','<button class="btn alt" id="bPJour" type="button">Journal</button>');$('bPJour').onclick=openJour;}},0);
-{const _c=compRows;compRows=function(){const r=_c();const S=G&&G.story;const n=S?(S.done?STORY.length:S.ch):0;
-  for(const row of r){if(row[0]==='Reach level 240')row[1]=15;if(row[0]==='Take every class to level 40')row[1]=10;}
-  r.push(['Finish Ruth\'s story',10,n/STORY.length,`chapter ${Math.min(STORY.length,n+(S&&!S.done&&S.start?1:0))} of ${STORY.length}`]);return r;};}
-
-/* v3:story end */
 /* v3:coop start */
 /* ---------- shared co-op ---------- */
 // Co-op is one game, not four games in the same town. Guests can ask the host's game to do things (start a siege,
@@ -7229,6 +7131,104 @@ function rideTick(){const p=G.p;if(!p.ride)return;const s=peerSt(p.ride);if(!s||
   const a=Array.isArray(s.st.vh)?(s.st.vh[2]||0)/100:+s.st.a||0;if(!G.dun||true)coneHole(dkG,s.x,s.y,a,Array.isArray(s.st.vh)?12:8,Array.isArray(s.st.vh)?.34:.4,16,.8);}};}
 
 /* v3:coop end */
+/* v3:story start */
+/* ---------- the story: Ruth ---------- */
+// Eight chapters that run alongside the endless game. You're looking for Ruth, who walked out the night it started.
+// Each chapter is one thing to do out in the world, and each one uses a different part of the game: a place to reach,
+// a car, a siege, a dungeon, the raids. The Journal (Pause or the quick menu) keeps the story straight for you,
+// because you won't.
+const STORY=[
+  {t:'The Note on the Fridge',k:'goto',d:24,lbl:'the notebook',sp:6,
+   i:'There\'s a note on the fridge in your handwriting. "RUTH WENT TO GET HELP. DON\'T GO OUT. THE NOTEBOOK IS IN THE CAR BY THE MAILBOXES." You don\'t remember writing it. You go out anyway.',
+   o:'Find the notebook. It\'s marked on your screen.',
+   e:'The notebook is full of your handwriting, most of it the same sentence: find Ruth. Tucked in the back is an orange pill bottle with the label peeled off. You take two. The street goes quiet, and the dead look like the dead again.'},
+  {t:'Wheels',k:'drive',d:250,
+   i:'"You can\'t walk it. Find a car that runs." Under that, in someone else\'s handwriting: "You promised you wouldn\'t drive."',
+   o:'Get a car running and drive it 250 metres.',
+   e:'The engine catches. You can\'t remember the last time you drove. Only that someone took your keys away, and you were angry about it for a long time.'},
+  {t:'Hold the Door',k:'siege',
+   i:'"They come for the house on the bad nights. Don\'t let them in." Some of them knock first. You don\'t remember the dead knocking.',
+   o:'Hold the house through a siege. Build defences in the Fortify tab at home, or ring the dinner bell there to bring one on.',
+   e:'The door held. In the morning there\'s a card wedged in the frame: St. Agnes Recovery, outpatient. On the back, in Ruth\'s handwriting: "Please."'},
+  {t:'St. Agnes',k:'dun',
+   i:'"She works nights at St. Agnes." You remember the hospital. You don\'t remember why you were there.',
+   o:'Go down into a dungeon and clear it. A way down opens nearby now and then.',
+   e:'There\'s a roster taped to a wall down there. Ruth\'s name is on it. So is yours, under a different heading: Intake. Three weeks ago. You read it twice and decide it means nothing.'},
+  {t:'The Matron',k:'raid',arg:'matron',lv:15,
+   i:'"The Matron ran the ward. She\'ll know where Ruth went." You remember her. She wouldn\'t give you what you asked for.',
+   o:'Put down The Matron. Raids tab at home, from level 15.',
+   e:'The Matron wore Ruth\'s badge on a lanyard. On the back, in pen: "Water tower. Tell him I love him. Tell him to stop."'},
+  {t:'The Water Tower',k:'goto',d:70,lbl:'the water tower',sp:16,boss:1,
+   i:'"She used to say you could see the whole town from up there." You can\'t remember the last time you saw the whole town.',
+   o:'Reach the water tower and clear what\'s waiting there.',
+   e:'Someone camped up here. A blanket, a thermos, a stack of crosswords in your handwriting, and a pharmacy bag with your name on it, stapled shut. You don\'t open it. You don\'t need to. The last clue is filled in: "Sawbones. Don\'t."'},
+  {t:'Sawbones',k:'raid',arg:'sawbones',lv:30,
+   i:'"Don\'t." You go anyway. You were never good at being told.',
+   o:'Put down Sawbones. Raids tab at home, from level 30.',
+   e:'Sawbones kept a ledger. Names, amounts, dates. Yours is on every page. At the bottom, in Ruth\'s handwriting: "Paid in full. Leave him alone." And under it, in his: "The Choir has her."'},
+  {t:'The Choir',k:'raid',arg:'choir',lv:50,
+   i:'"Many mouths, one song." You know that song. They sang it at the meetings. Ruth held your hand through every one of them.',
+   o:'Put down The Choir. Raids tab at home, from level 50.',
+   e:'When the singing stops, the room is just a room. Folding chairs in a circle. A coffee urn. A banner: ONE DAY AT A TIME. There was never a choir. There were never any dead. Ruth is by the door with her coat on and her keys in her hand, and she\'s been crying. The bottle in your pocket was never for dementia. You never had dementia. Every face you put down out there was a face. You remember now. All of it. You don\'t know how long it will last.'}];
+const storyG=()=>{G.story=G.story||{ch:0,p:0,mk:null,done:false,start:false};return G.story;};
+let stCard=null;
+function storyBegin(i){const S=storyG(),C=STORY[i];S.ch=i;S.p=0;S.mk=null;S.sp=0;S.pos=null;S.wait=false;S.nextAt=null;
+  S.base=C.k==='raid'?((G.raid&&G.raid[C.arg]&&G.raid[C.arg].k)||0):C.k==='siege'?((G.fort&&G.fort.won)||0):C.k==='dun'?(G.dunClears||0):0;
+  if(C.k==='goto'){const q=findSpot(C.d*.8,C.d*1.2)||findSpot(12,C.d);if(q)S.mk={x:q.x,y:q.y};}
+  stCard={t:6,n:i+1,title:C.t,line:C.o};sfx('bond');toast(`Chapter ${i+1}: ${C.t}. ${C.o}`,'haze');}
+function storyDone(){const S=storyG(),C=STORY[S.ch],p=G.p;
+  const n=1+Math.floor(S.ch/2);for(let i=0;i<n;i++)addItem(p.x+rnd(-1.5,1.5),p.y+rnd(-1.5,1.5),'crate',0);
+  G.cashL=lAdd(G.cashL,LG(400*(S.ch+1))+KL);
+  if(S.ch===STORY.length-1){for(let i=0;i<2;i++)addItem(p.x+rnd(-1,1),p.y+rnd(-1,1),'weapon',0,jackpot(dropLuck()+3));S.done=true;S.revT=150;S.showEnd=G.time+3;}
+  stCard={t:7,n:S.ch+1,title:C.t,line:'Chapter done. It\'s in the journal.',end:S.done};sfx('level');flashT=Math.max(flashT,.25);
+  toast(C.e,'haze');
+  S.wait=true;S.nextAt=G.time+9;}
+function storyTick(dt){
+  if(!G||mode!=='play')return;const S=storyG(),p=G.p;if(S.revT>0&&!isInside(p.x,p.y))S.revT-=dt;if(S.showEnd&&G.time>=S.showEnd){S.showEnd=null;openJour();return;}
+  if(!S.start){if(!isInside(p.x,p.y)&&(G.realOut||0)>40&&!G.dun&&!G.dim){S.start=true;storyBegin(0);}return;}
+  if(S.wait){if(G.time>=(S.nextAt||0)){if(S.done){S.wait=false;toast('For a while, you see them as they are. It won\'t last. The bottle is still in your pocket, and the town is still out there.','haze');}else storyBegin(S.ch+1);}if(stCard){stCard.t-=dt;if(stCard.t<=0)stCard=null;}return;}
+  if(S.done)return;const C=STORY[S.ch];
+  if(C.k==='goto'){if(!S.mk&&!G.dun&&!G.dim){const q=findSpot(C.d*.8,C.d*1.2);if(q)S.mk={x:q.x,y:q.y};}
+    if(S.mk&&!G.dun&&!G.dim){const d=Math.hypot(S.mk.x-p.x,S.mk.y-p.y);
+      if(!S.sp&&d<3){S.sp=1;S.spT=G.time;if(NET.role==='client')coopReq('stp',Math.round(S.mk.x*10),Math.round(S.mk.y*10),C.sp,C.boss?1:0);if(NET.role!=='client'){for(let i=0;i<C.sp;i++){const a=rnd(TAU),r=rnd(6,10),x=S.mk.x+Math.cos(a)*r,y=S.mk.y+Math.sin(a)*r;if(solid(Math.floor(x),Math.floor(y),true))continue;const z=makeZombie(x,y,null,false);z.st=1;z.hunt=true;z.aggro=999;G.zombies.push(z);}
+          if(C.boss){const n=G.zombies.length;spawnBoss();for(let i=n;i<G.zombies.length;i++)G.zombies[i].st=1;}}
+        hint('Something heard you. Clear them out.','bad');}
+      if(S.sp===1){let left=0;if(NET.role==='client'){for(const z of G.zombies)if(!z.dying&&Math.hypot(z.x-S.mk.x,z.y-S.mk.y)<12)left++;if(G.time-(S.spT||0)<5)left=Math.max(left,1);}else for(const z of G.zombies)if(z.st&&!z.dying)left++;S.left=left;if(left===0){S.sp=2;S.mk=null;storyDone();}}}}
+  else if(C.k==='drive'){const v=(typeof vCur==='function'&&vCur())||(G.p.ride?G.p:null);if(v){if(S.pos){S.p+=Math.hypot(v.x-S.pos.x,v.y-S.pos.y);}S.pos={x:v.x,y:v.y};if(S.p>=C.d)storyDone();}else S.pos=null;}
+  else if(C.k==='raid'){const r=G.raid&&G.raid[C.arg];if(r&&r.k>(S.base||0))storyDone();}
+  else if(C.k==='siege'){if(((G.fort&&G.fort.won)||0)>(S.base||0))storyDone();}
+  else if(C.k==='dun'){if((G.dunClears||0)>(S.base||0))storyDone();}
+  if(stCard){stCard.t-=dt;if(stCard.t<=0)stCard=null;}
+}
+{const _r=dunReward;dunReward=function(){_r();if(G.dun&&!G.dun.raid)G.dunClears=(G.dunClears||0)+1;};}
+{const _u=update;update=function(dt){_u(dt);try{storyTick(dt);}catch(e){dzErr('story',e);}};}
+{const _h=drawHomeArrow;drawHomeArrow=function(inside){_h(inside);const S=G&&G.story;if(!S||!S.mk||S.done||S.wait||G.dun||G.dim||mode==='title')return;
+  const sx=S.mk.x*T-camX,sy=S.mk.y*T-camY;if(sx>20&&sy>20&&sx<W-20&&sy<H-20){const q=.5+.5*Math.sin(G.time*3);ctx.strokeStyle=`rgba(185,168,255,${.5+.4*q})`;ctx.lineWidth=3;ctx.beginPath();ctx.arc(sx,sy,T*(1+q*.4),0,TAU);ctx.stroke();
+    ctx.font='600 11px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(10,10,14,.85)';const l=STORY[S.ch].lbl||'';ctx.strokeText(l,sx,sy-T*1.6);ctx.fillStyle='#c3b8ff';ctx.fillText(l,sx,sy-T*1.6);}
+  else edgeArrow(S.mk.x,S.mk.y,STORY[S.ch].lbl||'story','#b9a8ff',0);};}
+{const _l=wfbLights;wfbLights=function(W2){_l(W2);const S=G.story;if(S&&S.mk&&!S.done&&!G.dun&&!G.dim)W2(S.mk.x,S.mk.y,2.2,.6);};}
+{const _d=drawFeel;drawFeel=function(){_d();if(!stCard||!G||mode==='title')return;const c=stCard,a=Math.min(1,c.t/1,(c.end?7:6)-c.t);ctx.save();ctx.setTransform(DPR,0,0,DPR,0,0);ctx.globalAlpha=Math.max(0,a);
+  const x=W/2,y=H*.66;ctx.textAlign='center';ctx.font='600 12px "IBM Plex Mono",monospace';ctx.lineWidth=4;ctx.strokeStyle='rgba(10,10,14,.9)';const e=c.end?'THE END':`CHAPTER ${c.n}`;ctx.strokeText(e,x,y-30);ctx.fillStyle='#c3b8ff';ctx.fillText(e,x,y-30);
+  let fs=34;ctx.font=`${fs}px ${DISPLAY}`;const tw=ctx.measureText(c.title.toUpperCase()).width;if(tw>W-32){fs=Math.floor(fs*(W-32)/tw);ctx.font=`${fs}px ${DISPLAY}`;}ctx.lineWidth=7;ctx.strokeText(c.title.toUpperCase(),x,y);ctx.fillStyle='#f1e9d6';ctx.fillText(c.title.toUpperCase(),x,y);
+  ctx.font='600 12px "IBM Plex Mono",monospace';ctx.lineWidth=4;ctx.strokeText(c.line,x,y+24);ctx.fillStyle='#eee7d4';ctx.fillText(c.line,x,y+24);ctx.restore();};}
+// the journal
+function ensureJour(){if($('ovJour'))return;const d=document.createElement('div');d.className='overlay';d.id='ovJour';d.hidden=true;
+  d.innerHTML='<div class="pad"><div class="padhead"><span class="rx">Rx</span><div><h2>Journal</h2><p id="jourSub"></p></div><button class="x" type="button" data-jr="x">Close</button></div><div id="jourBody"></div></div>';
+  document.body.appendChild(d);panels.jour=d;d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-jr]'))closeJour();});}
+let jourBack='pause';
+function openJour(){if(!G)return;jourBack=mode==='play'?'play':'pause';ensureJour();const S=storyG();
+  $('jourSub').textContent=S.done?'Ruth\'s story is finished. You remember. For now.':!S.start?'It starts the first time you step outside.':`Chapter ${S.ch+1} of ${STORY.length}`;
+  const rows=STORY.map((C,i)=>{if(!S.start||i>S.ch)return'';const cur=i===S.ch&&!S.done&&!S.wait;
+    const prog=cur?(C.k==='drive'?` · ${Math.floor(S.p)}/${C.d} m`:C.k==='goto'&&S.sp===1?` · ${S.left||0} left`:C.k==='raid'&&LV<C.lv?` · opens at level ${C.lv}`:''):'';
+    return`<div class="item"><b>${i+1}. ${esc(C.t)}${cur?' <small>now</small>':''}</b><small>${esc(C.i)}</small>${cur?`<small><b>${esc(C.o)}${prog}</b></small>`:`<small>${esc(C.e)}</small>`}</div>`;}).join('');
+  $('jourBody').innerHTML=`<div class="shopsec">${rows||'<p class="fine">Nothing yet.</p>'}</div>`;setMode('jour');}
+function closeJour(){setMode(jourBack==='play'?'play':'pause');}
+setTimeout(()=>{const b=$('bPSet');if(b&&!$('bPJour')){b.insertAdjacentHTML('beforebegin','<button class="btn alt" id="bPJour" type="button">Journal</button>');$('bPJour').onclick=openJour;}},0);
+{const _c=compRows;compRows=function(){const r=_c();const S=G&&G.story;const n=S?(S.done?STORY.length:S.ch):0;
+  for(const row of r){if(row[0]==='Reach level 240')row[1]=15;if(row[0]==='Take every class to level 40')row[1]=10;}
+  r.push(['Finish Ruth\'s story',10,n/STORY.length,`chapter ${Math.min(STORY.length,n+(S&&!S.done&&S.start?1:0))} of ${STORY.length}`]);return r;};}
+
+/* v3:story end */
 /* ---------- hordes ---------- */
 // Every minute or so a pack comes at you from one direction, together. The stronger you are, the bigger the pack.
 const DIR8=['east','southeast','south','southwest','west','northwest','north','northeast'];
